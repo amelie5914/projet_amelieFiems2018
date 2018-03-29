@@ -15,6 +15,7 @@ public class Competence {
     public Niveaux niveau;
     public Membre mem;
     public Competence() {
+        degre=0;
     }
 
     
