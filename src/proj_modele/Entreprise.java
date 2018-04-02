@@ -28,6 +28,12 @@ public class Entreprise {
         return adresse;
     }
 
+    public Entreprise(String nomEmt, String telEmt, String adresse) {
+        this.nomEmt = nomEmt;
+        this.telEmt = telEmt;
+        this.adresse = adresse;
+    }
+
     
 
  

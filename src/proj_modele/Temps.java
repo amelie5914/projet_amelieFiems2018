@@ -13,9 +13,13 @@ public class Temps {
     private int jHomme;
     private Projet proj;
     private Discipline dis;
-    public Temps(){
-        
+
+    public Temps(int jHomme, Projet proj, Discipline dis) {
+        this.jHomme = jHomme;
+        this.proj = proj;
+        this.dis = dis;
     }
+    
     public int getJHomme(){
         return jHomme;
     }

@@ -14,8 +14,11 @@ import java.util.Set;
 public class Niveaux {
     private int degre;
     private String signification;
-   
-    public Niveaux(){
-        
+
+    public Niveaux(int degre, String signification) {
+        this.degre = degre;
+        this.signification = signification;
     }
+   
+    
 }

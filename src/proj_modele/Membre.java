@@ -19,9 +19,16 @@ public class Membre {
     //a verifier
     public Set<Projet> projet;
     public Set<Discipline> compétence;
-    public Membre(){
-        
+
+    public Membre(String nomMem, String prenomMem, String gsmMem, String email, Set<Projet> projet, Set<Discipline> compétence) {
+        this.nomMem = nomMem;
+        this.prenomMem = prenomMem;
+        this.gsmMem = gsmMem;
+        this.email = email;
+        this.projet = projet;
+        this.compétence = compétence;
     }
+    
 
     public String getNomMem() {
         return nomMem;

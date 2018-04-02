@@ -3,22 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
-
-import java.util.Set;
+package projet;
 
 /**
  *
  * @author ameliefiems
  */
-public class Discipline {
-    
-
-    private String nomdiscipline;
-
-    public Discipline(String nomdiscipline) {
-        this.nomdiscipline = nomdiscipline;
-    }
-    
+public class EntrepriseMVC {
     
 }

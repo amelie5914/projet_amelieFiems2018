@@ -14,9 +14,14 @@ public class Travail {
     private int taux;
     private Projet proj;
     private Membre mem;
-    public Travail(){
-        
+
+    public Travail(String dateEng, int taux, Projet proj, Membre mem) {
+        this.dateEng = dateEng;
+        this.taux = taux;
+        this.proj = proj;
+        this.mem = mem;
     }
+    
 
     public String getDateEng() {
         return dateEng;

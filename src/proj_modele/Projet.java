@@ -22,9 +22,15 @@ public class Projet {
     public Set<Discipline> discipline;
     public Set<Membre> membre;
     */
-    public Projet(){
-        
+
+    public Projet(String titre, String client, String dateDebut, String dateFin, Entreprise ent) {
+        this.titre = titre;
+        this.client = client;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.ent = ent;
     }
+    
 
     public String getTitre() {
         return titre;

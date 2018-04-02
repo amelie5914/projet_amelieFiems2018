@@ -14,9 +14,14 @@ public class Competence {
     public Discipline discipline;
     public Niveaux niveau;
     public Membre mem;
-    public Competence() {
-        degre=0;
+
+    public Competence(int degre, Discipline discipline, Niveaux niveau, Membre mem) {
+        this.degre = degre;
+        this.discipline = discipline;
+        this.niveau = niveau;
+        this.mem = mem;
     }
+    
 
     
 }
