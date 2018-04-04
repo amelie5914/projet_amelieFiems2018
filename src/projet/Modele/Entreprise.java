@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
+package projet.Modele;
 
 /**
  *
@@ -13,9 +13,13 @@ public class Entreprise {
     private String nomEmt;
     private String telEmt;
     private String adresse;
-    
     public Entreprise(){
         
+    }
+    public Entreprise(String nomEmt, String telEmt, String adresse) {
+        this.nomEmt = nomEmt;
+        this.telEmt = telEmt;
+        this.adresse = adresse;
     }
     public String getNom(){
         return nomEmt;
@@ -28,11 +32,7 @@ public class Entreprise {
         return adresse;
     }
 
-    public Entreprise(String nomEmt, String telEmt, String adresse) {
-        this.nomEmt = nomEmt;
-        this.telEmt = telEmt;
-        this.adresse = adresse;
-    }
+    
 
     
 

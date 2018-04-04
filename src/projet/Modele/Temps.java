@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
+package projet.Modele;
 
 /**
  *
@@ -13,7 +13,9 @@ public class Temps {
     private int jHomme;
     private Projet proj;
     private Discipline dis;
-
+    public Temps(){
+        
+    }
     public Temps(int jHomme, Projet proj, Discipline dis) {
         this.jHomme = jHomme;
         this.proj = proj;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
+package projet.Modele;
 
 import java.util.Set;
 
@@ -15,7 +15,9 @@ public class Discipline {
     
 
     private String nomdiscipline;
-
+    public Discipline(){
+        
+    }
     public Discipline(String nomdiscipline) {
         this.nomdiscipline = nomdiscipline;
     }

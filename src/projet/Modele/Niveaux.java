@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
+package projet.Modele;
 
 import java.util.Set;
 
@@ -14,7 +14,9 @@ import java.util.Set;
 public class Niveaux {
     private int degre;
     private String signification;
-
+    public Niveaux(){
+        
+    }
     public Niveaux(int degre, String signification) {
         this.degre = degre;
         this.signification = signification;

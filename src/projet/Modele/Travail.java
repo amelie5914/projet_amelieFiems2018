@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
+package projet.Modele;
 
 /**
  *
@@ -14,7 +14,9 @@ public class Travail {
     private int taux;
     private Projet proj;
     private Membre mem;
-
+    public Travail(){
+        
+    }
     public Travail(String dateEng, int taux, Projet proj, Membre mem) {
         this.dateEng = dateEng;
         this.taux = taux;

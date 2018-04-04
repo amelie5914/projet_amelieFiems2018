@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
+package projet.Modele;
 
 import java.util.Set;
 
@@ -19,7 +19,9 @@ public class Membre {
     //a verifier
     public Set<Projet> projet;
     public Set<Discipline> compétence;
-
+    public Membre(){
+        
+    }
     public Membre(String nomMem, String prenomMem, String gsmMem, String email, Set<Projet> projet, Set<Discipline> compétence) {
         this.nomMem = nomMem;
         this.prenomMem = prenomMem;

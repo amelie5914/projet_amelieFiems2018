@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proj_modele;
+package projet.Modele;
 
 /**
  *
@@ -14,7 +14,9 @@ public class Competence {
     public Discipline discipline;
     public Niveaux niveau;
     public Membre mem;
-
+    public Competence(){
+        
+    }
     public Competence(int degre, Discipline discipline, Niveaux niveau, Membre mem) {
         this.degre = degre;
         this.discipline = discipline;
