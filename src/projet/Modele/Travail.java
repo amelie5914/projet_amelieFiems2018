@@ -23,7 +23,9 @@ public class Travail {
         this.proj = proj;
         this.mem = mem;
     }
-    
+    public Travail(String dateEng){
+        this.dateEng=dateEng;
+    }
 
     public String getDateEng() {
         return dateEng;

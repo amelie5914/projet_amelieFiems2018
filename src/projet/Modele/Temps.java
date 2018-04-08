@@ -21,7 +21,9 @@ public class Temps {
         this.proj = proj;
         this.dis = dis;
     }
-    
+    public Temps(int jHomme){
+        this.jHomme=jHomme;
+    }
     public int getJHomme(){
         return jHomme;
     }

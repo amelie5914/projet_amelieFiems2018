@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class Projet {
     private String titre;
-    private String client;
+    
     private String dateDebut;
     private String dateFin;
    //a verifier!!!
@@ -25,9 +25,12 @@ public class Projet {
     public Projet(){
         
     }
-    public Projet(String titre, String client, String dateDebut, String dateFin, Entreprise ent) {
+    public Projet(String titre){
+        titre=titre;
+    }
+    public Projet(String titre, String dateDebut, String dateFin, Entreprise ent) {
         this.titre = titre;
-        this.client = client;
+        
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.ent = ent;
@@ -38,9 +41,7 @@ public class Projet {
         return titre;
     }
 
-    public String getClient() {
-        return client;
-    }
+    
 
     public String getDateDebut() {
         return dateDebut;

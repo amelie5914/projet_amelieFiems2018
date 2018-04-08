@@ -21,6 +21,8 @@ public class Niveaux {
         this.degre = degre;
         this.signification = signification;
     }
-   
+   public Niveaux(int degre){
+       this.degre=degre;
+   }
     
 }

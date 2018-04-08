@@ -31,7 +31,9 @@ public class Membre {
         this.compétence = compétence;
     }
     
-
+    public Membre(String nomMem){
+        this.nomMem=nomMem;
+    }
     public String getNomMem() {
         return nomMem;
     }

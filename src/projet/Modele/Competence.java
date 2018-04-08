@@ -17,6 +17,9 @@ public class Competence {
     public Competence(){
         
     }
+    public Competence (int degre){
+        this.degre=degre;
+    }
     public Competence(int degre, Discipline discipline, Niveaux niveau, Membre mem) {
         this.degre = degre;
         this.discipline = discipline;

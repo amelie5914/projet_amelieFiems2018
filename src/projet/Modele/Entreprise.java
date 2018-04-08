@@ -5,31 +5,75 @@
  */
 package projet.Modele;
 
+import java.util.Objects;
+
 /**
  *
  * @author ameliefiems
  */
 public class Entreprise {
-    private String nomEmt;
-    private String telEmt;
+    private String nomEnt;
+    private String telEnt;
     private String adresse;
     public Entreprise(){
         
     }
-    public Entreprise(String nomEmt, String telEmt, String adresse) {
-        this.nomEmt = nomEmt;
-        this.telEmt = telEmt;
+    public Entreprise(String nomEnt){
+        this.nomEnt=nomEnt;
+        telEnt="";
+        adresse="";
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+    public Entreprise(String nomEnt, String telEnt, String adresse) {
+        this.nomEnt = nomEnt;
+        this.telEnt = telEnt;
         this.adresse = adresse;
     }
     public String getNom(){
-        return nomEmt;
+        return nomEnt;
     }
     public String getTel(){
-        return telEmt;
+        return telEnt;
     }
 
     public String getAdresse() {
         return adresse;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.nomEnt);
+        hash = 29 * hash + Objects.hashCode(this.telEnt);
+        hash = 29 * hash + Objects.hashCode(this.adresse);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Entreprise other = (Entreprise) obj;
+        if (!Objects.equals(this.nomEnt, other.nomEnt)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Entreprise{" + "nomEnt=" + nomEnt + ", telEnt=" + telEnt + ", adresse=" + adresse + '}';
     }
 
     
