@@ -44,6 +44,21 @@ public class Entreprise {
         return adresse;
     }
 
+    public void setNomEnt(String nomEnt) {
+        this.nomEnt = nomEnt;
+        System.out.println("pendant le set"+this.nomEnt);
+    }
+
+    public void setTelEnt(String telEnt) {
+        this.telEnt = telEnt;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 5;

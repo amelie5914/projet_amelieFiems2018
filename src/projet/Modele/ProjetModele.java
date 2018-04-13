@@ -100,6 +100,23 @@ public class ProjetModele {
             return null;
         }
     }*/
+    public void modifierNomEntreprise(Entreprise e,String nom){
+        int p=entreprise.indexOf(e);
+        System.out.println("avant modif"+e.getNom());
+        e.setNomEnt(nom);
+        System.out.println("après modif:"+e.getNom());
+        entreprise.set(p,e);
+    }
+    public void modifierTelEntreprise(Entreprise e,String tel){
+        int p=entreprise.indexOf(e);
+        e.setTelEnt(tel);
+        entreprise.set(p,e);
+    }
+    public void modifierAdresse(Entreprise e,String a){
+        int p=entreprise.indexOf(e);
+        e.setAdresse(a);
+        entreprise.set(p,e);
+    }
     public Object get(String mot,Object o)
     {
         

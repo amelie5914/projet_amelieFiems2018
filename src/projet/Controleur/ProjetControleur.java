@@ -29,7 +29,7 @@ public class ProjetControleur {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public void gestion(){
-        int choix,c;
+        int choix,c,n;
         do{
             choix=pv.menu();
             switch(choix){
@@ -41,15 +41,31 @@ public class ProjetControleur {
                                         e=pv.saisieEntreprise();
                                         ajout(e);break;
                                 case 2: Entreprise e1=new Entreprise();
-                                Entreprise e2=new Entreprise();
-                                         sc.nextLine();
+                                        Entreprise e2=new Entreprise();
                                         String m=pv.saisie("Entrez un nom d'entreprise");
                                        
                                         if(pm.get(m, e1)!=null){
                                             System.out.println(pm.get(m, e1));
                                         }
                                         break;
-                                case 3: System.out.println(rechercheEntreprise());break;
+                                case 3: do{
+                                    n=pv.menuEntrepriseModif();
+                                    Object o=new Entreprise();
+                                    switch(n){
+                                        case 1: m=pv.saisie("Entrez le nom de l'entreprise");
+                                                Entreprise e3=new Entreprise();
+                                                if(pm.get(m, e3)!=null){
+                                                    o=pm.get(m,e3);
+                                                }
+                                                m=pv.saisie("Entrez le nom de l'entreprise à modifier");
+                                                pm.modifierNomEntreprise((Entreprise)o, m);
+                                                System.out.println("Modification effectuée");
+                                                break;
+                                        case 2: break;
+                                        case 3: break;
+                                        }
+                                    }
+                                    while(n!=4);break;
                                 case 4:listeEntreprise();break;
                             }
                         }
@@ -82,16 +98,7 @@ public class ProjetControleur {
             System.out.println("Erreur, recommencez");
         }
     }
-    public Entreprise rechercheEntreprise(){
-        Entreprise e=new Entreprise();
-        Scanner sc=new Scanner(System.in);
-        sc.nextLine();
-        System.out.println("Entrez un nom d'entreprise à rechercher");
-        String nom=sc.nextLine();
-        
-        //String nom=pv.saisie("Entrez un nom d'entreprise à rechercher");  //Pas sur car ça va prendre de la place pour rien de creer tout un objet entreprise!!!
-        return pm.getEnt(nom);
-    }
+    
     public Projet rechercheProjet(){
         String titre=pv.saisieProjet().getTitre();
         return pm.getProj(titre);
