@@ -23,10 +23,16 @@ public class Projet {
     public Set<Membre> membre;
     */
     public Projet(){
-        
+        this.dateDebut="";
+        this.dateFin="";
+        this.ent=null;
+        this.titre="";
     }
     public Projet(String titre){
-        titre=titre;
+        this.titre=titre;
+        dateDebut="";
+        dateFin="";
+        ent=null;
     }
     public Projet(String titre, String dateDebut, String dateFin, Entreprise ent) {
         this.titre = titre;
@@ -41,6 +47,10 @@ public class Projet {
         return titre;
     }
 
+    public Entreprise getEnt() {
+        return ent;
+    }
+
     
 
     public String getDateDebut() {
@@ -50,5 +60,22 @@ public class Projet {
     public String getDateFin() {
         return dateFin;
     }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public void setDateDebut(String dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public void setDateFin(String dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public void setEnt(Entreprise ent) {
+        this.ent = ent;
+    }
+    
     
 }

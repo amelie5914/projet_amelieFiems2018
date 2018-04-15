@@ -16,7 +16,9 @@ public class Entreprise {
     private String telEnt;
     private String adresse;
     public Entreprise(){
-        
+        nomEnt="";
+        telEnt="";
+        adresse="";
     }
     public Entreprise(String nomEnt){
         this.nomEnt=nomEnt;
@@ -44,9 +46,8 @@ public class Entreprise {
         return adresse;
     }
 
-    public void setNomEnt(String nomEnt) {
+    public void setNom(String nomEnt) {
         this.nomEnt = nomEnt;
-        System.out.println("pendant le set"+this.nomEnt);
     }
 
     public void setTelEnt(String telEnt) {
@@ -57,8 +58,6 @@ public class Entreprise {
         this.adresse = adresse;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 5;

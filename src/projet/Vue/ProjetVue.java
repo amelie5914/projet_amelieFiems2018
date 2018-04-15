@@ -20,17 +20,22 @@ public class ProjetVue {
         return choix;
     }
     public int menuEntreprise(){
-        System.out.println("ENTREPRISE\n1. Ajouter une entreprise\n2. Recherche de entreprise\n3.Modification entreprise\n4.Liste entreprise");
+        System.out.println("ENTREPRISE\n1. Ajouter une entreprise\n2. Recherche de entreprise\n3.Modification entreprise\n4.Liste entreprise\nSuppresion entreprise");
         int choix=sc.nextInt();
         return choix;
     }
     public int menuProjet(){
-        System.out.println("PROJET\n1.Ajout d'un projet\n2.Recherche d'un projet\n 3.Modification du titre\n4.Suppresion du projet\n5.Liste ");
+        System.out.println("PROJET\n1.Ajout d'un projet\n2.Recherche d'un projet\n 3.Modification du titre\n4.Liste du projet\n5.Suppresion entreprise ");
         int choix=sc.nextInt();
         return choix;
     }
     public int menuEntrepriseModif(){
         System.out.println("MODIFICATION\nNom\nTelephone\nAdresse");
+        int choix=sc.nextInt();
+        return choix;
+    }
+    public int menuProjetModif(){
+        System.out.println("MODIFICATION\nTitre\n La date du debut\n La date de fin");
         int choix=sc.nextInt();
         return choix;
     }
@@ -60,12 +65,19 @@ public class ProjetVue {
         System.out.println(m);
         return m;
     }
+    public String saisie(){
+        String m=sc.nextLine();
+        System.out.println(m);
+        return m;
+    }
     public void affListe(Collection liste){
         int i=1;
         for(Object o: liste){
             System.out.println((i++)+" "+o);
         }
-    
+    }
+    public void affMessage(String m){
+        System.out.println(m);
     }
     
     

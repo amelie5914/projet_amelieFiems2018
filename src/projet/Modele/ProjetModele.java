@@ -100,26 +100,37 @@ public class ProjetModele {
             return null;
         }
     }*/
-    public void modifierNomEntreprise(Entreprise e,String nom){
-        int p=entreprise.indexOf(e);
-        System.out.println("avant modif"+e.getNom());
-        e.setNomEnt(nom);
-        System.out.println("après modif:"+e.getNom());
-        entreprise.set(p,e);
+    public String modifierNomEntreprise(Entreprise e,String nom){
+        
+        e.setNom(nom);
+        return "modification du nom effectué";
     }
-    public void modifierTelEntreprise(Entreprise e,String tel){
-        int p=entreprise.indexOf(e);
+    public String modifierTelEntreprise(Entreprise e,String tel){
+        
         e.setTelEnt(tel);
-        entreprise.set(p,e);
+        return "modification du numero de telephone effectué";
     }
-    public void modifierAdresse(Entreprise e,String a){
-        int p=entreprise.indexOf(e);
+    public String modifierAdEntreprise(Entreprise e,String a){
         e.setAdresse(a);
-        entreprise.set(p,e);
+        return "modification d'adresse effectué";
     }
+    
+    public String modifierTitreProjet(Projet p, String titre){
+        p.setTitre(titre);
+        return "modification de titre effectué";
+    }
+    
+    public String modifierDateDebutProjet(Projet p,String date){
+        p.setDateDebut(date);
+        return "modification de date du début du projet effectué";
+    }
+    public String modifierDateFinProjet(Projet p,String date){
+        p.setDateFin(date);
+        return "modification de date du début du projet effectué";
+    }      
+    
     public Object get(String mot,Object o)
     {
-        
         if(mot!=null){
             if(o instanceof Entreprise){
                     Entreprise ent=new Entreprise(mot);
@@ -181,8 +192,6 @@ public class ProjetModele {
     
      public Object get(int primary,Object o)
     {
-        
-        
             if(o instanceof Competence){
                     Competence competence=new Competence(primary);
                     int p=comp.indexOf(competence);
@@ -216,7 +225,37 @@ public class ProjetModele {
             
             return null;
     }
-        
+    public void supprimer(Object o){
+        if(o!=null){
+            if(o instanceof Entreprise){
+                entreprise.remove(o);
+            }
+            else if(o instanceof Projet){
+                projet.remove(o);
+            }
+            else if(o instanceof Travail){
+                trav.remove(o);
+            }
+            else if(o instanceof Membre){
+                membre.remove(o);
+            }
+            else if(o instanceof Discipline){
+                dis.remove(o);
+            }
+            else if(o instanceof Competence){
+                comp.remove(o);
+            }
+            else if(o instanceof Niveaux){
+                niveau.remove(o);
+            }
+            else if(o instanceof Temps){
+                temps.remove(o);
+            }
+        }
+        else{
+            System.out.println("pas de suppression");
+        }
+    }    
        
     
     public List<Competence> getComp() {
