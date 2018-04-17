@@ -142,7 +142,6 @@ public class ProjetControleur {
       }
       while(n!=4);
     }
-    
     public void modifierProjet(){
          int n;
         String m;

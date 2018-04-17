@@ -22,7 +22,9 @@ public class ProjetModele {
     private List<Projet> projet;
     private List<Temps> temps= new ArrayList<>();
     private List<Travail> trav = new ArrayList<>();
-    
+    /** 
+     * Constructeur par défaut
+     */
     public ProjetModele(){
         //Pour tester mes classes
         entreprise=new ArrayList<>(Arrays.asList(new Entreprise("Fabricom","09898","rue pacqueret"),
@@ -33,6 +35,11 @@ public class ProjetModele {
                                                 new Projet("SGBD","14 juillet","21 juillet",entreprise.get(0))));
         
     }
+    /** 
+     * Méthode permettant l'ajout d'un objet à une des listes qui se trouve en atribut.
+     * @param o objet à ajouter
+     * @return une chaine de caractère qui décrit l'état de l'ajout
+     */
     public String ajouter(Object o){
         String message=null;
         List l = null;
@@ -79,56 +86,74 @@ public class ProjetModele {
         return message;
     
     }
-    
-    public Entreprise getEnt(String nomEntreprise){
-        Entreprise ent=new Entreprise(nomEntreprise);
-        int p=entreprise.indexOf(ent);
-        if(p>=0){
-            return entreprise.get(p);
-        }
-        else{
-            return null;
-        }
-    }
-    /*public Entreprise getEnt(String nomEntreprise){
-        Entreprise ent=new Entreprise(nomEntreprise);
-        int p=entreprise.indexOf(ent);
-        if(p>=0){
-            return entreprise.get(p);
-        }
-        else{
-            return null;
-        }
-    }*/
+    /**
+     * Méthode permettant de changer le nom de l'entreprise du client.
+     * @param e entreprise dont on désire changer le nom.
+     * @param nom le nouveau nom.
+     * @return chaine de caractère qui décrit l'état de la modification.
+     */
     public String modifierNomEntreprise(Entreprise e,String nom){
         
         e.setNom(nom);
         return "modification du nom effectué";
     }
+    /**
+     * Méthode permettant de changer le numero de telephone de l'entreprise du client.
+     * @param e entreprise dont on désire changer le numéro de téléphone.
+     * @param tel le nouveau numéro de téléphone 
+     * @return chaine de caractère qui décrit l'état de la modification
+     */
     public String modifierTelEntreprise(Entreprise e,String tel){
         
         e.setTelEnt(tel);
         return "modification du numero de telephone effectué";
     }
+    /**
+     * Méthode permettant de changer l'adresse de l'entreprise du client.
+     * @param e entreprise dont on désire changer l'adresse.
+     * @param a nouvelle adresse.
+     * @return chaine de caractère qui décrit l'état de la modification.
+     */
     public String modifierAdEntreprise(Entreprise e,String a){
         e.setAdresse(a);
         return "modification d'adresse effectué";
     }
-    
+    /**
+     * Méthode permettant de changer le nom d'un projet
+     * @param p projet dont on désire changer le nom
+     * @param titre nouveau nom
+     * @return chaine de caractère qui décrit l'état de la modification
+     */
     public String modifierTitreProjet(Projet p, String titre){
         p.setTitre(titre);
         return "modification de titre effectué";
     }
-    
+    /**
+     * Méthode permettant de changer la date du début d'un projet
+     * @param p projet dont on désire changer la date de début.
+     * @param date nouvelle date de début
+     * @return chaine de caractère qui décrit l'état de la modification
+     */
     public String modifierDateDebutProjet(Projet p,String date){
         p.setDateDebut(date);
         return "modification de date du début du projet effectué";
     }
+    /**
+     * Méthode permettant de changer la date de fin d'un projet
+     * @param p projet dont on désire changer la date de fin
+     * @param date nouvelle date de fin
+     * @return chaine de caractère qui décrit l'état de la modification
+     */
     public String modifierDateFinProjet(Projet p,String date){
         p.setDateFin(date);
         return "modification de date du début du projet effectué";
     }      
-    
+    /**
+     * Fonction permettant de rechercher un objet dans une des listes par rapport à une chaine de caractère.
+     * @param mot l'attribut "principal" qui est de type String d'une des classes à rechercher.
+     * @param o permet de savoir quelle liste doit on utiliser
+     * @return objet trouvé ou null si la méthode ne le trouve pas
+     */
     public Object get(String mot,Object o)
     {
         if(mot!=null){
@@ -189,7 +214,12 @@ public class ProjetModele {
         return null;
        
     }
-    
+    /**
+     * Surcharge de la méthode get. Méthode de recherche par rapport à un numéro.
+     * @param primary l'attribut "principal" qui est de type int d'une des classes à rechercher.
+     * @param o permet de savoir quelle liste doit on utiliser
+     * @return objet trouvé ou null si la méthode ne le trouve pas
+     */
      public Object get(int primary,Object o)
     {
             if(o instanceof Competence){
@@ -225,6 +255,10 @@ public class ProjetModele {
             
             return null;
     }
+     /**
+      * Méthode pour supprimer un objet d'une liste
+      * @param o objet à supprimer 
+      */
     public void supprimer(Object o){
         if(o!=null){
             if(o instanceof Entreprise){
@@ -289,12 +323,5 @@ public class ProjetModele {
     public List<Travail> getTrav() {
         return trav;
     }
-    
-    
-   
-    
-    
-
-    
-    
+ 
 }
