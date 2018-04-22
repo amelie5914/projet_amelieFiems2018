@@ -21,6 +21,15 @@ public class Discipline {
     public Discipline(String nomdiscipline) {
         this.nomdiscipline = nomdiscipline;
     }
+
+    @Override
+    public String toString() {
+        return "Discipline{" + "nomdiscipline=" + nomdiscipline + '}';
+    }
+
+    public String getNomdiscipline() {
+        return nomdiscipline;
+    }
     
     
 }

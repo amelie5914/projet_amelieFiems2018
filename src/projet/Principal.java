@@ -19,6 +19,7 @@ public class Principal {
     private ProjetControleur pc;
     public Principal(){
         pm=new ProjetModele();
+        pm.personne();
         pv=new ProjetVue();
         pc=new ProjetControleur(pv,pm);
         pc.gestion();

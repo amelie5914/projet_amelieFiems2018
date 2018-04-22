@@ -26,7 +26,7 @@ public class ProjetControleur {
     }
 
     public ProjetControleur() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     public void gestion(){
         int choix,c,n;
@@ -41,8 +41,7 @@ public class ProjetControleur {
                            switch(c){
                                 case 1:e=pv.saisieEntreprise();
                                         ajout(e);break;
-                                case 2: 
-                                        String m=pv.saisie("Entrez un nom d'entreprise");
+                                case 2: String m=pv.saisie("Entrez un nom d'entreprise");
                                         if(pm.get(m, e)!=null){
                                             System.out.println(pm.get(m, e));
                                         }
@@ -72,9 +71,21 @@ public class ProjetControleur {
                         }
                     }while(c!=6);
                     break;
+                case 3:
+                    do{
+                        c=pv.menuMembre();
+                        switch(c){
+                            case 1: break;
+                            case 2: break;
+                            case 3:break;
+                            case 4:break;
+                            case 5:break;
+                        }
+                    }
+                    while(c!=6);
             }
         }
-        while(choix!=5);
+        while(choix!=3);
     }
     public void ajout(Object o){
         

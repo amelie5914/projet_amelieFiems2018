@@ -5,6 +5,7 @@
  */
 package projet.Modele;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -16,7 +17,7 @@ public class Projet {
     
     private String dateDebut;
     private String dateFin;
-   //a verifier!!!
+    private double coutMax=0; 
     private Entreprise ent;
     /*public Set<Temps> temps;
     public Set<Discipline> discipline;
@@ -34,12 +35,12 @@ public class Projet {
         dateFin="";
         ent=null;
     }
-    public Projet(String titre, String dateDebut, String dateFin, Entreprise ent) {
+    public Projet(String titre, String dateDebut, String dateFin) {
         this.titre = titre;
         
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.ent = ent;
+        this.ent = null;
     }
     
 
@@ -49,6 +50,10 @@ public class Projet {
 
     public Entreprise getEnt() {
         return ent;
+    }
+
+    public double getCoutMax() {
+        return coutMax;
     }
 
     
@@ -76,6 +81,46 @@ public class Projet {
     public void setEnt(Entreprise ent) {
         this.ent = ent;
     }
+
+    public void setCoutMax(double coutMax) {
+        this.coutMax = coutMax;
+    }
+
+    
+    @Override
+    public String toString() {
+        return "Projet{" + "titre=" + titre + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", ent=" + ent + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.titre);
+        hash = 83 * hash + Objects.hashCode(this.dateDebut);
+        hash = 83 * hash + Objects.hashCode(this.dateFin);
+        hash = 83 * hash + Objects.hashCode(this.ent);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Projet other = (Projet) obj;
+        if (!Objects.equals(this.titre, other.titre)) {
+            return false;
+        }
+        return true;
+    }
+
+    
     
     
 }

@@ -23,6 +23,22 @@ public class Niveaux {
     }
    public Niveaux(int degre){
        this.degre=degre;
+       signification="";
+       
    }
+
+    public int getDegre() {
+        return degre;
+    }
+
+    public String getSignification() {
+        return signification;
+    }
+
+    @Override
+    public String toString() {
+        return "Niveaux{" + "degre=" + degre + ", signification=" + signification + '}';
+    }
+   
     
 }

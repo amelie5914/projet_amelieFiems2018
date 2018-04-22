@@ -15,7 +15,7 @@ import projet.Modele.Projet;
 public class ProjetVue {
     private Scanner sc = new Scanner(System.in);
     public int menu(){
-        System.out.println("1.Entreprise\n2.Projet");
+        System.out.println("1.Entreprise\n2.Projet\n3.Membre");
         int choix=sc.nextInt();
         return choix;
     }
@@ -30,12 +30,17 @@ public class ProjetVue {
         return choix;
     }
     public int menuEntrepriseModif(){
-        System.out.println("MODIFICATION\nNom\nTelephone\nAdresse");
+        System.out.println("MODIFICATION\n1.Nom\n2.Adresse\n3.Telephone");
         int choix=sc.nextInt();
         return choix;
     }
     public int menuProjetModif(){
-        System.out.println("MODIFICATION\nTitre\n La date du debut\n La date de fin");
+        System.out.println("MODIFICATION\n1.Titre\n2. La date du debut\n3. La date de fin");
+        int choix=sc.nextInt();
+        return choix;
+    }
+    public int menuMembre(){
+        System.out.println("MEMBRE\n1. AJouter un membre\n2. Recherche d'un membre\n3.Modification de membre\nn4.Liste des membres \n5.Suppression membre");
         int choix=sc.nextInt();
         return choix;
     }
@@ -45,28 +50,31 @@ public class ProjetVue {
         String tel=saisie("Entrez un numero de telephone");
         String adresse=saisie("Entrez une adresse");
         Entreprise e=new Entreprise(nom,tel,adresse);
-       // System.out.println(e);
+        System.out.println(e);
         return e;
     }
     
     public Projet saisieProjet(){
+        sc.nextLine();
         String titre=saisie("Entrez le titre du projet");
         String dateDebut=saisie("Entrez la date de debut du projet");
         String dateFin=saisie("Entrez la date de fin du projet");
         Entreprise client=new Entreprise();
         client=saisieEntreprise();
-        Projet p=new Projet(titre, dateDebut,dateFin,client);
+        Projet p=new Projet(titre, dateDebut,dateFin);
         return p;
     }
     public String saisie(String msg){
+        sc.skip("\n");
         System.out.println(msg);
-        sc.nextLine();
         String m=sc.nextLine();
         System.out.println(m);
         return m;
     }
     public String saisie(){
+       // sc.nextLine();
         String m=sc.nextLine();
+        
         System.out.println(m);
         return m;
     }

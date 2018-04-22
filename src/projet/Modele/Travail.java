@@ -25,6 +25,9 @@ public class Travail {
     }
     public Travail(String dateEng){
         this.dateEng=dateEng;
+        taux=0;
+        proj=null;
+        mem=null;
     }
 
     public String getDateEng() {
@@ -33,6 +36,19 @@ public class Travail {
 
     public int getTaux() {
         return taux;
+    }
+
+    @Override
+    public String toString() {
+        return "Travail{" + "dateEng=" + dateEng + ", taux=" + taux + ", proj=" + proj + ", mem=" + mem + '}';
+    }
+
+    public Projet getProj() {
+        return proj;
+    }
+
+    public Membre getMem() {
+        return mem;
     }
     
 }
