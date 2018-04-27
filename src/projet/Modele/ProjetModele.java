@@ -181,7 +181,7 @@ public class ProjetModele {
      * @param o permet de savoir quelle liste doit on utiliser
      * @return objet trouvé ou null si la méthode ne le trouve pas
      */
-    public Object get(String mot,Object o)
+    public Object get(String mot,String mot2,Object o)
     {
         if(mot!=null){
             if(o instanceof Entreprise){
@@ -215,7 +215,7 @@ public class ProjetModele {
                     }
             }
             else if(o instanceof Membre){
-                Membre m=new Membre(mot);
+                Membre m=new Membre(mot,mot2);
                     int c=membre.indexOf(m);
                     if(c>=0){
                         return membre.get(c);
@@ -247,6 +247,7 @@ public class ProjetModele {
      */
      public Object get(int primary,Object o)
     {
+            //A verifier!!!!!!!!
             if(o instanceof Competence){
                     Competence competence=new Competence(primary);
                     int p=comp.indexOf(competence);
@@ -315,7 +316,38 @@ public class ProjetModele {
             System.out.println("pas de suppression");
         }
     }    
+    public List<Membre> listeMembreProjet(String m){
+        List <Membre> listeMembre=new ArrayList<>();
+        Projet p=new Projet(m);
+        Object o=new Projet();
+        o=get(m,"",p);
+        if(!o.equals(p)){
+            System.out.println("Ce projet n'existe pas");
+            System.out.println(o);
+            System.out.println(p);
+            return null;
+        }
+        
+            if(!membre.isEmpty()){
+                System.out.println("Je ne suis pas vide");
+                for(Travail tra:trav){
+                        System.out.println("je suis dans le for");
+                        if(tra.getProj().equals(p)){
+                            listeMembre.add(tra.getMem());
+                            System.out.println("test");
+                        }
+                }
+            }
+            else{
+                System.out.println("Je ne suis  vide");
+            }
+        
+        if(listeMembre.isEmpty()){ System.out.println("Il y a aucun membre");return null;
+        }
+        
+        return listeMembre;
        
+    }
     /**
      * getter de liste competences
      * @return la liste de competences
@@ -390,5 +422,7 @@ public class ProjetModele {
         p.setCoutMax(coutMax);
         return true;
     }
+    
+    
  
 }

@@ -5,6 +5,7 @@
  */
 package projet.Modele;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -18,7 +19,10 @@ public class Membre {
     private String email;
     
     public Membre(){
-        
+        nomMem="";
+        prenomMem="";
+        gsmMem="";
+        email="";
     }
     public Membre(String nomMem, String prenomMem, String gsmMem, String email) {
         this.nomMem = nomMem;
@@ -28,9 +32,9 @@ public class Membre {
        
     }
     
-    public Membre(String nomMem){
+    public Membre(String nomMem,String prenomMem){
         this.nomMem=nomMem;
-        this.prenomMem = "";
+        this.prenomMem = prenomMem;
         this.gsmMem = "";
         this.email = "";
        
@@ -54,6 +58,37 @@ public class Membre {
     @Override
     public String toString() {
         return "Membre{" + "nomMem=" + nomMem + ", prenomMem=" + prenomMem + ", gsmMem=" + gsmMem + ", email=" + email +'}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.nomMem);
+        hash = 67 * hash + Objects.hashCode(this.prenomMem);
+        hash = 67 * hash + Objects.hashCode(this.gsmMem);
+        hash = 67 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Membre other = (Membre) obj;
+        if (!Objects.equals(this.nomMem, other.nomMem)) {
+            return false;
+        }
+        if (!Objects.equals(this.prenomMem, other.prenomMem)) {
+            return false;
+        }
+        return true;
     }
 
     

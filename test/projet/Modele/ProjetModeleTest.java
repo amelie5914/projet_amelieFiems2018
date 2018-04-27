@@ -167,7 +167,7 @@ public class ProjetModeleTest {
         instance.ajouter(e);
         String mot = "Podorcet";
         Object expResult = e;
-        Object result = instance.get(mot, e);
+        Object result = instance.get(mot,"", e);
         assertEquals(expResult, result);
         
         
@@ -175,7 +175,7 @@ public class ProjetModeleTest {
         instance.ajouter(p);
         mot="maquette pour l'A380";
         expResult=p;
-        result=instance.get(mot,p);
+        result=instance.get(mot,"",p);
         assertEquals(expResult,result);
         instance.supprimer(p);
         instance.supprimer(e);
@@ -218,7 +218,7 @@ public class ProjetModeleTest {
         ProjetModele instance = new ProjetModele();
         instance.ajouter(p);
         instance.supprimer(p);
-        Object result=instance.get("maquette pour l'A380", p);
+        Object result=instance.get("maquette pour l'A380","", p);
         assertNull(result);
     }
 
@@ -281,8 +281,8 @@ public class ProjetModeleTest {
     public void testGetMembre() {
         System.out.println("getMembre");
         ProjetModele instance = new ProjetModele();
-        Membre m=new Membre("Fiems");
-        Membre m1=new Membre("Tomsen");
+        Membre m=new Membre("Fiems","Amélie");
+        Membre m1=new Membre("Tomsen","Alice");
         
         List<Membre> expResult = new ArrayList();
         expResult.add(m);expResult.add(m1);

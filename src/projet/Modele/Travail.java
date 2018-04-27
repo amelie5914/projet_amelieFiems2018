@@ -50,5 +50,23 @@ public class Travail {
     public Membre getMem() {
         return mem;
     }
+
+    public void setDateEng(String dateEng) {
+        this.dateEng = dateEng;
+    }
+
+    public void setTaux(int taux) {
+        this.taux = taux;
+    }
+
+    public void setProj(Projet proj) {
+        this.proj = proj;
+    }
+
+    public void setMem(Membre mem) {
+        this.mem = mem;
+    }
+    
+    
     
 }
