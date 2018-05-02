@@ -92,5 +92,15 @@ public class Membre {
     }
 
     
+
+    public void setGsmMem(String gsmMem) {
+        this.gsmMem = gsmMem;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
     
 }

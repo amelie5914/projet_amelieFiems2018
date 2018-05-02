@@ -35,14 +35,18 @@ public class Projet {
         dateFin="";
         ent=null;
     }
-    public Projet(String titre, String dateDebut, String dateFin) {
+    public Projet(String titre, String dateDebut, String dateFin,Entreprise ent) {
         this.titre = titre;
-        
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.ent = null;
+        this.ent = ent;
     }
-    
+    public Projet(Entreprise e){
+        this.titre = "";
+        this.dateDebut ="";
+        this.dateFin = "";
+        this.ent = e;
+    }
 
     public String getTitre() {
         return titre;

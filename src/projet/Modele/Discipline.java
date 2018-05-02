@@ -5,6 +5,7 @@
  */
 package projet.Modele;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -13,10 +14,9 @@ import java.util.Set;
  */
 public class Discipline {
     
-
     private String nomdiscipline;
     public Discipline(){
-        
+        this.nomdiscipline="";
     }
     public Discipline(String nomdiscipline) {
         this.nomdiscipline = nomdiscipline;
@@ -29,6 +29,36 @@ public class Discipline {
 
     public String getNomdiscipline() {
         return nomdiscipline;
+    }
+
+    public void setNomdiscipline(String nomdiscipline) {
+        this.nomdiscipline = nomdiscipline;
+    }
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.nomdiscipline);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Discipline other = (Discipline) obj;
+        if (!Objects.equals(this.nomdiscipline, other.nomdiscipline)) {
+            return false;
+        }
+        return true;
     }
     
     

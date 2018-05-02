@@ -28,9 +28,7 @@ public class Temps {
         this.proj=null;
         this.dis=null;
     }
-    public int getJHomme(){
-        return jHomme;
-    }
+    
 
     @Override
     public String toString() {
@@ -48,6 +46,19 @@ public class Temps {
     public Discipline getDis() {
         return dis;
     }
+
+    public void setjHomme(int jHomme) {
+        this.jHomme = jHomme;
+    }
+
+    public void setProj(Projet proj) {
+        this.proj = proj;
+    }
+
+    public void setDis(Discipline dis) {
+        this.dis = dis;
+    }
+    
 
     @Override
     public int hashCode() {

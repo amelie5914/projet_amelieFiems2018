@@ -5,6 +5,8 @@
  */
 package projet.Modele;
 
+import java.util.Objects;
+
 /**
  *
  * @author ameliefiems
@@ -28,6 +30,13 @@ public class Travail {
         taux=0;
         proj=null;
         mem=null;
+    }
+    public Travail(Membre m){
+        this.dateEng="";
+        this.taux=0;
+        this.proj=null;
+        this.mem=m;
+        
     }
 
     public String getDateEng() {
@@ -66,6 +75,36 @@ public class Travail {
     public void setMem(Membre mem) {
         this.mem = mem;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.dateEng);
+        hash = 97 * hash + this.taux;
+        hash = 97 * hash + Objects.hashCode(this.proj);
+        hash = 97 * hash + Objects.hashCode(this.mem);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Travail other = (Travail) obj;
+        if (!Objects.equals(this.dateEng, other.dateEng)) {
+            return false;
+        }
+        return true;
+    }
+
+   
     
     
     

@@ -174,7 +174,21 @@ public class ProjetModele {
     public String modifierDateFinProjet(Projet p,String date){
         p.setDateFin(date);
         return "modification de date du début du projet effectué";
-    }      
+    }     
+    public String modifierGSMMembre(Membre m,String gsmMem){
+        
+        m.setGsmMem(gsmMem);
+        return "modification du numero de gsm du membre effectué";
+    }
+    public String modifierEmailMembre(Membre m,String email){
+        
+        m.setEmail(email);
+        return "modification de l'email du membre effectué";
+    }
+    public String modifierNomDiscipline(Discipline d,String nom){
+        d.setNomdiscipline(nom);
+        return "Modification du nom de la discipline effectué";
+    }
     /**
      * Fonction permettant de rechercher un objet dans une des listes par rapport à une chaine de caractère.
      * @param mot l'attribut "principal" qui est de type String d'une des classes à rechercher.
@@ -183,6 +197,7 @@ public class ProjetModele {
      */
     public Object get(String mot,String mot2,Object o)
     {
+        
         if(mot!=null){
             if(o instanceof Entreprise){
                     Entreprise ent=new Entreprise(mot);
@@ -204,16 +219,7 @@ public class ProjetModele {
                         return null;
                     }
             }
-            else if(o instanceof Travail){
-                Travail t=new Travail(mot);
-                    int c=trav.indexOf(t);
-                    if(c>=0){
-                        return trav.get(c);
-                    }
-                    else{
-                        return null;
-                    }
-            }
+            
             else if(o instanceof Membre){
                 Membre m=new Membre(mot,mot2);
                     int c=membre.indexOf(m);
@@ -238,6 +244,17 @@ public class ProjetModele {
         }
         return null;
        
+    }
+    public Travail getTrav(Membre m){
+        Travail t=new Travail(m);
+        int c=trav.indexOf(t);
+        if(c>=0){
+            return trav.get(c);
+        }
+        else{
+            return null;
+        }
+            
     }
     /**
      * Surcharge de la méthode get. Méthode de recherche par rapport à un numéro.
@@ -285,36 +302,38 @@ public class ProjetModele {
       * Méthode pour supprimer un objet d'une liste
       * @param o objet à supprimer 
       */
-    public void supprimer(Object o){
+    public boolean supprimer(Object o){
+        boolean verite=true;
         if(o!=null){
             if(o instanceof Entreprise){
-                entreprise.remove(o);
+                verite=entreprise.remove(o);
             }
             else if(o instanceof Projet){
-                projet.remove(o);
+                verite=projet.remove(o);
             }
             else if(o instanceof Travail){
-                trav.remove(o);
+                verite=trav.remove(o);
             }
             else if(o instanceof Membre){
-                membre.remove(o);
+                verite=membre.remove(o);
             }
             else if(o instanceof Discipline){
-                dis.remove(o);
+                verite=dis.remove(o);
             }
             else if(o instanceof Competence){
-                comp.remove(o);
+                verite=comp.remove(o);
             }
             else if(o instanceof Niveaux){
-                niveau.remove(o);
+                verite=niveau.remove(o);
             }
             else if(o instanceof Temps){
-                temps.remove(o);
+                verite=temps.remove(o);
             }
         }
         else{
             System.out.println("pas de suppression");
         }
+        return verite;
     }    
     public List<Membre> listeMembreProjet(String m){
         List <Membre> listeMembre=new ArrayList<>();
@@ -327,14 +346,11 @@ public class ProjetModele {
             System.out.println(p);
             return null;
         }
-        
             if(!membre.isEmpty()){
                 System.out.println("Je ne suis pas vide");
                 for(Travail tra:trav){
-                        System.out.println("je suis dans le for");
                         if(tra.getProj().equals(p)){
                             listeMembre.add(tra.getMem());
-                            System.out.println("test");
                         }
                 }
             }
@@ -344,9 +360,34 @@ public class ProjetModele {
         
         if(listeMembre.isEmpty()){ System.out.println("Il y a aucun membre");return null;
         }
-        
         return listeMembre;
        
+    }
+    public List<Projet> listeProjetEntreprise(String nomEnt){
+        List<Projet>listeProj=new ArrayList<>();
+        Entreprise e=new Entreprise(nomEnt);
+        Object o=new Entreprise();
+        o=get(nomEnt,"",e);
+        if(nomEnt==null)return listeProj;
+        if(!o.equals(e)){
+            return null;
+        }
+        if(!projet.isEmpty()) {
+        
+            for(Projet p:projet){
+                   if(p.getEnt().equals(e)){
+                       listeProj.add(p);
+                   }
+            }
+        }
+        else{
+            System.out.println("Je ne suis pas vide");
+        }
+        if(listeProj.isEmpty()){
+            System.out.println("Il n'y a aucun projet"); 
+            return null;
+        }
+        return listeProj;
     }
     /**
      * getter de liste competences
@@ -405,15 +446,23 @@ public class ProjetModele {
     public List<Travail> getTrav() {
         return trav;
     }
+
+    public void setProjet(List<Projet> projet) {
+        this.projet = projet;
+    }
+
+    public void setTrav(List<Travail> trav) {
+        this.trav = trav;
+    }
     
     public void personne(){
         //Pour tester mes classes
         entreprise=new ArrayList<>(Arrays.asList(new Entreprise("Fabricom","09898","rue pacqueret"),
                                                     new Entreprise("Condorcet","098098","Rue piv"),
                                                     new Entreprise ("Hopital","0999","Roiu")));
-        projet=new ArrayList<>(Arrays.asList(new Projet("Projet Web", "1 juin 2018","4 juillet 2018"),
+        /*projet=new ArrayList<>(Arrays.asList(new Projet("Projet Web", "1 juin 2018","4 juillet 2018"),
                                                 new Projet("Projet java","2 janvier","17 fevrier"),
-                                                new Projet("SGBD","14 juillet","21 juillet")));
+                                                new Projet("SGBD","14 juillet","21 juillet")));*/
         
     }
     
