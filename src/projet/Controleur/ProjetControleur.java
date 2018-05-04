@@ -33,7 +33,8 @@ public class ProjetControleur {
         String m,m1;
         Entreprise e=new Entreprise();
         Projet p=new Projet();
-        Membre membre=new Membre();
+        Membre membre=null
+                ;
         Discipline dis=new Discipline();
         Niveaux niv=new Niveaux();
         List <Membre>listeMembreP=new ArrayList();
@@ -159,11 +160,12 @@ public class ProjetControleur {
                 while(c!=6);
             }
         }
-        while(choix!=7);
+        while(choix!=9);
     }
     public void ajout(Object o){
-        
+        System.out.println("TEST");
         String m=pm.ajouter(o);
+        
         if(m!=null){
             System.out.println(m);
         }
@@ -228,7 +230,7 @@ public class ProjetControleur {
     }
     public void supprimerMembre(){
         String m1,m2;
-        Membre membre=new Membre();
+        Membre membre=null;
         boolean v;
         m1=pv.saisie("Entrez le nom du membre à supprimer");
         m2=pv.saisie("Entrez le prenom du membre à supprimer");
@@ -358,21 +360,27 @@ public class ProjetControleur {
       }
       while(n!=4);
     }
-    public void modifierMembre(){
+    public void modifierMembre() {
         int n;
         String m1,m2;
-        Membre membre=new Membre();
-        do{
+        Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
+        membreBuild.setNomMem("f").setPrenomMem("p");
+        try {
+            
+           Membre membre=membreBuild.build();
+            do{
            n=pv.menuMembreModif();
-           Object o=new Membre();
+           
            switch(n){
-           case 1: m1=pv.saisie("Entrez le nom du membre");
+           case 1:
+               m1=pv.saisie("Entrez le nom du membre");
                     m2=pv.saisie("Entrez le prenom du membre");
+                    membre=(Membre)pm.get(m1,m2, membre);
                     if(pm.get(m1,m2, membre)!=null){
-                        o=pm.get(m1,m2,membre);
+                        membre=(Membre)pm.get(m1,m2,membre);
                         pv.affMessage("Entrez le numero de gsm remplacé");
                         String s=pv.saisie();
-                        m1=pm.modifierGSMMembre((Membre) o, s);
+                        m1=pm.modifierGSMMembre(membre, s);
                         pv.affMessage(m1);
                     }
                     else pv.affMessage("Pas dans la table");
@@ -381,10 +389,10 @@ public class ProjetControleur {
                 m1=pv.saisie("Entrez le nom du membre");
                     m2=pv.saisie("Entrez le prenom du membre");
                     if(pm.get(m1,m2, membre)!=null){
-                        o=pm.get(m1,m2,membre);
+                        membre=(Membre)pm.get(m1,m2,membre);
                         pv.affMessage("Entrez le email remplacé");
                         String s=pv.saisie();
-                        m1=pm.modifierEmailMembre((Membre) o, s);
+                        m1=pm.modifierEmailMembre((Membre) membre, s);
                         pv.affMessage(m1);
                     }
                     else pv.affMessage("Pas dans la table");
@@ -393,6 +401,11 @@ public class ProjetControleur {
         }
       }
       while(n!=4);
+        } catch (Exception e) {
+            System.out.println("erreur de création " + e);
+        }
+
+        
     }
     public void modifierDiscipline(){
         Discipline discipline=new Discipline();
@@ -463,7 +476,6 @@ public class ProjetControleur {
          String m;
          String m1;
          String nomEnt;
-         Membre mem=new Membre();
          Travail t=new Travail();
          Entreprise e=new Entreprise();
          Projet p=pv.saisieProjet();
@@ -507,8 +519,8 @@ public class ProjetControleur {
      }
      public boolean creerProjetMembre(Projet p){
          int c;
-         Membre mem=new Membre();
-         Travail t=new Travail();
+         Membre mem=null;
+         Travail t;
          String m,m1;
          boolean v=false;
          do{
@@ -575,7 +587,7 @@ public class ProjetControleur {
          return v;
      }
      public void ajouterMembre(Projet projet){
-         Membre membre=new Membre();
+         Membre membre;
          Travail travail=new Travail();
          Niveaux niveau=new Niveaux();
          Discipline dis=new Discipline();

@@ -6,7 +6,6 @@
 package projet.Modele;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  *
@@ -18,26 +17,11 @@ public class Membre {
     private String gsmMem;
     private String email;
     
-    public Membre(){
-        nomMem="";
-        prenomMem="";
-        gsmMem="";
-        email="";
-    }
-    public Membre(String nomMem, String prenomMem, String gsmMem, String email) {
-        this.nomMem = nomMem;
-        this.prenomMem = prenomMem;
-        this.gsmMem = gsmMem;
-        this.email = email;
-       
-    }
-    
-    public Membre(String nomMem,String prenomMem){
-        this.nomMem=nomMem;
-        this.prenomMem = prenomMem;
-        this.gsmMem = "";
-        this.email = "";
-       
+    private Membre(MembreBuilder mb){
+        this.nomMem=mb.nomMem;
+        this.prenomMem=mb.prenomMem;
+        this.gsmMem=mb.gsmMem;
+        this.email=mb.email;
     }
     public String getNomMem() {
         return nomMem;
@@ -65,8 +49,6 @@ public class Membre {
         int hash = 7;
         hash = 67 * hash + Objects.hashCode(this.nomMem);
         hash = 67 * hash + Objects.hashCode(this.prenomMem);
-        hash = 67 * hash + Objects.hashCode(this.gsmMem);
-        hash = 67 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
@@ -100,7 +82,59 @@ public class Membre {
     public void setEmail(String email) {
         this.email = email;
     }
-
     
+    
+    public static class MembreBuilder{
+        private String nomMem;
+        private String prenomMem;
+        private String gsmMem;
+        private String email;
+        public MembreBuilder(){
+            
+        }
+        public MembreBuilder setNomMem(String nomMem){
+            this.nomMem=nomMem;
+            return this;
+        }
+        public MembreBuilder setPrenomMem(String prenomMem){
+            this.prenomMem=prenomMem;
+            return this;
+        }
+        
+        public MembreBuilder setGsm(String gsm){
+            this.gsmMem=gsm;
+            return this;
+        }
+        public MembreBuilder setEmail(String email){
+            this.email=email;
+            return this;
+        }
+        public Membre build() throws Exception{
+            if(nomMem==null|| prenomMem==null){
+                throw new Exception("Nom et prénom manquants");
+            }
+            if(nomMem.trim().equals("")|| prenomMem.trim().equals("")){
+                throw new Exception("Nom et prénom manquants");
+            }
+            return new Membre(this);
+                //trim ça retire les blancs
+        }
+    }
+    /*public Membre(String nomMem, String prenomMem, String gsmMem, String email) {
+        this.nomMem = nomMem;
+        this.prenomMem = prenomMem;
+        this.gsmMem = gsmMem;
+        this.email = email;
+       
+    }
+    
+    public Membre(String nomMem,String prenomMem){
+        this.nomMem=nomMem;
+        this.prenomMem = prenomMem;
+        this.gsmMem = ""; 
+        this.email = "";
+       
+    }
+    */
     
 }

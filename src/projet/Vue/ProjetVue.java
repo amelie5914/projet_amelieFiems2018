@@ -100,13 +100,21 @@ public class ProjetVue {
         return e;
     }
     public Membre saisieMembre(){
-        
+        Membre membre=null;
         String nom=saisie("Entrez le nom du membre");
         String prenom=saisie("Entrez son prénom");
         String gsm=saisie("Entrez le numero de telephone");
         String email=saisie("Entrez son email");
-        Membre m=new Membre(nom,prenom,gsm,email);
-        return m;
+        //Membre m=new Membre(nom,prenom,gsm,email);
+        Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
+        membreBuild.setNomMem(nom).setPrenomMem(prenom).setGsm(gsm).setEmail(email);
+        try{
+            membre=membreBuild.build();
+        }
+        catch(Exception e){
+            System.out.println("Erreur de création"+e);
+        }
+        return membre;
     }
     public Projet saisieProjet(){
         sc.nextLine();

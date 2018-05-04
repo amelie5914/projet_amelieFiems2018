@@ -226,7 +226,16 @@ public class ProjetModele {
             }
             
             else if(o instanceof Membre){
-                Membre m=new Membre(mot,mot2);
+                Membre m=null;
+                Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
+                membreBuild.setNomMem(mot).setPrenomMem(mot2);
+                try{
+                    m=membreBuild.build();
+                    System.out.println(m);
+                }
+                catch(Exception e){
+                    System.out.println("Erreur de création"+e);
+                }
                     int c=membre.indexOf(m);
                     if(c>=0){
                         return membre.get(c);
@@ -505,6 +514,23 @@ public class ProjetModele {
                                                 new Projet("Projet java","2 janvier","17 fevrier"),
                                                 new Projet("SGBD","14 juillet","21 juillet")));*/
         
+        String nom = "Fiems";
+        String prenom="Amélie";
+        String gsm="0477880599";
+        String email="rue du nord";
+        
+
+        Membre.MembreBuilder mb = new Membre.MembreBuilder();
+        mb.setNomMem(nom).
+                setPrenomMem(prenom).
+                setGsm(gsm).
+                setEmail(email);
+                
+        try {
+            Membre m = mb.build();
+        } catch (Exception e) {
+            System.out.println("erreur de création " + e);
+        }
     }
     public boolean modifCoutMax(Projet p, double coutMax){
         if(coutMax<0|| coutMax>1000000) return false;
