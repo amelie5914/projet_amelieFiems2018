@@ -188,6 +188,11 @@ public class ProjetModele {
     public String modifierNomDiscipline(Discipline d,String nom){
         d.setNomdiscipline(nom);
         return "Modification du nom de la discipline effectué";
+    
+    }
+    public String modifierDescriptionNiveaux(Niveaux niv,String description){
+        niv.setSignification(description);
+        return "Modification de la description effectué";
     }
     /**
      * Fonction permettant de rechercher un objet dans une des listes par rapport à une chaine de caractère.
@@ -363,6 +368,34 @@ public class ProjetModele {
         return listeMembre;
        
     }
+    public List<Discipline> listeDisciplineProjet(String m){
+        List <Discipline> listeDis=new ArrayList<>();
+        Projet p=new Projet(m);
+        Object o=new Projet();
+        o=get(m,"",p);
+        if(!o.equals(p)){
+            System.out.println("Ce projet n'existe pas");
+            System.out.println(o);
+            System.out.println(p);
+            return null;
+        }
+            if(!dis.isEmpty()){
+                System.out.println("Je ne suis pas vide");
+                for(Temps t:temps){
+                        if(t.getProj().equals(p)){
+                            listeDis.add(t.getDis());
+                        }
+                }
+            }
+            else{
+                System.out.println("Je ne suis  vide");
+            }
+        
+        if(listeDis.isEmpty()){ System.out.println("Il y a aucune discipline");return null;
+        }
+        return listeDis;
+       
+    }
     public List<Projet> listeProjetEntreprise(String nomEnt){
         List<Projet>listeProj=new ArrayList<>();
         Entreprise e=new Entreprise(nomEnt);
@@ -454,6 +487,14 @@ public class ProjetModele {
     public void setTrav(List<Travail> trav) {
         this.trav = trav;
     }
+
+    public void setTemps(List<Temps> temps) {
+        this.temps = temps;
+    }
+
+    public void setComp(List<Competence> comp) {
+        this.comp = comp;
+    }
     
     public void personne(){
         //Pour tester mes classes
@@ -465,13 +506,10 @@ public class ProjetModele {
                                                 new Projet("SGBD","14 juillet","21 juillet")));*/
         
     }
-    
     public boolean modifCoutMax(Projet p, double coutMax){
         if(coutMax<0|| coutMax>1000000) return false;
         p.setCoutMax(coutMax);
         return true;
     }
     
-    
- 
 }

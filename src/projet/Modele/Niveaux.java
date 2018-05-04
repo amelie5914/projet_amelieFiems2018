@@ -5,6 +5,7 @@
  */
 package projet.Modele;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -35,9 +36,43 @@ public class Niveaux {
         return signification;
     }
 
+    public void setDegre(int degre) {
+        this.degre = degre;
+    }
+
+    public void setSignification(String signification) {
+        this.signification = signification;
+    }
+    
     @Override
     public String toString() {
         return "Niveaux{" + "degre=" + degre + ", signification=" + signification + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + this.degre;
+        hash = 83 * hash + Objects.hashCode(this.signification);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Niveaux other = (Niveaux) obj;
+        if (this.degre != other.degre) {
+            return false;
+        }
+        return true;
     }
    
     

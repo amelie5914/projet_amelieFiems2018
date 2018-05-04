@@ -29,12 +29,15 @@ public class ProjetControleur {
     }
     public void gestion(){
         int choix,c,n;
+        boolean v;
         String m,m1;
         Entreprise e=new Entreprise();
         Projet p=new Projet();
         Membre membre=new Membre();
         Discipline dis=new Discipline();
+        Niveaux niv=new Niveaux();
         List <Membre>listeMembreP=new ArrayList();
+        List <Discipline>listeDisProjet=new ArrayList();
         List <Projet>listeProjetEntreprise=new ArrayList();
         do{
             choix=pv.menu();
@@ -74,17 +77,34 @@ public class ProjetControleur {
                                     System.out.println(p);break;
                             case 3: modifierProjet();break;
                             case 4:listeProjet();break;
-                            //case 5:supprimerProjet();break;
+                            case 5:supprimerProjet();break;
                             case 6: m=pv.saisie("Entrez le titre d'un projet");
                                 listeMembreP=pm.listeMembreProjet(m);
                                 for(Membre mbre:listeMembreP){
                                     System.out.println(mbre);
                                 }break;
                             case 7:p=rechercheProjet();
-                            if(p!=null)
-                                ajouterMembreTravail(p);
+                                    if(p!=null)
+                                        do{
+                                            v=creerProjetMembre(p);
+                                        }
+                                        while(v==false);
+                                    break;
+                            case 8:p=rechercheProjet();
+                                if(p!=null){
+                                    do{
+                                        v=creerProjetDiscipline(p);
+                                    }
+                                    while(v==false);
+                                }
+                                break;
+                            case 9:m=pv.saisie("Entrez le titre d'un projet");
+                                listeDisProjet=pm.listeDisciplineProjet(m);
+                                for(Discipline d:listeDisProjet){
+                                    System.out.println(d);
+                                }break;
                         }
-                    }while(c!=8);
+                    }while(c!=10);
                     break;
                 case 3:
                     do{
@@ -110,13 +130,30 @@ public class ProjetControleur {
                     switch(c){
                         case 1: dis=pv.saisieDiscipline();
                                 ajout(dis);break;
-                        case 2: m=pv.saisie("Entrez le nom de la discipline");
-                                if(pm.get(m,"",dis)!=null){
-                                        System.out.println(pm.get(m, "", dis));
-                                    }break;
+                        case 2: 
+                             m=pv.saisie("Entrez le nom de la discipline");
+                            dis=rechercheDiscipline(m);
+                                System.out.println(dis);break;
                         case 3: modifierDiscipline();break;
                         case 4: listeDiscipline();break;
                         case 5:supprimerDiscipline();break;
+                    }
+                }
+                while(c!=6); break;
+                case 6:listeTemps(); break;
+                case 7:listeCompetence();break;
+                case 8:do{
+                    c=pv.menuNiveaux();
+                    switch(c){
+                        case 1:niv=pv.saisieNiveaux(); 
+                                ajout(niv);
+                                break;
+                        case 2:niv=rechercheNiveaux();
+                                System.out.println(niv);
+                                break;
+                        case 3: modifierNiveaux();break;
+                        case 4:listeNiveaux(); break;
+                        case 5:supprimerNiveaux();break;
                     }
                 }
                 while(c!=6);
@@ -164,6 +201,14 @@ public class ProjetControleur {
             }
         }
         pm.setTrav(travailTmp);
+        
+        List<Temps>tempsTmp=new ArrayList();
+        for(Temps t:pm.getTemps()){
+            if(!t.getProj().equals(proj)){
+                tempsTmp.add(t);
+            }
+        }
+        pm.setTemps(tempsTmp);
         pm.supprimer(proj);
     }
     
@@ -201,7 +246,29 @@ public class ProjetControleur {
         String nom=pv.saisie("Entrez le nom de la discipline à supprimer");
         Discipline d=new Discipline();
         d=(Discipline)pm.get(nom,"", d);
+        List<Temps>tempsTmp=new ArrayList();
+        for(Temps t:pm.getTemps()){
+            if(!t.getDis().equals(d)){
+                tempsTmp.add(t);
+            }
+        }
+        pm.setTemps(tempsTmp);
         pm.supprimer(d);
+    }
+    public void supprimerNiveaux(){
+        String m1,m2;
+        Niveaux niv=new Niveaux();
+        boolean v;
+        int degre=pv.saisieInt("Entrez le degré à supprimer");
+        niv=(Niveaux)pm.get(degre, niv);
+        List<Competence>compTmp=new ArrayList();
+        for(Competence c:pm.getComp()){
+            if(!c.getNiveau().equals(niv)){
+                compTmp.add(c);
+            }
+        }
+        pm.setComp(compTmp);
+        pm.supprimer(niv);
     }
     public void modifierEntreprise(){
         int n;
@@ -335,7 +402,24 @@ public class ProjetControleur {
         if(pm.get(nom,"",discipline)!=null){
             o=pm.get(nom,"",discipline);
             nomRemp=pv.saisie("Entrez le nom de la discipline remplacé");
-            pv.affMessage(pm.modifierNomDiscipline((Discipline)o, nomRemp));
+            String m=pm.modifierNomDiscipline((Discipline)o, nomRemp);
+            pv.affMessage(m);
+        }
+        else{
+            pv.affMessage("Pas dans la table");
+        }
+        
+    }
+    
+    public void modifierNiveaux(){
+        int degre=pv.saisieInt("Entre le degré de compétence dont vous voulez changer la signification");
+        Niveaux niv=new Niveaux(degre);
+        String m;
+        if(pm.get(degre, niv)!=null){
+            
+            String description=pv.saisie("Entrez la nouvelle description");
+            m=pm.modifierDescriptionNiveaux(niv,description);
+            pv.affMessage(m);
         }
         else{
             pv.affMessage("Pas dans la table");
@@ -362,6 +446,18 @@ public class ProjetControleur {
           List <Discipline> ld=pm.getDis();
           pv.affListe(ld);
       }
+      public void listeTemps(){
+          List<Temps> lt=pm.getTemps();
+          pv.affListe(lt);
+      }
+      public void listeCompetence(){
+          List<Competence> lc=pm.getComp();
+          pv.affListe(lc);
+      }
+      public void listeNiveaux(){
+          List<Niveaux>ln=pm.getNiveau();
+          pv.affListe(ln);
+      }
      public void creerProjet(){
          int c;
          String m;
@@ -371,6 +467,8 @@ public class ProjetControleur {
          Travail t=new Travail();
          Entreprise e=new Entreprise();
          Projet p=pv.saisieProjet();
+         Discipline dis=new Discipline();
+         Temps temps=new Temps();
          boolean v=false;
          if(pm.get(p.getEnt().getNom(),"", p.getEnt())==null){
             pm.ajouter(p.getEnt());
@@ -395,20 +493,28 @@ public class ProjetControleur {
          }
          p.setEnt(e);
          pm.ajouter(p);
+         v=creerProjetDiscipline(p);
+         if(v==false){
+             pv.affMessage("Vous n'avez pas entré de discipline.");
+         }
+         v=creerProjetMembre(p);
+         if(v==false){
+             pv.affMessage("Vous n'avez pas entré de membre.");
+         }
+         
+         
+         
+     }
+     public boolean creerProjetMembre(Projet p){
+         int c;
+         Membre mem=new Membre();
+         Travail t=new Travail();
+         String m,m1;
+         boolean v=false;
          do{
              c=pv.menuCreerProjetMembre();
              switch(c){
-                 case 1:mem=pv.saisieMembre();
-                        if(pm.get(mem.getNomMem(),mem.getPrenomMem(), mem)==null&&mem!=null){
-                            ajout(mem);
-                            t= pv.saisieTravail(p,mem);
-                            ajout(t);
-                            v=true;
-                         }
-                        else{
-                            System.out.println("Il est déjà ajouter");
-                        }
-                        
+                 case 1:ajouterMembre(p);
                         break;
                  case 2: m=pv.saisie("Entrez un nom d'un membre");
                          m1=pv.saisie("Entrez le prénom du membre");
@@ -427,15 +533,96 @@ public class ProjetControleur {
              }
          }
          while(c!=3);
-         if(v==false){
-             pv.affMessage("Vous n'avez pas entré de membre.");
-         }
+         return v;
      }
-     public void ajouterMembreTravail(Projet p){
-         Membre mem=pv.saisieMembre();
-         Travail t=new Travail();
-         ajout(mem);
-         t=pv.saisieTravail(p,mem);
-         ajout(t);
+     
+     public boolean creerProjetDiscipline(Projet p){
+         int c;
+         Discipline dis=new Discipline();
+         Temps temps=new Temps();
+         String m;
+         boolean v=false;
+         do{
+             c=pv.menuCreerProjetDiscipline();
+             switch(c){
+                 case 1:dis=pv.saisieDiscipline();
+                        if(pm.get(dis.getNomdiscipline(),"", dis)==null&&dis!=null){
+                            ajout(dis);
+                            temps= pv.saisieTemps(p,dis);
+                            ajout(temps);
+                            v=true;
+                         }
+                        else{
+                            System.out.println("Il est déjà ajouté");
+                        }
+                        
+                        break;
+                 case 2: m=pv.saisie("Entrez une discipline");
+                         if(pm.get(m,"",dis)!=null){
+                                System.out.println(pm.get(m, "", dis));
+                                dis=(Discipline)pm.get(m, "", dis);
+                                v=true;
+                         }
+                         if(dis!=null){
+                                temps= pv.saisieTemps(p,dis);
+                                ajout(temps);
+                                v=true;
+                          }
+                         break;
+             }
+         }
+         while(c!=3);
+         return v;
+     }
+     public void ajouterMembre(Projet projet){
+         Membre membre=new Membre();
+         Travail travail=new Travail();
+         Niveaux niveau=new Niveaux();
+         Discipline dis=new Discipline();
+         int c;
+         List <Discipline> listeDis=pm.listeDisciplineProjet(projet.getTitre());
+         Boolean v=false;
+         membre=pv.saisieMembre();
+         
+         if(pm.get(membre.getNomMem(),membre.getPrenomMem(), membre)==null&&membre!=null){
+             ajout(membre);
+             travail= pv.saisieTravail(projet,membre);
+             ajout(travail);
+             
+             do{
+                pv.affListe(listeDis);
+                c=pv.saisieInt("Entrez le numéro de la discipline pour le membre");
+                if(c<listeDis.size()){
+                    dis=listeDis.get(c-1);
+                    niveau=pv.saisieNiveaux();
+                    ajout(niveau);
+                    Competence comp=new Competence( dis,niveau, membre);
+                    ajout(comp);
+                }
+             }
+             while((c+1)!=listeDis.size());
+             
+             v=true;
+         }
+            else{
+                System.out.println("Il est déjà ajouté");
+            }
+     }
+     public Discipline rechercheDiscipline(String d){
+         
+         Discipline dis=new Discipline();
+         if(pm.get(d,"",dis)!=null){
+             dis=(Discipline)pm.get(d,"",dis);
+        }
+        return dis;
+     }
+     public Niveaux rechercheNiveaux(){
+         int n;
+         Niveaux niv=new Niveaux();
+         n=pv.saisieInt("Entrez le degré de compétence");
+         if(pm.get(n, niv)!=null){
+             niv=(Niveaux)pm.get(n, niv);
+         }
+         return niv;
      }
 }

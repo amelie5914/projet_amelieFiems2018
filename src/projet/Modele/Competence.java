@@ -46,7 +46,7 @@ public class Competence {
 
     @Override
     public String toString() {
-        return "Competence{" + "degre=" +  ", discipline=" + discipline + ", niveau=" + niveau + ", mem=" + mem + '}';
+        return "Competence{" +   " discipline=" + discipline + ", niveau=" + niveau + ", mem=" + mem + '}';
     }
 
     @Override
@@ -56,6 +56,30 @@ public class Competence {
         hash = 59 * hash + Objects.hashCode(this.niveau);
         hash = 59 * hash + Objects.hashCode(this.mem);
         return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Competence other = (Competence) obj;
+        if (!Objects.equals(this.discipline, other.discipline)) {
+            return false;
+        }
+        if (!Objects.equals(this.niveau, other.niveau)) {
+            return false;
+        }
+        if (!Objects.equals(this.mem, other.mem)) {
+            return false;
+        }
+        return true;
     }
 
    

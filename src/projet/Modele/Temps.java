@@ -84,8 +84,16 @@ public class Temps {
         if (this.jHomme != other.jHomme) {
             return false;
         }
+        if (!Objects.equals(this.proj, other.proj)) {
+            return false;
+        }
+        if (!Objects.equals(this.dis, other.dis)) {
+            return false;
+        }
         return true;
     }
+
+    
     
 }
 

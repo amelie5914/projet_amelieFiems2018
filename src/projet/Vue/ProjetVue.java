@@ -6,11 +6,8 @@
 package projet.Vue;
 import java.util.Collection;
 import java.util.Scanner;
-import projet.Modele.Discipline;
-import projet.Modele.Entreprise;
-import projet.Modele.Membre;
-import projet.Modele.Projet;
-import projet.Modele.Travail;
+import projet.Modele.*;
+
 /**
  *
  * @author ameliefiems
@@ -18,19 +15,19 @@ import projet.Modele.Travail;
 public class ProjetVue {
     private Scanner sc = new Scanner(System.in);
     public int menu(){
-        System.out.println("1.Entreprise\n2.Projet\n3.Membre\n4.Travail\n5.Disciplines\n6.Temps");
+        System.out.println("1.Entreprise\n2.Projet\n3.Membre\n4.Travail\n5.Disciplines\n6.Temps\n7.Compétence\n8.Niveaux");
         int choix=sc.nextInt();
           sc.skip("\n");
         return choix;
     }
     public int menuEntreprise(){
-        System.out.println("ENTREPRISE\n1. Ajouter une entreprise\n2. Recherche de entreprise\n3.Modification entreprise\n4.Liste entreprise\n5.Suppresion entreprise\n6.liste ");
+        System.out.println("ENTREPRISE\n1. Ajouter une entreprise\n2. Recherche de entreprise\n3.Modification entreprise\n4.Liste entreprise\n5.Suppresion entreprise\n6.liste des projet d'une entreprise ");
         int choix=sc.nextInt();
           sc.skip("\n");
         return choix;
     }
     public int menuProjet(){
-        System.out.println("PROJET\n1.Ajout d'un projet\n2.Recherche d'un projet\n 3.Modification du titre\n4.Liste du projet\n5.Suppresion entreprise \n6.Liste de tous les membres d'un projet\n7. Ajouter un membre à un projet");
+        System.out.println("PROJET\n1.Ajout d'un projet\n2.Recherche d'un projet\n 3.Modification du titre\n4.Liste du projet\n5.Suppresion entreprise \n6.Liste de tous les membres d'un projet\n7. Ajouter un membre à un projet\n8. AJouter une discipline à un projet\n9 Liste de toutes les discplines d'un projet");
         int choix=sc.nextInt();
           sc.skip("\n");
         
@@ -62,6 +59,13 @@ public class ProjetVue {
         
         return choix;
     }
+    public int menuNiveaux(){
+        System.out.println("NIVEAUX\n1. AJouter un niveau\n2. Recherche d'un niveau\n3.Modification d'un niveau\nn4.Liste des différents niveau \n5.Suppression niveau");
+        int choix=sc.nextInt();
+          sc.skip("\n");
+        
+        return choix;
+    }
     public int menuMembreModif(){
         System.out.println("MODIFICATION\n1.GSM\n2.email");
         int choix=sc.nextInt();  
@@ -70,6 +74,12 @@ public class ProjetVue {
     }
     public int menuCreerProjetMembre(){
         System.out.println("Creation Projet\n1.Creer un nouveau membre\n2.Rechercher un nouveau membre");
+        int choix=sc.nextInt();
+          sc.skip("\n");
+        return choix;
+    }
+    public int menuCreerProjetDiscipline(){
+        System.out.println("Creation Projet\n1.Creer une nouvelle discipline\n2.Rechercher une nouvelle discipline");
         int choix=sc.nextInt();
           sc.skip("\n");
         return choix;
@@ -121,6 +131,17 @@ public class ProjetVue {
         String nom=saisie("Entrez le nom de la discipline");
         Discipline d=new Discipline(nom);
         return d;
+    }
+    public Temps saisieTemps(Projet proj,Discipline dis){
+        int jhomme=saisieInt("Entrez l'investissement en temps (jour/homme) ");
+        Temps t=new Temps(jhomme,proj,dis);
+        return t;
+    }
+    public Niveaux saisieNiveaux(){
+        int degre=saisieInt("Entrez le degré de compétence (1 :peu compétent,2 :moyennement compétent,3 :très compétent) ");
+        String signification=saisie("Entrez la signification de ce degré");
+        Niveaux n=new Niveaux(degre,signification);
+        return n;
     }
     public String saisie(String msg){
         System.out.println(msg);
