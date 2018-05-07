@@ -32,14 +32,14 @@ public class ProjetControleur {
         boolean v;
         String m,m1;
         Entreprise e=new Entreprise();
-        Projet p=new Projet();
+        ProjetGeneral pg;
         Membre membre=null
                 ;
         Discipline dis=new Discipline();
         Niveaux niv=new Niveaux();
         List <Membre>listeMembreP=new ArrayList();
         List <Discipline>listeDisProjet=new ArrayList();
-        List <Projet>listeProjetEntreprise=new ArrayList();
+        List <ProjetGeneral>listeProjetEntreprise=new ArrayList();
         do{
             choix=pv.menu();
             switch(choix){
@@ -59,7 +59,7 @@ public class ProjetControleur {
                                 case 5:supprimerEntreprise();break;
                                 case 6:m=pv.saisie("Entrez le titre d'une entreprise");
                                         listeProjetEntreprise=pm.listeProjetEntreprise(m);
-                                        for(Projet proj:listeProjetEntreprise){
+                                        for(ProjetGeneral proj:listeProjetEntreprise){
                                             System.out.println(proj);
                                         }break;
                                    
@@ -74,33 +74,50 @@ public class ProjetControleur {
                         switch(c){
                             case 1: 
                                     creerProjet();break;
-                            case 2: p=rechercheProjet();
-                                    System.out.println(p);break;
+                            case 2: pg=rechercheProjet();
+                                    System.out.println(pg);break;
                             case 3: modifierProjet();break;
                             case 4:listeProjet();break;
                             case 5:supprimerProjet();break;
                             case 6: m=pv.saisie("Entrez le titre d'un projet");
-                                listeMembreP=pm.listeMembreProjet(m);
+                            pg=null;
+                                do{
+                                    choix=pv.saisieInt("Est ce un simple ou un composite?\n1.Simple\n2.Composite");
+                                    switch(choix){
+                                        case 1:pg=new ProjetSimple();break;
+                                        case 2:pg=new Sous_projet();break;
+                                }
+                            }while(choix!=1&&choix!=2);
+                                listeMembreP=pm.listeMembreProjet(m,pg);
                                 for(Membre mbre:listeMembreP){
                                     System.out.println(mbre);
                                 }break;
-                            case 7:p=rechercheProjet();
-                                    if(p!=null)
+                            case 7:pg=rechercheProjet();
+                                    if(pg!=null)
                                         do{
-                                            v=creerProjetMembre(p);
+                                            v=creerProjetMembre(pg);
                                         }
                                         while(v==false);
                                     break;
-                            case 8:p=rechercheProjet();
-                                if(p!=null){
+                            case 8:pg=rechercheProjet();
+                                if(pg!=null){
                                     do{
-                                        v=creerProjetDiscipline(p);
+                                        v=creerProjetDiscipline(pg);
                                     }
                                     while(v==false);
                                 }
                                 break;
+                               
                             case 9:m=pv.saisie("Entrez le titre d'un projet");
-                                listeDisProjet=pm.listeDisciplineProjet(m);
+                             pg=null;
+                            do{
+                                choix=pv.saisieInt("Est ce un simple ou un composite?\n1.Simple\n2.Composite");
+                                switch(choix){
+                                    case 1:pg=new ProjetSimple();break;
+                                    case 2:pg=new Sous_projet();break;
+                                }
+                            }while(choix!=1&&choix!=2);
+                                listeDisProjet=pm.listeDisciplineProjet(m,pg);
                                 for(Discipline d:listeDisProjet){
                                     System.out.println(d);
                                 }break;
@@ -163,9 +180,8 @@ public class ProjetControleur {
         while(choix!=9);
     }
     public void ajout(Object o){
-        System.out.println("TEST");
         String m=pm.ajouter(o);
-        
+        System.out.println(m);
         if(m!=null){
             System.out.println(m);
         }
@@ -179,8 +195,8 @@ public class ProjetControleur {
         boolean v;
         m=pv.saisie("Entrez le nom de l'entreprise à supprimer");
         e=(Entreprise)pm.get(m,"", e);
-        List<Projet>ProjetTmp=new ArrayList();
-        for(Projet p:pm.getProjet()){
+        List<ProjetGeneral>ProjetTmp=new ArrayList();
+        for(ProjetGeneral p:pm.getProjet()){
             if(!p.getEnt().equals(e)){
                 ProjetTmp.add(p);
             }
@@ -192,13 +208,21 @@ public class ProjetControleur {
     }
     public void supprimerProjet(){
         String m;
-        Projet proj=new Projet();
+        int choix;
+        ProjetGeneral p=null;
         boolean v;
         m=pv.saisie("Entrez le nom du projet à supprimer");
-        proj=(Projet)pm.get(m,"", proj);
+        do{
+            choix=pv.saisieInt("Est ce un simple ou un composite?\n1.Simple\n2.Composite");
+             switch(choix){
+                 case 1:p=new ProjetSimple();break;
+                  case 2:p=new Sous_projet();break;
+              }
+        }while(choix!=1&&choix!=2);
+        p=pm.getProjet(p, m);
         List<Travail>travailTmp=new ArrayList();
         for(Travail t:pm.getTrav()){
-            if(!t.getProj().equals(proj)){
+            if(!t.getProj().equals(p)){
                 travailTmp.add(t);
             }
         }
@@ -206,21 +230,28 @@ public class ProjetControleur {
         
         List<Temps>tempsTmp=new ArrayList();
         for(Temps t:pm.getTemps()){
-            if(!t.getProj().equals(proj)){
+            if(!t.getProj().equals(p)){
                 tempsTmp.add(t);
             }
         }
         pm.setTemps(tempsTmp);
-        pm.supprimer(proj);
+        pm.supprimer(p);
     }
     
-    public Projet rechercheProjet(){
-        
+    public ProjetGeneral rechercheProjet(){
+        int choix;
         String m;
-        Projet p=new Projet();
+        ProjetGeneral p=null;
         m=pv.saisie("Entrez un nom de projet");
-        if(pm.get(m,"", p)!=null){
-             p=(Projet)pm.get(m,"", p);
+        do{
+            choix=pv.saisieInt("Est ce un simple ou un composite?\n1.Simple\n2.Composite");
+             switch(choix){
+                 case 1:p=new ProjetSimple();break;
+                  case 2:p=new Sous_projet();break;
+              }
+        }while(choix!=1&&choix!=2);
+        if(pm.getProjet(p, m)!=null){
+             p=pm.getProjet(p, m);
              return p;
         }
         else{
@@ -319,17 +350,25 @@ public class ProjetControleur {
     public void modifierProjet(){
          int n;
         String m;
-        Projet p=new Projet();
+        int choix;
+        ProjetGeneral p=null;
         do{
            n=pv.menuProjetModif();
-           Object o=new Projet();
+            do{
+                        choix=pv.saisieInt("Est ce un simple ou un composite?\n1.Simple\n2.Composite");
+                        switch(choix){
+                            case 1:p=new ProjetSimple();break;
+                            case 2:p=new Sous_projet();break;
+                        }
+           }while(choix!=1&&choix!=2);
            switch(n){
            case 1: m=pv.saisie("Entrez le nom du projet");
-                    if(pm.get(m,"", p)!=null){
-                        o=pm.get(m,"",p);
+                   
+                    if(pm.getProjet(p, m)!=null){
+                        p=pm.getProjet(p, m);
                         pv.affMessage("Entrez le nom du projet modifié");
                         String s=pv.saisie();
-                       m=pm.modifierTitreProjet((Projet)o, s);
+                       m=pm.modifierTitreProjet(p, s);
                         pv.affMessage(m);
                     }
                     else pv.affMessage("Pas dans la table");
@@ -337,10 +376,10 @@ public class ProjetControleur {
             case 2: 
                 m=pv.saisie("Entrez le nom du projet");
                 if(pm.get(m,"", p)!=null){
-                    o=pm.get(m,"",p);
+                    p=pm.getProjet(p, m);
                     System.out.println("Entrez la date du debut remplacé");
                     String s=pv.saisie();
-                    m=pm.modifierDateDebutProjet((Projet)o, s);
+                    m=pm.modifierDateDebutProjet(p, s);
                     pv.affMessage(m);
                 }
                 else pv.affMessage("Pas dans la table");
@@ -348,10 +387,10 @@ public class ProjetControleur {
             case 3: 
                 m=pv.saisie("Entrez le nom du projet");
                 if(pm.get(m,"", p)!=null){
-                    o=pm.get(m,"",p);
+                    p=pm.getProjet(p, m);
                     System.out.println("Entrez la date de fin remplacé");
                     String s=pv.saisie();
-                    m=pm.modifierDateFinProjet((Projet)o, s);
+                    m=pm.modifierDateFinProjet(p, s);
                     pv.affMessage(m);
                 }
                 else pv.affMessage("Pas dans la table");
@@ -400,7 +439,7 @@ public class ProjetControleur {
             
         }
       }
-      while(n!=4);
+      while(n!=3);
         } catch (Exception e) {
             System.out.println("erreur de création " + e);
         }
@@ -444,7 +483,7 @@ public class ProjetControleur {
         pv.affListe(le);
     }
      public void listeProjet(){
-        List<Projet> lp=pm.getProjet();
+        List<ProjetGeneral> lp=pm.getProjet();
         pv.affListe(lp);
     }
       public void listeMembre(){
@@ -472,19 +511,44 @@ public class ProjetControleur {
           pv.affListe(ln);
       }
      public void creerProjet(){
-         int c;
+         int c=0;
          String m;
          String m1;
          String nomEnt;
+         int choix=0;
+         ProjetGeneral p;
          Travail t=new Travail();
          Entreprise e=new Entreprise();
-         Projet p=pv.saisieProjet();
+         do{
+            choix=pv.saisieInt("Est ce un projet simple ou un groupe de projet? \n1.Simple\n2.Groupe");
+            p=pv.saisieProjet(choix);
+            if(choix==1){
+
+            }
+            else if(choix==2){
+                Sous_projet sp=new Sous_projet();
+                p=(Sous_projet)p;
+                do{
+                    if(!pm.getProjet().isEmpty()){
+                        listeProjet();
+                        c=pv.saisieInt("Entrez les sous-projets: ");
+                        sp.ajoutPG(pm.getProjet().get(c));
+                    }
+                    else{
+                        pv.affMessage("Il n' y a aucun autre projet.Donc recommencez en tant que projet simple");
+                        p=pv.saisieProjet(1);
+                    }
+                }
+                while(c<=pm.getProjet().size()&&!pm.getProjet().isEmpty());
+            }
+            }
+         while(choix!=1&&choix!=2);
          Discipline dis=new Discipline();
          Temps temps=new Temps();
          boolean v=false;
-         if(pm.get(p.getEnt().getNom(),"", p.getEnt())==null){
+         /*if(pm.get(p.getEnt().getNom(),"", p.getEnt())==null){
             pm.ajouter(p.getEnt());
-         }
+         }*/
          c=pv.menuCreerProjetEntreprise();
          switch(c){
              case 1: do{
@@ -517,7 +581,7 @@ public class ProjetControleur {
          
          
      }
-     public boolean creerProjetMembre(Projet p){
+     public boolean creerProjetMembre(ProjetGeneral p){
          int c;
          Membre mem=null;
          Travail t;
@@ -527,6 +591,7 @@ public class ProjetControleur {
              c=pv.menuCreerProjetMembre();
              switch(c){
                  case 1:ajouterMembre(p);
+                        v=true;
                         break;
                  case 2: m=pv.saisie("Entrez un nom d'un membre");
                          m1=pv.saisie("Entrez le prénom du membre");
@@ -545,10 +610,11 @@ public class ProjetControleur {
              }
          }
          while(c!=3);
+         System.out.println(v);
          return v;
      }
      
-     public boolean creerProjetDiscipline(Projet p){
+     public boolean creerProjetDiscipline(ProjetGeneral p){
          int c;
          Discipline dis=new Discipline();
          Temps temps=new Temps();
@@ -586,35 +652,38 @@ public class ProjetControleur {
          while(c!=3);
          return v;
      }
-     public void ajouterMembre(Projet projet){
+     public void ajouterMembre(ProjetGeneral projet){
          Membre membre;
          Travail travail=new Travail();
          Niveaux niveau=new Niveaux();
          Discipline dis=new Discipline();
-         int c;
-         List <Discipline> listeDis=pm.listeDisciplineProjet(projet.getTitre());
-         Boolean v=false;
+         int c=0;
+         List <Discipline> listeDis=pm.listeDisciplineProjet(projet.getTitre(),projet);
+         
          membre=pv.saisieMembre();
          
          if(pm.get(membre.getNomMem(),membre.getPrenomMem(), membre)==null&&membre!=null){
              ajout(membre);
              travail= pv.saisieTravail(projet,membre);
              ajout(travail);
-             
-             do{
-                pv.affListe(listeDis);
-                c=pv.saisieInt("Entrez le numéro de la discipline pour le membre");
-                if(c<listeDis.size()){
-                    dis=listeDis.get(c-1);
-                    niveau=pv.saisieNiveaux();
-                    ajout(niveau);
-                    Competence comp=new Competence( dis,niveau, membre);
-                    ajout(comp);
+             if(listeDis!=null){
+                do{
+                   pv.affListe(listeDis);
+                   c=pv.saisieInt("Entrez le numéro de la discipline pour le membre");
+                   if(c<listeDis.size()){
+                       dis=listeDis.get(c);
+                       niveau=pv.saisieNiveaux();
+                       ajout(niveau);
+                       Competence comp=new Competence( dis,niveau, membre);
+                       ajout(comp);
+                   }
+
                 }
+                while(c!=listeDis.size());
              }
-             while((c+1)!=listeDis.size());
-             
-             v=true;
+             else{
+                 System.out.println("Il y a aucune discipline enregistré");
+             }
          }
             else{
                 System.out.println("Il est déjà ajouté");

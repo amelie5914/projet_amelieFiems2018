@@ -27,7 +27,7 @@ public class ProjetVue {
         return choix;
     }
     public int menuProjet(){
-        System.out.println("PROJET\n1.Ajout d'un projet\n2.Recherche d'un projet\n 3.Modification du titre\n4.Liste du projet\n5.Suppresion entreprise \n6.Liste de tous les membres d'un projet\n7. Ajouter un membre à un projet\n8. AJouter une discipline à un projet\n9 Liste de toutes les discplines d'un projet");
+        System.out.println("PROJET\n1.Ajout d'un projet\n2.Recherche d'un projet\n 3.Modification du titre\n4.Liste du projet\n5.Suppresion projet \n6.Liste de tous les membres d'un projet\n7. Ajouter un membre à un projet\n8. AJouter une discipline à un projet\n9 Liste de toutes les discplines d'un projet");
         int choix=sc.nextInt();
           sc.skip("\n");
         
@@ -116,18 +116,23 @@ public class ProjetVue {
         }
         return membre;
     }
-    public Projet saisieProjet(){
+    public ProjetGeneral saisieProjet(int choix){
         sc.nextLine();
         String titre=saisie("Entrez le titre du projet");
         String dateDebut=saisie("Entrez la date de debut du projet");
         String dateFin=saisie("Entrez la date de fin du projet");
         Entreprise client=new Entreprise();
-        
-        
-        Projet p=new Projet(titre, dateDebut,dateFin,client);
+        ProjetGeneral p;
+        if(choix==1){
+            p=new ProjetSimple(titre,dateDebut,dateFin,client);
+            
+        }
+        else{
+            p=new Sous_projet(titre,dateDebut,dateFin,client);
+        }
         return p;
     }
-    public Travail saisieTravail(Projet p,Membre m){
+    public Travail saisieTravail(ProjetGeneral p,Membre m){
         
         String date=saisie("Entrez la date d'engagement dans le projet du membre");
         int taux=saisieInt("Entrez le pourcentage du temps qu'il y consacre");
@@ -140,7 +145,7 @@ public class ProjetVue {
         Discipline d=new Discipline(nom);
         return d;
     }
-    public Temps saisieTemps(Projet proj,Discipline dis){
+    public Temps saisieTemps(ProjetGeneral proj,Discipline dis){
         int jhomme=saisieInt("Entrez l'investissement en temps (jour/homme) ");
         Temps t=new Temps(jhomme,proj,dis);
         return t;

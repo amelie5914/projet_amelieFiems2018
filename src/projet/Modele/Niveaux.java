@@ -72,8 +72,13 @@ public class Niveaux {
         if (this.degre != other.degre) {
             return false;
         }
+        if (!Objects.equals(this.signification, other.signification)) {
+            return false;
+        }
         return true;
     }
+
+    
    
     
 }

@@ -13,12 +13,12 @@ import java.util.Objects;
  */
 public class Temps {
     private int jHomme;
-    private Projet proj;
+    private ProjetGeneral proj;
     private Discipline dis;
     public Temps(){
         
     }
-    public Temps(int jHomme, Projet proj, Discipline dis) {
+    public Temps(int jHomme, ProjetGeneral proj, Discipline dis) {
         this.jHomme = jHomme;
         this.proj = proj;
         this.dis = dis;
@@ -39,7 +39,7 @@ public class Temps {
         return jHomme;
     }
 
-    public Projet getProj() {
+    public ProjetGeneral getProj() {
         return proj;
     }
 
@@ -51,7 +51,7 @@ public class Temps {
         this.jHomme = jHomme;
     }
 
-    public void setProj(Projet proj) {
+    public void setProj(ProjetGeneral proj) {
         this.proj = proj;
     }
 

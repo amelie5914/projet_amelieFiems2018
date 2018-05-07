@@ -12,36 +12,36 @@ import java.util.Set;
  *
  * @author ameliefiems
  */
-public class Projet {
-    private String titre;
+public abstract class ProjetGeneral {
+    protected String titre;
     
-    private String dateDebut;
-    private String dateFin;
-    private double coutMax=0; 
-    private Entreprise ent;
+    protected String dateDebut;
+    protected String dateFin;
+    protected double coutMax=0; 
+    protected Entreprise ent;
     /*public Set<Temps> temps;
     public Set<Discipline> discipline;
     public Set<Membre> membre;
     */
-    public Projet(){
+    public ProjetGeneral(){
         this.dateDebut="";
         this.dateFin="";
         this.ent=null;
         this.titre="";
     }
-    public Projet(String titre){
+    public ProjetGeneral(String titre){
         this.titre=titre;
         dateDebut="";
         dateFin="";
         ent=null;
     }
-    public Projet(String titre, String dateDebut, String dateFin,Entreprise ent) {
+    public ProjetGeneral(String titre, String dateDebut, String dateFin,Entreprise ent) {
         this.titre = titre;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.ent = ent;
     }
-    public Projet(Entreprise e){
+    public ProjetGeneral(Entreprise e){
         this.titre = "";
         this.dateDebut ="";
         this.dateFin = "";
@@ -117,7 +117,7 @@ public class Projet {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Projet other = (Projet) obj;
+        final ProjetGeneral other = (ProjetGeneral) obj;
         if (!Objects.equals(this.titre, other.titre)) {
             return false;
         }

@@ -19,7 +19,7 @@ public class ProjetModele {
     private  List<Entreprise> entreprise =new ArrayList<>();
     private  List<Membre> membre = new ArrayList<>();
     private  List<Niveaux> niveau = new ArrayList<>();
-    private List<Projet> projet=new ArrayList<>();
+    private List<ProjetGeneral> projet=new ArrayList<>();
     private List<Temps> temps= new ArrayList<>();
     private List<Travail> trav = new ArrayList<>();
     /** 
@@ -77,7 +77,7 @@ public class ProjetModele {
                     message="niveau déjà enregistré";
                 }
             }
-            else if(o instanceof Projet){
+            else if(o instanceof ProjetSimple ||o instanceof Sous_projet){
                 if(!projet.contains(o)){
                     l=projet;
                     message="projet ajouté";
@@ -151,7 +151,7 @@ public class ProjetModele {
      * @param titre nouveau nom
      * @return chaine de caractère qui décrit l'état de la modification
      */
-    public String modifierTitreProjet(Projet p, String titre){
+    public String modifierTitreProjet(ProjetGeneral p, String titre){
         p.setTitre(titre);
         return "modification de titre effectué";
     }
@@ -161,7 +161,7 @@ public class ProjetModele {
      * @param date nouvelle date de début
      * @return chaine de caractère qui décrit l'état de la modification
      */
-    public String modifierDateDebutProjet(Projet p,String date){
+    public String modifierDateDebutProjet(ProjetGeneral p,String date){
         p.setDateDebut(date);
         return "modification de date du début du projet effectué";
     }
@@ -171,7 +171,7 @@ public class ProjetModele {
      * @param date nouvelle date de fin
      * @return chaine de caractère qui décrit l'état de la modification
      */
-    public String modifierDateFinProjet(Projet p,String date){
+    public String modifierDateFinProjet(ProjetGeneral p,String date){
         p.setDateFin(date);
         return "modification de date du début du projet effectué";
     }     
@@ -214,35 +214,28 @@ public class ProjetModele {
                         return null;
                     }
             }
-            else if(o instanceof Projet){
-                Projet p=new Projet(mot);
-                    int c=projet.indexOf(p);
-                    if(c>=0){
-                        return projet.get(c);
-                    }
-                    else{
-                        return null;
-                    }
-            }
             
             else if(o instanceof Membre){
-                Membre m=null;
                 Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
                 membreBuild.setNomMem(mot).setPrenomMem(mot2);
                 try{
-                    m=membreBuild.build();
+                    Membre m=membreBuild.build();
                     System.out.println(m);
-                }
-                catch(Exception e){
-                    System.out.println("Erreur de création"+e);
-                }
+                
+                
                     int c=membre.indexOf(m);
                     if(c>=0){
+                        
+                        System.out.println("Creation ok pour membre!!");
                         return membre.get(c);
                     }
                     else{
                         return null;
                     }
+                }
+                    catch(Exception e){
+                    System.out.println("Erreur de création"+e);
+                }
             }
             else if(o instanceof Discipline){
                 Discipline d=new Discipline(mot);
@@ -258,6 +251,22 @@ public class ProjetModele {
         }
         return null;
        
+    }
+    public ProjetGeneral getProjet(ProjetGeneral p,String m){
+        
+        if(p instanceof ProjetSimple){
+            p=new ProjetSimple(m);
+        }
+        else{
+            p=new Sous_projet(m);
+        }
+        int c=projet.indexOf(p);
+        if(c>=0){
+           return projet.get(c);
+        }
+        else{
+           return null;
+        }
     }
     public Travail getTrav(Membre m){
         Travail t=new Travail(m);
@@ -322,7 +331,7 @@ public class ProjetModele {
             if(o instanceof Entreprise){
                 verite=entreprise.remove(o);
             }
-            else if(o instanceof Projet){
+            else if(o instanceof ProjetSimple||o instanceof Sous_projet){
                 verite=projet.remove(o);
             }
             else if(o instanceof Travail){
@@ -348,16 +357,14 @@ public class ProjetModele {
             System.out.println("pas de suppression");
         }
         return verite;
-    }    
-    public List<Membre> listeMembreProjet(String m){
+    }
+    
+    public List<Membre> listeMembreProjet(String m,ProjetGeneral p){
         List <Membre> listeMembre=new ArrayList<>();
-        Projet p=new Projet(m);
-        Object o=new Projet();
-        o=get(m,"",p);
-        if(!o.equals(p)){
+        ProjetGeneral pg;
+        pg=getProjet(p,m);
+        if(pg==null){
             System.out.println("Ce projet n'existe pas");
-            System.out.println(o);
-            System.out.println(p);
             return null;
         }
             if(!membre.isEmpty()){
@@ -372,19 +379,19 @@ public class ProjetModele {
                 System.out.println("Je ne suis  vide");
             }
         
-        if(listeMembre.isEmpty()){ System.out.println("Il y a aucun membre");return null;
+        if(listeMembre.isEmpty()){ 
+            System.out.println("Il y a aucun membre");
+            return null;
         }
         return listeMembre;
        
     }
-    public List<Discipline> listeDisciplineProjet(String m){
+    public List<Discipline> listeDisciplineProjet(String m,ProjetGeneral p){
         List <Discipline> listeDis=new ArrayList<>();
-        Projet p=new Projet(m);
-        Object o=new Projet();
-        o=get(m,"",p);
-        if(!o.equals(p)){
+        Discipline d=new Discipline();
+        ProjetGeneral pg=getProjet(p,m);
+        if(pg==null){
             System.out.println("Ce projet n'existe pas");
-            System.out.println(o);
             System.out.println(p);
             return null;
         }
@@ -392,7 +399,10 @@ public class ProjetModele {
                 System.out.println("Je ne suis pas vide");
                 for(Temps t:temps){
                         if(t.getProj().equals(p)){
-                            listeDis.add(t.getDis());
+                            //Pour éviter qu'il recopie deux fois la meme discipline dans la liste discipline
+                            if(get(t.getDis().getNomdiscipline(),"",d)!=null){
+                                 listeDis.add(t.getDis());
+                            }
                         }
                 }
             }
@@ -405,8 +415,8 @@ public class ProjetModele {
         return listeDis;
        
     }
-    public List<Projet> listeProjetEntreprise(String nomEnt){
-        List<Projet>listeProj=new ArrayList<>();
+    public List<ProjetGeneral> listeProjetEntreprise(String nomEnt){
+        List<ProjetGeneral>listeProj=new ArrayList<>();
         Entreprise e=new Entreprise(nomEnt);
         Object o=new Entreprise();
         o=get(nomEnt,"",e);
@@ -416,7 +426,7 @@ public class ProjetModele {
         }
         if(!projet.isEmpty()) {
         
-            for(Projet p:projet){
+            for(ProjetGeneral p:projet){
                    if(p.getEnt().equals(e)){
                        listeProj.add(p);
                    }
@@ -470,7 +480,7 @@ public class ProjetModele {
      * getter de la liste de projets
      * @return la liste de projets
      */
-    public List<Projet> getProjet() {
+    public List<ProjetGeneral> getProjet() {
         return projet;
     }
     /**
@@ -489,7 +499,7 @@ public class ProjetModele {
         return trav;
     }
 
-    public void setProjet(List<Projet> projet) {
+    public void setProjet(List<ProjetGeneral> projet) {
         this.projet = projet;
     }
 
@@ -532,7 +542,7 @@ public class ProjetModele {
             System.out.println("erreur de création " + e);
         }
     }
-    public boolean modifCoutMax(Projet p, double coutMax){
+    public boolean modifCoutMax(ProjetGeneral p, double coutMax){
         if(coutMax<0|| coutMax>1000000) return false;
         p.setCoutMax(coutMax);
         return true;

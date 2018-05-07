@@ -14,12 +14,12 @@ import java.util.Objects;
 public class Travail {
     private String dateEng;
     private int taux;
-    private Projet proj;
+    private ProjetGeneral proj;
     private Membre mem;
     public Travail(){
         
     }
-    public Travail(String dateEng, int taux, Projet proj, Membre mem) {
+    public Travail(String dateEng, int taux, ProjetGeneral proj, Membre mem) {
         this.dateEng = dateEng;
         this.taux = taux;
         this.proj = proj;
@@ -52,7 +52,7 @@ public class Travail {
         return "Travail{" + "dateEng=" + dateEng + ", taux=" + taux + ", proj=" + proj + ", mem=" + mem + '}';
     }
 
-    public Projet getProj() {
+    public ProjetGeneral getProj() {
         return proj;
     }
 
@@ -68,7 +68,7 @@ public class Travail {
         this.taux = taux;
     }
 
-    public void setProj(Projet proj) {
+    public void setProj(ProjetGeneral proj) {
         this.proj = proj;
     }
 
