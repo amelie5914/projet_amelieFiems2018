@@ -532,7 +532,7 @@ public class ProjetControleur {
                     if(!pm.getProjet().isEmpty()){
                         listeProjet();
                         c=pv.saisieInt("Entrez les sous-projets: ");
-                        sp.ajoutPG(pm.getProjet().get(c));
+                        sp.ajoutPG(pm.getProjet().get(c-1));
                     }
                     else{
                         pv.affMessage("Il n' y a aucun autre projet.Donc recommencez en tant que projet simple");
@@ -650,6 +650,9 @@ public class ProjetControleur {
              }
          }
          while(c!=3);
+         /*int jHommeTotal=pm.journeeHommeTotalProjet(p);
+         temps.*/
+         System.out.println("Le nombre total de jour par homme: "+temps.getjHommeTotal());
          return v;
      }
      public void ajouterMembre(ProjetGeneral projet){
@@ -697,6 +700,7 @@ public class ProjetControleur {
         }
         return dis;
      }
+    
      public Niveaux rechercheNiveaux(){
          int n;
          Niveaux niv=new Niveaux();

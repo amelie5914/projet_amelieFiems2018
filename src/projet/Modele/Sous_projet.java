@@ -13,6 +13,8 @@ import java.util.*;
  */
 public class Sous_projet extends ProjetGeneral {
     List<ProjetGeneral> listePG=new ArrayList();
+    int totalJourneeHomme;
+    
     public Sous_projet(String titre, String dateDebut, String dateFin,Entreprise ent){
         super(titre,dateDebut,dateFin,ent);
     }
@@ -28,5 +30,20 @@ public class Sous_projet extends ProjetGeneral {
     public void ajoutPG(ProjetGeneral pg){
         listePG.add(pg);
     }
+    public void setTotalJourneeHomme(int totalJourneeHomme){
+        this.totalJourneeHomme=totalJourneeHomme;
+    }
+    public void ajoutTotalJourneeHomme(int totalJourneeHomme){
+        this.totalJourneeHomme+=totalJourneeHomme;
+    }
+
+    public List<ProjetGeneral> getListePG() {
+        return listePG;
+    }
+
+    public int getTotalJourneeHomme() {
+        return totalJourneeHomme;
+    }
+    
     
 }

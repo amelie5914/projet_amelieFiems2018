@@ -110,6 +110,7 @@ public class ProjetVue {
         membreBuild.setNomMem(nom).setPrenomMem(prenom).setGsm(gsm).setEmail(email);
         try{
             membre=membreBuild.build();
+            
         }
         catch(Exception e){
             System.out.println("Erreur de création"+e);

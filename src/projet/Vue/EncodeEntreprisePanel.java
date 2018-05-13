@@ -65,6 +65,11 @@ public class EncodeEntreprisePanel extends javax.swing.JPanel {
         });
 
         jBClear.setText("CLEAR");
+        jBClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -125,6 +130,10 @@ public class EncodeEntreprisePanel extends javax.swing.JPanel {
         String tel=tftelEnt.getText();
         
     }//GEN-LAST:event_jBOKActionPerformed
+
+    private void jBClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBClearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBClearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

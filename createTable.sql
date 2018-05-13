@@ -11,8 +11,7 @@
 CREATE TABLE Entreprise
 (idEnt number constraint ent_pk PRIMARY KEY,
 nomEnt varchar2(30) constraint ent_nom_uk UNIQUE ,
-telEnt varchar2(12) constraint ent_tel_check CHECK(regexp_like(telEnt
-,'^0[[:digit:]]{2}\/[[:digit:]]{2}\.[[:digit:]]{2}\.[[:digit:]]{2}$'),
+telEnt varchar2(12) constraint ent_tel_check 
 adresse varchar2(70));
 
 CREATE TABLE Projet
@@ -21,7 +20,8 @@ CREATE TABLE Projet
     idCli number constraint proj_idCli_fk FOREIGN KEY (idCli) REFERENCES Entreprise (idEnt),
     titre varchar2(40) constraint proj_titre_uk UNIQUE,
     dateDebut DATE ,
-    dateFin DATE
+    dateFin DATE,
+    id_proj_composite number constraint projet_fk FOREIGN KEY (id_proj_composite) references Projet(idproj)
 );
 
 CREATE TABLE Travail
@@ -108,15 +108,18 @@ START WITH 1;
 CREATE OR REPLACE TRIGGER before_insert_entreprise BEFORE INSERT 
 ON Entreprise FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.idEnt is null then 
+    IF INSERTING AND ::NEW.IDENT is null then 
         SELECT Entreprise_seq_idEnt.NEXTVAL INTO :NEW.IDENT FROM DUAL;
     END IF;    
 END;
 
+
+
+
 CREATE OR REPLACE TRIGGER before_insert_projet BEFORE INSERT 
 ON Projet FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.idProj is null then 
+    IF INSERTING AND :NEW.IDProj is null then 
         SELECT Projet_seq_idProj.NEXTVAL INTO :NEW.IDProj FROM DUAL;
     END IF;    
 END;
@@ -124,7 +127,7 @@ END;
 CREATE OR REPLACE TRIGGER before_insert_travail BEFORE INSERT 
 ON Travail FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.idTrav is null then 
+    IF INSERTING AND :NEW.IDTRAV is null then 
         SELECT Travail_seq_idTrav.NEXTVAL INTO :NEW.IDTRAV FROM DUAL;
     END IF;    
 END;
@@ -132,7 +135,7 @@ END;
 CREATE OR REPLACE TRIGGER before_insert_membre BEFORE INSERT 
 ON Membre FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.idMem is null then 
+    IF INSERTING AND :NEW.IDMem is null then 
         SELECT Membre_seq_idmem.NEXTVAL INTO :NEW.IDMem FROM DUAL;
     END IF;    
 END;
@@ -140,7 +143,7 @@ END;
 CREATE OR REPLACE TRIGGER before_insert_competence BEFORE INSERT 
 ON Competence FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.idcomp is null then 
+    IF INSERTING AND :NEW.IDCOMP is null then 
         SELECT Competence_seq_idcomp.NEXTVAL INTO :NEW.IDCOMP FROM DUAL;
     END IF;    
 END;
@@ -148,15 +151,15 @@ END;
 CREATE OR REPLACE TRIGGER before_insert_niveau BEFORE INSERT 
 ON Niveau FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.idniv is null then 
-        SELECT Entreprise_seq_idNiv.NEXTVAL INTO :NEW.IDNIV FROM DUAL;
+    IF INSERTING AND :NEW.IDNIV is null then 
+        SELECT niveau_seq_idNiv.NEXTVAL INTO :NEW.IDNIV FROM DUAL;
     END IF;    
 END;
 
 CREATE OR REPLACE TRIGGER before_insert_discipline BEFORE INSERT 
 ON Discipline FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.iddis is null then 
+    IF INSERTING AND :NEW.IDDIS is null then 
         SELECT Discipline_seq_iddis.NEXTVAL INTO :NEW.IDDIS FROM DUAL;
     END IF;    
 END;
@@ -164,7 +167,7 @@ END;
 CREATE OR REPLACE TRIGGER before_insert_temps BEFORE INSERT 
 ON Temps FOR EACH ROW
 BEGIN 
-    IF INSERTING AND :new.idTemps is null then 
+    IF INSERTING AND :NEW.IDTemps is null then 
         SELECT Temps_seq_idTemps.NEXTVAL INTO :NEW.IDTemps FROM DUAL;
     END IF;    
 END;

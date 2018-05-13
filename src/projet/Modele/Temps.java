@@ -15,6 +15,7 @@ public class Temps {
     private int jHomme;
     private ProjetGeneral proj;
     private Discipline dis;
+    private int jHommeTotal;
     public Temps(){
         
     }
@@ -22,6 +23,10 @@ public class Temps {
         this.jHomme = jHomme;
         this.proj = proj;
         this.dis = dis;
+        if(proj instanceof ProjetSimple){
+         this.jHommeTotal=jHomme;
+        }
+        this.jHommeTotal=jHommeTotal+jHomme;
     }
     public Temps(int jHomme){
         this.jHomme=jHomme;
@@ -47,6 +52,10 @@ public class Temps {
         return dis;
     }
 
+    public int getjHommeTotal() {
+        return jHommeTotal;
+    }
+    
     public void setjHomme(int jHomme) {
         this.jHomme = jHomme;
     }

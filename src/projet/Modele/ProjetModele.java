@@ -358,7 +358,21 @@ public class ProjetModele {
         }
         return verite;
     }
-    
+     public int journeeHommeTotalProjet(ProjetGeneral p){
+         int journeeHommeTotalProjet=0;
+         if(p==null)
+         {
+             return 0;
+         }
+         if(!temps.isEmpty()){
+             for(Temps t:temps){
+                 if(t.getProj().equals(p)){
+                     journeeHommeTotalProjet+=t.getjHomme();
+                 }
+             }
+         }
+         return journeeHommeTotalProjet;
+     }
     public List<Membre> listeMembreProjet(String m,ProjetGeneral p){
         List <Membre> listeMembre=new ArrayList<>();
         ProjetGeneral pg;
