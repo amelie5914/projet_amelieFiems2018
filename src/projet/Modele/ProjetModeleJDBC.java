@@ -115,7 +115,7 @@ public class ProjetModeleJDBC extends ProjetModele{
                     }
             }
             else if(o instanceof Membre){
-                    query="insert into MEMBRE(NOMMEM,PRENOMMEM,TELMEM,EMAIL) values (?,?,?,?) ";
+                    query="insert into MEMBRE(NOMMEM,PRENOMMEN,TELMEM,EMAIL) values (?,?,?,?) ";
                      try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
                        dbConnect.setAutoCommit(true);
                        pstm.setString(1,((Membre) o).getNomMem());
@@ -279,7 +279,7 @@ public class ProjetModeleJDBC extends ProjetModele{
         String message="";
         int m=0;
         ResultSet rs=null;
-         query="select idMem from Membre where NOMMEM=? and PRENOMMEM=?";
+         query="select idMem from Membre where NOMMEM=? and PRENOMMEN=?";
         try(PreparedStatement pstm=dbConnect.prepareStatement(query)) {
             pstm.setString(1, c.getMem().getNomMem());
             pstm.setString(2,c.getMem().getPrenomMem());
@@ -560,7 +560,7 @@ public class ProjetModeleJDBC extends ProjetModele{
     }     
     @Override
     public String modifierGSMMembre(Membre m,String gsmMem){
-        String query = "UPDATE MEMBRE SET TELMEM = ? where NOMMEM= ? AND PRENOMMEM=?";
+        String query = "UPDATE MEMBRE SET TELMEM = ? where NOMMEM= ? AND PRENOMMEN=?";
         String msg;
         try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
             dbConnect.setAutoCommit(true);
@@ -581,7 +581,7 @@ public class ProjetModeleJDBC extends ProjetModele{
     }
     @Override
     public String modifierEmailMembre(Membre m,String email){
-        String query = "UPDATE MEMBRE SET EMAIL = ? where NOMMEM= ? AND PRENOMMEM=?";
+        String query = "UPDATE MEMBRE SET EMAIL = ? where NOMMEM= ? AND PRENOMMEN=?";
         String msg;
        try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
             dbConnect.setAutoCommit(true);
@@ -679,7 +679,7 @@ public class ProjetModeleJDBC extends ProjetModele{
             else if(o instanceof Membre){
                 String query="";
                 String message="";
-                 query="select NOMMEM,PRENOMMEM,TELMEM,EMAIL from MEMBRE where NOMMEM=? AND PRENOMMEM=?";
+                 query="select NOMMEM,PRENOMMEN,TELMEM,EMAIL from MEMBRE where NOMMEM=? AND PRENOMMEN=?";
                     ResultSet rs = null;
                     try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
                         pstm.setString(1, mot);
@@ -687,7 +687,7 @@ public class ProjetModeleJDBC extends ProjetModele{
                         rs = pstm.executeQuery();
                         if (rs.next()) {
                              String n = rs.getString("NOMMEM");
-                             String p = rs.getString("PRENOMMEM");
+                             String p = rs.getString("PRENOMMEN");
                              String tel=rs.getString("TELMEM");
                              String email=rs.getString("EMAIL");
                             Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
@@ -828,7 +828,7 @@ public class ProjetModeleJDBC extends ProjetModele{
         String query="";
         ProjetGeneral p;
         String message="";
-        query="select T.DATEENG DATEENG,NVL(T.IDPROJ,0) IDPROJ,T.TAUX TAUX,m.IDMEM IDMEM, m.NOMMEM NOMMEM,m.PRENOMMEM PRENOMMEM,m.TELMEM TELMEM,m.EMAIL EMAIL from TRAVAIL T join Membre m on m.idmem=T.idmem where m.NOMMEM=? AND m.PRENOMMEM=?";
+        query="select T.DATEENG DATEENG,NVL(T.IDPROJ,0) IDPROJ,T.TAUX TAUX,m.IDMEM IDMEM, m.NOMMEM NOMMEM,m.PRENOMMEN PRENOMMEN,m.TELMEM TELMEM,m.EMAIL EMAIL from TRAVAIL T join Membre m on m.idmem=T.idmem where m.NOMMEM=? AND m.PRENOMMEN=?";
         Travail t=new Travail();
         ResultSet rs = null;
         try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
@@ -901,14 +901,14 @@ public class ProjetModeleJDBC extends ProjetModele{
     public Membre getMembre(int idMem){
         String query="";
         String message="";
-        query="select NOMMEM,PRENOMMEM,TELMEM,EMAIL from MEMBRE where IDMEM=?";
+        query="select NOMMEM,PRENOMMEN,TELMEM,EMAIL from MEMBRE where IDMEM=?";
         ResultSet rs = null;
         try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
             pstm.setInt(1, idMem);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 String n = rs.getString("NOMMEM");
-                String p = rs.getString("PRENOMMEM");
+                String p = rs.getString("PRENOMMEN");
                 String tel=rs.getString("TELMEM");
                 String email=rs.getString("EMAIL");
                 Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
@@ -1121,7 +1121,7 @@ public class ProjetModeleJDBC extends ProjetModele{
             else if(o instanceof Membre){
                 String query="";
                 String message="";
-                query="select IDMEM from MEMBRE where NOMMEM=? AND PRENOMMEM=?";
+                query="select IDMEM from MEMBRE where NOMMEM=? AND PRENOMMEN=?";
                 ResultSet rs = null;
                     try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query);PreparedStatement pstm2=dbConnect.prepareStatement(query);PreparedStatement pstm3=dbConnect.prepareStatement(query)){
                         dbConnect.setAutoCommit(true);
@@ -1274,7 +1274,7 @@ public class ProjetModeleJDBC extends ProjetModele{
         int id,idCli,idProjCompo;
         String n,prenom,tel,email;
         List <Membre> lm=new ArrayList();
-         query="select p.titre TITRE,m.idMem IDMEM,m.nomMem NOMMEM,m.PRENOMMEN PRENOMMEM,m.telMem TELMEM,m.email EMAIL from projet p join travail"
+         query="select p.titre TITRE,m.idMem IDMEM,m.nomMem NOMMEM,m.PRENOMMEN PRENOMMEN,m.telMem TELMEM,m.email EMAIL from projet p join travail"
                  + " t on t.idproj=p.idproj join membre m on m.idmem=t.idmem where p.titre=?";
         ResultSet rs = null;
         try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
@@ -1285,7 +1285,7 @@ public class ProjetModeleJDBC extends ProjetModele{
             while (rs.next()) {
                 id= rs.getInt("IDMEM");
                 n=rs.getString("NOMMEM");
-                prenom=rs.getString("PRENOMMEM");
+                prenom=rs.getString("PRENOMMEN");
                 tel=rs.getString("TELMEN");
                 email=rs.getString("EMAIL");
                 Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
@@ -1361,7 +1361,7 @@ public class ProjetModeleJDBC extends ProjetModele{
         String query="";
         int id,idCli,idProjCompo;
         String n,jhomme,titre;
-         query="select p.titre,p.dateDebut,p.dateFin,p.id_proj_composite from Projet p join Entreprise e on e.idEnt=p.idcli where noment=?";
+         query="select p.titre TITRE,p.dateDebut DATEDEBUT,p.dateFin DATEFIN,p.id_proj_composite IDPROJCOMPO from Projet p join Entreprise e on e.idEnt=p.idcli where e.noment=?";
         ResultSet rs = null;
         try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
             dbConnect.setAutoCommit(true);
@@ -1449,5 +1449,232 @@ public class ProjetModeleJDBC extends ProjetModele{
             msg = "erreur lors du changement du titre " + ex;
         }
         return msg;
+    }
+   public Niveaux getNiv(int idNiv){
+       String query="";
+        String message="";
+        int m=0;
+         query="select idniv,degre,signification from niveau where idniv=? ";
+        ResultSet rs = null;
+        try(PreparedStatement pstm=dbConnect.prepareStatement(query)) {
+            pstm.setInt(1, idNiv);
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                int degre = rs.getInt("DEGRE");
+                String signification=rs.getString("SIGNIFICATION");
+                Niveaux n=new Niveaux (degre,signification);
+                return n;
+            } 
+        } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+        } 
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                } catch (SQLException e) {
+                    System.err.println("erreur de fermeture de resultset " + e);
+                }     
+        }
+        return null;
+   }
+   
+    
+   @Override
+    public List<Competence> getComp() {
+          String query="";
+        int id,idniv,idMem,idDis;
+        List <Competence> lc=new ArrayList();
+        query="select idcomp,idniv,idmem,iddis from Competence";
+        try(Statement stmt=dbConnect.createStatement();ResultSet rs=stmt.executeQuery(query)) { 
+            while (rs.next()) {
+                id= rs.getInt("IDCOMP");
+                idniv=rs.getInt("IDNIV");
+                idMem=rs.getInt("IDMEM");
+                idDis=rs.getInt("IDDIS");
+                Niveaux n=getNiv(idniv);
+                Membre m=getMembre(idMem);
+                Discipline d=getDis(idDis);
+                Competence c=new Competence(d,n,m);
+                lc.add(c);
+        } 
+                        
+         } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lc;  
+    }
+    
+    public List<Discipline> getDis() {
+         String query="";
+        int iddis;
+        String nom;
+        List <Discipline> lc=new ArrayList();
+        query="select iddis,nomdis from Discipline";
+        try(Statement stmt=dbConnect.createStatement();ResultSet rs=stmt.executeQuery(query)) { 
+            while (rs.next()) {
+                iddis= rs.getInt("IDDIS");
+                nom=rs.getString("NOMDIS");
+                Discipline d=new Discipline(nom);
+                lc.add(d);
+        }              
+         } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lc; 
+    }
+    /**
+     * getter de la liste d'entreprises
+     * @return la liste d'entreprises
+     */
+    public List<Entreprise> getEntreprise() {
+        String query="";
+        int idEnt;
+        String nom,tel,adresse;
+        List <Entreprise> lc=new ArrayList();
+        query="select IDENT,NOMENT,TELENT,ADRESSE from ENTREPRISE";
+        try(Statement stmt=dbConnect.createStatement();ResultSet rs=stmt.executeQuery(query)) { 
+            while (rs.next()) {
+                idEnt= rs.getInt("IDENT");
+                nom=rs.getString("NOMENT");
+                tel=rs.getString("TELENT");
+                adresse=rs.getString("ADRESSE");
+                Entreprise e=new Entreprise(nom,tel,adresse);
+                lc.add(e);
+        }              
+         } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lc; 
+    }
+    /**
+     * getter de la liste de membres
+     * @return la liste de membres
+     */
+    public List<Membre> getMembre() {
+        String query="";
+        String nom,tel;
+        List <Membre> lm=new ArrayList();
+        query="select NOMMEM,PRENOMMEN,TELMEM,EMAIL from MEMBRE";
+        try(Statement stmt=dbConnect.createStatement();ResultSet rs=stmt.executeQuery(query)) { 
+            while (rs.next()) {
+                String n = rs.getString("NOMMEM");
+                String p = rs.getString("PRENOMMEN");
+                tel=rs.getString("TELMEM");
+                String email=rs.getString("EMAIL");
+                Membre.MembreBuilder membreBuild=new Membre.MembreBuilder();
+                membreBuild.setNomMem(n).setPrenomMem(p).setGsm(tel).setEmail(email);
+                Membre m=membreBuild.build();
+                lm.add(m);
+        }              
+         } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lm; 
+    }
+    /**
+     * getter de la liste de niveaux
+     * @return la liste de niveaux
+     */
+    public List<Niveaux> getNiveau() {
+      String query="";
+        int idNiv,degre;
+        String signification;
+        List <Niveaux> ln=new ArrayList();
+        query="select IDNIV,DEGRE,SIGNIFICATION from NIVEAU";
+        try(Statement stmt=dbConnect.createStatement();ResultSet rs=stmt.executeQuery(query)) { 
+            while (rs.next()) {
+                idNiv= rs.getInt("IDNIV");
+                degre=rs.getInt("DEGRE");
+                signification=rs.getString("SIGNIFICATION");
+                Niveaux n=new Niveaux(degre,signification);
+                ln.add(n);
+        }              
+         } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ln;   
+    }
+    /**
+     * getter de la liste de projets
+     * @return la liste de projets
+     */
+    
+    /**
+     * getter de la liste des temps
+     * @return la liste des temps
+     */
+    public List<Temps> getTemps() {
+         String query="";
+        int idTemps,jhomme,idProj,idDis;
+        List <Temps> ln=new ArrayList();
+        query="select IDTEMPS,JHOMME,IDPROJ,IDDIS from TEMPS";
+        try(Statement stmt=dbConnect.createStatement();ResultSet rs=stmt.executeQuery(query)) { 
+            while (rs.next()) {
+                idTemps= rs.getInt("IDTEMPS");
+                jhomme=rs.getInt("JHOMME");
+                idProj=rs.getInt("IDPROJ");
+                idDis=rs.getInt("IDDIS");
+                ProjetGeneral p=getProjet(idProj);
+                Discipline d=getDis(idDis);
+                Temps temps=new Temps(jhomme,p,d);
+                ln.add(temps);
+        }              
+         } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ln; 
+    }
+    /**
+     * getter de la liste des travaux
+     * @return liste des travaux
+     */
+
+    public List<Travail> getTrav() {
+         String query="";
+        int idTemps,jhomme,idProj,idTrav,idMem,taux;
+        List <Travail> ln=new ArrayList();
+        query="select IDTRAV,IDPROJ,IDMEM,DATEENG,TAUX from TRAVAIL";
+        try(Statement stmt=dbConnect.createStatement();ResultSet rs=stmt.executeQuery(query)) { 
+            while (rs.next()) {
+                idTrav= rs.getInt("IDTRAV");
+                idMem=rs.getInt("IDMEM");
+                idProj=rs.getInt("IDPROJ");
+                taux=rs.getInt("TAUX");
+                LocalDate de=rs.getDate("DATEENG").toLocalDate();
+                ProjetGeneral p=getProjet(idProj);
+                Membre m=getMembre(idMem);
+                Travail trav=new Travail(de.toString(),taux,p,m);
+                ln.add(trav);
+        }              
+         } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+         }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return ln; 
     }
 }
