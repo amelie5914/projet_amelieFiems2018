@@ -195,13 +195,13 @@ public class ProjetControleur {
         boolean v;
         m=pv.saisie("Entrez le nom de l'entreprise à supprimer");
         e=(Entreprise)pm.get(m,"", e);
-        List<ProjetGeneral>ProjetTmp=new ArrayList();
+        //List<ProjetGeneral>ProjetTmp=new ArrayList();
         for(ProjetGeneral p:pm.getProjet()){
-            if(!p.getEnt().equals(e)){
-                ProjetTmp.add(p);
+            if(p.getEnt().equals(e)){
+                v=pm.supprimer(p);
             }
         }
-        pm.setProjet(ProjetTmp);
+       // pm.setProjet(ProjetTmp);
         pm.supprimer(e);
        
        
@@ -220,21 +220,16 @@ public class ProjetControleur {
               }
         }while(choix!=1&&choix!=2);
         p=pm.getProjet(p, m);
-        List<Travail>travailTmp=new ArrayList();
         for(Travail t:pm.getTrav()){
-            if(!t.getProj().equals(p)){
-                travailTmp.add(t);
+            if(t.getProj().equals(p)){
+                v=pm.supprimer(t);
             }
         }
-        pm.setTrav(travailTmp);
-        
-        List<Temps>tempsTmp=new ArrayList();
         for(Temps t:pm.getTemps()){
-            if(!t.getProj().equals(p)){
-                tempsTmp.add(t);
+            if(t.getProj().equals(p)){
+                v=pm.supprimer(t);
             }
         }
-        pm.setTemps(tempsTmp);
         pm.supprimer(p);
     }
     
@@ -266,26 +261,26 @@ public class ProjetControleur {
         m1=pv.saisie("Entrez le nom du membre à supprimer");
         m2=pv.saisie("Entrez le prenom du membre à supprimer");
         membre=(Membre)pm.get(m1,m2, membre);
-        List<Travail>travailTmp=new ArrayList();
         for(Travail t:pm.getTrav()){
-            if(!t.getMem().equals(membre)){
-                travailTmp.add(t);
+            if(t.getMem().equals(membre)){
+                v=pm.supprimer(t);
             }
         }
-        pm.setTrav(travailTmp);
         pm.supprimer(membre);
     }
     public void supprimerDiscipline(){
         String nom=pv.saisie("Entrez le nom de la discipline à supprimer");
         Discipline d=new Discipline();
         d=(Discipline)pm.get(nom,"", d);
-        List<Temps>tempsTmp=new ArrayList();
+        boolean v;
+        //List<Temps>tempsTmp=new ArrayList();
         for(Temps t:pm.getTemps()){
-            if(!t.getDis().equals(d)){
-                tempsTmp.add(t);
+            if(t.getDis().equals(d)){
+               // tempsTmp.add(t);
+               v=pm.supprimer(t);
             }
         }
-        pm.setTemps(tempsTmp);
+        //pm.setTemps(tempsTmp);
         pm.supprimer(d);
     }
     public void supprimerNiveaux(){
@@ -294,13 +289,13 @@ public class ProjetControleur {
         boolean v;
         int degre=pv.saisieInt("Entrez le degré à supprimer");
         niv=(Niveaux)pm.get(degre, niv);
-        List<Competence>compTmp=new ArrayList();
+        //List<Competence>compTmp=new ArrayList();
         for(Competence c:pm.getComp()){
-            if(!c.getNiveau().equals(niv)){
-                compTmp.add(c);
+            if(c.getNiveau().equals(niv)){
+                v=pm.supprimer(c);
             }
         }
-        pm.setComp(compTmp);
+        //pm.setComp(compTmp);
         pm.supprimer(niv);
     }
     public void modifierEntreprise(){

@@ -455,8 +455,9 @@ public class ProjetModele {
         }
         return listeProj;
     }
-    public void ajoutSousProjet(Sous_projet sp,ProjetGeneral pg){
+    public String ajoutSousProjet(Sous_projet sp,ProjetGeneral pg){
         sp.ajoutPG(pg);
+        return "ajout des projets ";
     }
     /**
      * getter de liste competences

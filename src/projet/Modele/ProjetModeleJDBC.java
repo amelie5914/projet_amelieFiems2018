@@ -1399,6 +1399,55 @@ public class ProjetModeleJDBC extends ProjetModele{
         }
         return listeProj;
     }
-    
-   
+    @Override
+   public String ajoutSousProjet(Sous_projet sp,ProjetGeneral pg){
+       String query="";
+        String message="";
+        int id=0,idCli,idProjCompo;
+        String t;
+        ProjetGeneral p;
+        query="select idproj from projet where titre=?";
+        ResultSet rs = null;
+        try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
+            pstm.setString(1, pg.getTitre());
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                id= rs.getInt("IDPROJ");
+            }
+            else{
+                message="Le sous projet n'existe pas";
+                return null;
+            }
+                        
+        } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+        }
+         finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                } catch (SQLException e) {
+                    System.err.println("erreur de fermeture de resultset " + e);
+                }   
+        }
+        query = "UPDATE PROJET SET id_proj_composite = ? where TITRE= ?";
+        String msg;
+        try(PreparedStatement pstm=dbConnect.prepareStatement(query)){
+            dbConnect.setAutoCommit(true);
+            
+            pstm.setInt(1, id);
+            pstm.setString(2, sp.getTitre());
+            int n = pstm.executeUpdate();
+            if (n == 1) {
+                msg = "changement du projet effectué";
+            } else {
+                msg = "changement du projet non effectué";
+            }
+
+        } catch (SQLException ex) {
+            msg = "erreur lors du changement du titre " + ex;
+        }
+        return msg;
+    }
 }
