@@ -390,7 +390,7 @@ public class ProjetModele {
                 }
             }
             else{
-                System.out.println("Je ne suis  vide");
+                System.out.println("Je ne suis vide");
             }
         
         if(listeMembre.isEmpty()){ 
@@ -454,6 +454,9 @@ public class ProjetModele {
             return null;
         }
         return listeProj;
+    }
+    public void ajoutSousProjet(Sous_projet sp,ProjetGeneral pg){
+        sp.ajoutPG(pg);
     }
     /**
      * getter de liste competences
