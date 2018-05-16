@@ -18,8 +18,6 @@ import my_connections.DBConnection;
  */
 public class ProjetModeleJDBC extends ProjetModele{
     Connection dbConnect;
-    String nom="";
-    String prenom="";
             
     public ProjetModeleJDBC(){
         dbConnect = DBConnection.getConnection();
@@ -1041,18 +1039,19 @@ public class ProjetModeleJDBC extends ProjetModele{
                 String query="";
                 String message="";
                 query="select IDENT from ENTREPRISE where NOMENT=?";
+                String query1="DELETE FROM projet WHERE idCli=?";
+                String query2= "DELETE FROM entreprise WHERE idEnt = ?"; 
+                
                 ResultSet rs = null;
-                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query);PreparedStatement pstm2=dbConnect.prepareStatement(query)){
+                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1);PreparedStatement pstm2=dbConnect.prepareStatement(query2)){
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1,((Entreprise) o).getNom());
                             rs = pstm.executeQuery();
                         if (rs.next()) {
                           int ident=rs.getInt("IDENT");
-                          String query1="DELETE FROM projet WHERE idCli=?";
                             pstm1.setInt(1,ident);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table projet"); //suppression de l'emprunt
-                            String query2= "DELETE FROM entreprise WHERE idEnt = ?"; 
                             pstm2.setInt(1, ident);
                             nl= pstm2.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table entreprise");
@@ -1068,22 +1067,22 @@ public class ProjetModeleJDBC extends ProjetModele{
                 String query="";
                 String message="";
                 query="select IDPROJ from PROJET where TITRE=?";
+                String query1="DELETE FROM TRAVAIL WHERE idProj=?";
+                String query2= "DELETE FROM temps WHERE idProj = ?"; 
+                String query3= "DELETE FROM projet WHERE idProj = ?";
                 ResultSet rs = null;
-                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query);PreparedStatement pstm2=dbConnect.prepareStatement(query);PreparedStatement pstm3=dbConnect.prepareStatement(query)){
+                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1);PreparedStatement pstm2=dbConnect.prepareStatement(query2);PreparedStatement pstm3=dbConnect.prepareStatement(query3)){
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1,((ProjetGeneral)o).getTitre());
                             rs = pstm.executeQuery();
                         if (rs.next()) {
                           int idproj=rs.getInt("IDPROJ");
-                          String query1="DELETE FROM TRAVAIL WHERE idProj=?";
                             pstm1.setInt(1,idproj);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table travail"); //suppression de l'emprunt
-                            String query2= "DELETE FROM temps WHERE idProj = ?"; 
                             pstm2.setInt(1, idproj);
                             nl= pstm2.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table temps");
-                            String query3= "DELETE FROM projet WHERE idProj = ?";
                             pstm3.setInt(1, idproj);
                             nl= pstm3.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table projet");
@@ -1099,14 +1098,14 @@ public class ProjetModeleJDBC extends ProjetModele{
                 String query="";
                 String message="";
                 query="select IDTRAV from TRAVAIL where DATEENG=?";
+                 String query1="DELETE FROM TRAVAIL WHERE idTrav=?";
                 ResultSet rs = null;
-                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query)){
+                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1)){
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1,((Travail) o).getDateEng());
                             rs = pstm.executeQuery();
                         if (rs.next()) {
                           int idTrav=rs.getInt("IDTRAV");
-                          String query1="DELETE FROM TRAVAIL WHERE idTrav=?";
                             pstm1.setInt(1,idTrav);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table travail"); //suppression de l'emprunt
@@ -1122,23 +1121,23 @@ public class ProjetModeleJDBC extends ProjetModele{
                 String query="";
                 String message="";
                 query="select IDMEM from MEMBRE where NOMMEM=? AND PRENOMMEN=?";
+                String query1="DELETE FROM TRAVAIL WHERE IDMEM=?"; 
+                String query2= "DELETE FROM competence WHERE idmem = ?"; 
+                String query3= "DELETE FROM membre WHERE idmem = ?";
                 ResultSet rs = null;
-                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query);PreparedStatement pstm2=dbConnect.prepareStatement(query);PreparedStatement pstm3=dbConnect.prepareStatement(query)){
+                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1);PreparedStatement pstm2=dbConnect.prepareStatement(query2);PreparedStatement pstm3=dbConnect.prepareStatement(query3)){
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1,((Membre) o).getNomMem());
                         pstm.setString(2,((Membre) o).getPrenomMem());
                             rs = pstm.executeQuery();
                         if (rs.next()) {
-                          int idMem=rs.getInt("IDMEM");
-                          String query1="DELETE FROM TRAVAIL WHERE IDMEM=?"; 
+                            int idMem=rs.getInt("IDMEM");
                             pstm1.setInt(1,idMem);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table travail"); //suppression de l'emprunt
-                            String query2= "DELETE FROM competence WHERE idmem = ?"; 
                             pstm2.setInt(1, idMem);
                             nl= pstm2.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table competence");
-                            String query3= "DELETE FROM membre WHERE idmem = ?"; 
                             pstm3.setInt(1, idMem);
                             nl= pstm3.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table membre");
@@ -1154,22 +1153,22 @@ public class ProjetModeleJDBC extends ProjetModele{
                String query="";
                 String message="";
                 query="select IDDIS from DISCIPLINE where nomdis=? ";
+                String query1="DELETE FROM COMPETENCE WHERE IDDIS=?";
+                String query2= "DELETE FROM TEMPS WHERE IDDIS = ?"; 
+                String query3= "DELETE FROM DISCIPLINE WHERE IDDIS = ?"; 
                 ResultSet rs = null;
-                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query);PreparedStatement pstm2=dbConnect.prepareStatement(query);PreparedStatement pstm3=dbConnect.prepareStatement(query)){
+                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1);PreparedStatement pstm2=dbConnect.prepareStatement(query2);PreparedStatement pstm3=dbConnect.prepareStatement(query3)){
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1,((Discipline) o).getNomdiscipline());
                             rs = pstm.executeQuery();
                         if (rs.next()) {
                           int idDis=rs.getInt("IDDIS");
-                          String query1="DELETE FROM COMPETENCE WHERE IDDIS=?"; 
                             pstm1.setInt(1,idDis);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table competence"); //suppression de l'emprunt
-                            String query2= "DELETE FROM TEMPS WHERE IDDIS = ?"; 
                             pstm2.setInt(1, idDis);
                             nl= pstm2.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table temps");
-                            String query3= "DELETE FROM DISCIPLINE WHERE IDDIS = ?"; 
                             pstm3.setInt(1, idDis);
                             nl= pstm3.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table discipline");
@@ -1185,14 +1184,14 @@ public class ProjetModeleJDBC extends ProjetModele{
                 String query="";
                 String message="";
                 query="select c.IDCOMP IDCOMP from COMPETENCE c join Niveau n on n.idniv=c.idniv where n.degre=? ";
+                String query1="DELETE FROM COMPETENCE WHERE IDCOMP=?";
                 ResultSet rs = null;
-                   try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query)){
+                   try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1)){
                         dbConnect.setAutoCommit(true);
                         pstm.setInt(1,((Competence) o).getNiveau().getDegre());
-                            rs = pstm.executeQuery();
+                        rs = pstm.executeQuery();
                         if (rs.next()) {
-                          int idComp=rs.getInt("IDCOMP");
-                          String query1="DELETE FROM COMPETENCE WHERE IDCOMP=?"; 
+                          int idComp=rs.getInt("IDCOMP"); 
                             pstm1.setInt(1,idComp);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table competence"); //suppression de l'emprunt
@@ -1208,18 +1207,18 @@ public class ProjetModeleJDBC extends ProjetModele{
                 String query="";
                 String message="";
                 query="select IDNIV from NIVEAU where DEGRE=? ";
+                String query1="DELETE FROM COMPETENCE WHERE IDNIV=?"; 
+                String query2= "DELETE FROM NIVEAU WHERE IDNIV = ?"; 
                 ResultSet rs = null;
-                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query);PreparedStatement pstm2=dbConnect.prepareStatement(query)){
+                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1);PreparedStatement pstm2=dbConnect.prepareStatement(query2)){
                         dbConnect.setAutoCommit(true);
                         pstm.setInt(1,((Niveaux) o).getDegre());
                             rs = pstm.executeQuery();
                         if (rs.next()) {
                           int idNiv=rs.getInt("IDNIV");
-                          String query1="DELETE FROM COMPETENCE WHERE IDNIV=?"; 
                             pstm1.setInt(1,idNiv);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table competence"); //suppression de l'emprunt
-                            String query2= "DELETE FROM NIVEAU WHERE IDNIV = ?"; 
                             pstm2.setInt(1, idNiv);
                             nl= pstm2.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table niveau");
@@ -1235,14 +1234,14 @@ public class ProjetModeleJDBC extends ProjetModele{
                  String query="";
                 String message="";
                 query="select IDTEMPS from TEMPS where JHOMME=? ";
+                String query1="DELETE FROM TEMPS WHERE IDTEMPS=?"; 
                 ResultSet rs = null;
-                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query)){
+                    try(PreparedStatement pstm=dbConnect.prepareStatement(query);PreparedStatement pstm1=dbConnect.prepareStatement(query1)){
                         dbConnect.setAutoCommit(true);
                         pstm.setInt(1,((Temps) o).getjHomme());
                             rs = pstm.executeQuery();
                         if (rs.next()) {
                           int idTemps=rs.getInt("IDTEMPS");
-                          String query1="DELETE FROM TEMPS WHERE IDTEMPS=?"; 
                             pstm1.setInt(1,idTemps);
                             int nl= pstm1.executeUpdate();
                             System.out.println(nl+" lignes effacees Dans la table temps"); //suppression de l'emprunt

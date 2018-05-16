@@ -195,13 +195,15 @@ public class ProjetControleur {
         boolean v;
         m=pv.saisie("Entrez le nom de l'entreprise à supprimer");
         e=(Entreprise)pm.get(m,"", e);
-        //List<ProjetGeneral>ProjetTmp=new ArrayList();
-        for(ProjetGeneral p:pm.getProjet()){
-            if(p.getEnt().equals(e)){
-                v=pm.supprimer(p);
+        List<ProjetGeneral>projetTmp=new ArrayList();
+        if(!(pm instanceof ProjetModeleJDBC)){
+            for(ProjetGeneral p:pm.getProjet()){
+                if(!p.getEnt().equals(e)){
+                     projetTmp.add(p);
+                }
             }
+            pm.setProjet(projetTmp);
         }
-       // pm.setProjet(ProjetTmp);
         pm.supprimer(e);
        
        
