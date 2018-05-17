@@ -12,31 +12,36 @@ import java.util.Objects;
  * @author ameliefiems
  */
 public class Travail {
+
     private String dateEng;
     private int taux;
     private ProjetGeneral proj;
     private Membre mem;
-    public Travail(){
-        
+
+    public Travail() {
+
     }
+
     public Travail(String dateEng, int taux, ProjetGeneral proj, Membre mem) {
         this.dateEng = dateEng;
         this.taux = taux;
         this.proj = proj;
         this.mem = mem;
     }
-    public Travail(String dateEng){
-        this.dateEng=dateEng;
-        taux=0;
-        proj=null;
-        mem=null;
+
+    public Travail(String dateEng) {
+        this.dateEng = dateEng;
+        taux = 0;
+        proj = null;
+        mem = null;
     }
-    public Travail(Membre m){
-        this.dateEng="";
-        this.taux=0;
-        this.proj=null;
-        this.mem=m;
-        
+
+    public Travail(Membre m) {
+        this.dateEng = "";
+        this.taux = 0;
+        this.proj = null;
+        this.mem = m;
+
     }
 
     public String getDateEng() {
@@ -104,8 +109,4 @@ public class Travail {
         return true;
     }
 
-   
-    
-    
-    
 }
