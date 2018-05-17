@@ -358,11 +358,7 @@ public class ProjetModele {
             return 0;
         }
         if (!temps.isEmpty()) {
-            for (Temps t : temps) {
-                if (t.getProj().equals(p)) {
-                    journeeHommeTotalProjet += t.getjHomme();
-                }
-            }
+            journeeHommeTotalProjet = temps.stream().filter((t) -> (t.getProj().equals(p))).map((t) -> t.getjHomme()).reduce(journeeHommeTotalProjet, Integer::sum);
         }
         return journeeHommeTotalProjet;
     }
@@ -377,11 +373,9 @@ public class ProjetModele {
         }
         if (!membre.isEmpty()) {
             System.out.println("Je ne suis pas vide");
-            for (Travail tra : trav) {
-                if (tra.getProj().equals(p)) {
-                    listeMembre.add(tra.getMem());
-                }
-            }
+            trav.stream().filter((tra) -> (tra.getProj().equals(p))).forEachOrdered((tra) -> {
+                listeMembre.add(tra.getMem());
+            });
         } else {
             System.out.println("Je ne suis vide");
         }
@@ -405,14 +399,9 @@ public class ProjetModele {
         }
         if (!dis.isEmpty()) {
             System.out.println("Je ne suis pas vide");
-            for (Temps t : temps) {
-                if (t.getProj().equals(p)) {
-                    //Pour éviter qu'il recopie deux fois la meme discipline dans la liste discipline
-                    if (get(t.getDis().getNomdiscipline(), "", d) != null) {
-                        listeDis.add(t.getDis());
-                    }
-                }
-            }
+            temps.stream().filter((t) -> (t.getProj().equals(p))).filter((t) -> (get(t.getDis().getNomdiscipline(), "", d) != null)).forEachOrdered((t) -> {
+                listeDis.add(t.getDis());
+            }); //Pour éviter qu'il recopie deux fois la meme discipline dans la liste discipline
         } else {
             System.out.println("Je ne suis  vide");
         }
@@ -438,11 +427,9 @@ public class ProjetModele {
         }
         if (!projet.isEmpty()) {
 
-            for (ProjetGeneral p : projet) {
-                if (p.getEnt().equals(e)) {
-                    listeProj.add(p);
-                }
-            }
+            projet.stream().filter((p) -> (p.getEnt().equals(e))).forEachOrdered((p) -> {
+                listeProj.add(p);
+            });
         } else {
             System.out.println("Je ne suis pas vide");
         }

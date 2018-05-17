@@ -1772,7 +1772,6 @@ public class ProjetModeleJDBC extends ProjetModele {
      *
      * @return liste des travaux
      */
-
     public List<Travail> getTrav() {
         String query = "";
         int idTemps, jhomme, idProj, idTrav, idMem, taux;

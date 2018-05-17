@@ -124,7 +124,7 @@ public class ProjetControleur {
                                 if (pg != null) {
                                     do {
                                         v = creerProjetMembre(pg);
-                                    } while (v == false);
+                                    } while (!v);
                                 }
                                 break;
                             case 8:
@@ -132,7 +132,7 @@ public class ProjetControleur {
                                 if (pg != null) {
                                     do {
                                         v = creerProjetDiscipline(pg);
-                                    } while (v == false);
+                                    } while (!v);
                                 }
                                 break;
 
@@ -670,11 +670,11 @@ public class ProjetControleur {
         p.setEnt(e);
         pm.ajouter(p);
         v = creerProjetDiscipline(p);
-        if (v == false) {
+        if (!v) {
             pv.affMessage("Vous n'avez pas entré de discipline.");
         }
         v = creerProjetMembre(p);
-        if (v == false) {
+        if (!v) {
             pv.affMessage("Vous n'avez pas entré de membre.");
         }
 
@@ -763,9 +763,7 @@ public class ProjetControleur {
         Discipline dis = new Discipline();
         int c = 0;
         List<Discipline> listeDis = pm.listeDisciplineProjet(projet.getTitre(), projet);
-
         membre = pv.saisieMembre();
-
         if (pm.get(membre.getNomMem(), membre.getPrenomMem(), membre) == null && membre != null) {
             ajout(membre);
             travail = pv.saisieTravail(projet, membre);
@@ -775,7 +773,7 @@ public class ProjetControleur {
                     pv.affListe(listeDis);
                     c = pv.saisieInt("Entrez le numéro de la discipline pour le membre");
                     if (c < listeDis.size()) {
-                        dis = listeDis.get(c);
+                        dis = listeDis.get(c - 1);
                         niveau = pv.saisieNiveaux();
                         ajout(niveau);
                         Competence comp = new Competence(dis, niveau, membre);
