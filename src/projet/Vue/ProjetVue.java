@@ -347,8 +347,14 @@ public class ProjetVue {
     }
     public void affListe(Collection liste){
         int i=1;
+        System.out.println("test dans aaffliste");
+        if(liste!=null){
         for(Object o: liste){
             System.out.println((i++)+" "+o);
+        }
+        }
+        else{
+            System.out.println("Elle est vide");
         }
     }
     public void affMessage(String m){

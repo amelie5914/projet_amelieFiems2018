@@ -222,6 +222,7 @@ public class ProjetControleur {
               }
         }while(choix!=1&&choix!=2);
         p=pm.getProjet(p, m);
+        if(!(pm instanceof ProjetModeleJDBC)){
         for(Travail t:pm.getTrav()){
             if(t.getProj().equals(p)){
                 v=pm.supprimer(t);
@@ -231,7 +232,7 @@ public class ProjetControleur {
             if(t.getProj().equals(p)){
                 v=pm.supprimer(t);
             }
-        }
+        }}
         pm.supprimer(p);
     }
     
@@ -263,9 +264,11 @@ public class ProjetControleur {
         m1=pv.saisie("Entrez le nom du membre à supprimer");
         m2=pv.saisie("Entrez le prenom du membre à supprimer");
         membre=(Membre)pm.get(m1,m2, membre);
-        for(Travail t:pm.getTrav()){
-            if(t.getMem().equals(membre)){
-                v=pm.supprimer(t);
+        if(!(pm instanceof ProjetModeleJDBC)){
+            for(Travail t:pm.getTrav()){
+                if(t.getMem().equals(membre)){
+                    v=pm.supprimer(t);
+                }
             }
         }
         pm.supprimer(membre);
@@ -276,10 +279,12 @@ public class ProjetControleur {
         d=(Discipline)pm.get(nom,"", d);
         boolean v;
         //List<Temps>tempsTmp=new ArrayList();
-        for(Temps t:pm.getTemps()){
-            if(t.getDis().equals(d)){
-               // tempsTmp.add(t);
-               v=pm.supprimer(t);
+        if(!(pm instanceof ProjetModeleJDBC)){
+            for(Temps t:pm.getTemps()){
+                if(t.getDis().equals(d)){
+                   // tempsTmp.add(t);
+                   v=pm.supprimer(t);
+                }
             }
         }
         //pm.setTemps(tempsTmp);
@@ -292,9 +297,11 @@ public class ProjetControleur {
         int degre=pv.saisieInt("Entrez le degré à supprimer");
         niv=(Niveaux)pm.get(degre, niv);
         //List<Competence>compTmp=new ArrayList();
-        for(Competence c:pm.getComp()){
-            if(c.getNiveau().equals(niv)){
-                v=pm.supprimer(c);
+        if(!(pm instanceof ProjetModeleJDBC)){
+            for(Competence c:pm.getComp()){
+                if(c.getNiveau().equals(niv)){
+                    v=pm.supprimer(c);
+                }
             }
         }
         //pm.setComp(compTmp);
@@ -350,7 +357,7 @@ public class ProjetControleur {
         int choix;
         ProjetGeneral p=null;
         do{
-           n=pv.menuProjetModif();
+           
             do{
                         choix=pv.saisieInt("Est ce un simple ou un composite?\n1.Simple\n2.Composite");
                         switch(choix){
@@ -358,6 +365,7 @@ public class ProjetControleur {
                             case 2:p=new Sous_projet();break;
                         }
            }while(choix!=1&&choix!=2);
+            n=pv.menuProjetModif();
            switch(n){
            case 1: m=pv.saisie("Entrez le nom du projet");
                    
@@ -372,7 +380,7 @@ public class ProjetControleur {
             break;
             case 2: 
                 m=pv.saisie("Entrez le nom du projet");
-                if(pm.get(m,"", p)!=null){
+                if(pm.getProjet(p,m)!=null){
                     p=pm.getProjet(p, m);
                     System.out.println("Entrez la date du debut remplacé");
                     String s=pv.saisie();
@@ -383,7 +391,7 @@ public class ProjetControleur {
             break;
             case 3: 
                 m=pv.saisie("Entrez le nom du projet");
-                if(pm.get(m,"", p)!=null){
+                if(pm.getProjet(p,m)!=null){
                     p=pm.getProjet(p, m);
                     System.out.println("Entrez la date de fin remplacé");
                     String s=pv.saisie();
