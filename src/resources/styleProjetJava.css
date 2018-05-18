@@ -1,0 +1,25 @@
+#AnchorPane{
+	-fx-background-image:url(imageAccueil.jpg);
+}
+#AnchorPane1{
+	-fx-background-image:url(imageAccueil.jpg);
+}
+.button{
+	-fx-background-color:#A0D8F0;
+	-fx-text-fill:white;
+	-fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+	-fx-font-size:50px;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#a0d8f0,20%);
+}
+.menu {
+    
+    -fx-font-size:24px;
+}
+#list{
+	-fx-font-size:100px;
+	-fx-font-family: Verdana, Geneva, sans-serif;
+	-fx-text-fill:white;
+}
