@@ -46,7 +46,7 @@ CREATE TABLE Membre
 CREATE TABLE Competence
 (
     idComp number constraint com_pk PRIMARY KEY,
-    idNiv number (1) constraint comp_idNiv_fk FOREIGN KEY (idNiv) REFERENCES Niveau(idNiv),
+    idNiv number constraint comp_idNiv_fk FOREIGN KEY (idNiv) REFERENCES Niveau(idNiv),
     idMem number constraint comp_idMem_fk FOREIGN KEY (idMem) REFERENCES Membre(idMem),
     idDis number constraint comp_idDis_fk FOREIGN KEY (idDis) REFERENCES Discipline(idDis)
 );

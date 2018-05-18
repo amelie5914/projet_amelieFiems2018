@@ -37,6 +37,13 @@ public class ProjetControleur {
         Entreprise e = new Entreprise();
         ProjetGeneral pg;
         Membre membre = null;
+        try {
+            Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
+            membreBuild.setNomMem("bla").setPrenomMem("bla");
+            membre = membreBuild.build();
+        } catch (Exception ex) {
+            System.out.println("Pas creation");
+        }
         Discipline dis = new Discipline();
         Niveaux niv = new Niveaux();
         List<Membre> listeMembreP = new ArrayList();
@@ -57,6 +64,8 @@ public class ProjetControleur {
                                 m = pv.saisie("Entrez un nom d'entreprise");
                                 if (pm.get(m, "", e) != null) {
                                     System.out.println(pm.get(m, "", e));
+                                } else {
+                                    System.out.println("pas trouvé!");
                                 }
                                 break;
                             case 3:
@@ -171,6 +180,8 @@ public class ProjetControleur {
                                 m1 = pv.saisie("Entrez le prénom du membre");
                                 if (pm.get(m, m1, membre) != null) {
                                     System.out.println(pm.get(m, m1, membre));
+                                } else {
+                                    System.out.println("pas trouvé!");
                                 }
                                 break;
                             case 3:
@@ -620,27 +631,32 @@ public class ProjetControleur {
         String m1;
         String nomEnt;
         int choix = 0;
-        ProjetGeneral p;
+        ProjetSimple p = null;
         Travail t = new Travail();
         Entreprise e = new Entreprise();
+        Sous_projet sp = new Sous_projet();
         do {
             choix = pv.saisieInt("Est ce un projet simple ou un groupe de projet? \n1.Simple\n2.Groupe");
-            p = pv.saisieProjet(choix);
+            
             if (choix == 1) {
-
+            p = pv.saisieProjetSimple();
             } else if (choix == 2) {
-                Sous_projet sp = new Sous_projet();
-                p = (Sous_projet) p;
+                   sp=pv.saisieSous_projet();
+                
                 do {
                     if (!pm.getProjet().isEmpty()) {
                         listeProjet();
                         c = pv.saisieInt("Entrez les sous-projets: ");
                         sp.ajoutPG(pm.getProjet().get(c - 1));
+
+                        
+                        System.out.println(pm.getProjet().get(c - 1));
                     } else {
                         pv.affMessage("Il n' y a aucun autre projet.Donc recommencez en tant que projet simple");
-                        p = pv.saisieProjet(1);
+                        p = pv.saisieProjetSimple();
+                        choix=1;
                     }
-                } while (c <= pm.getProjet().size() && !pm.getProjet().isEmpty());
+                } while (c <= pm.getProjet().size() && pm.getProjet().isEmpty());
             }
         } while (choix != 1 && choix != 2);
         Discipline dis = new Discipline();
@@ -649,33 +665,50 @@ public class ProjetControleur {
         /*if(pm.get(p.getEnt().getNom(),"", p.getEnt())==null){
             pm.ajouter(p.getEnt());
          }*/
-        c = pv.menuCreerProjetEntreprise();
-        switch (c) {
-            case 1:
-                do {
-                    e = pv.saisieEntreprise();
-                } while (e == null);
-                if (pm.get(e.getNom(), "", e) == null) {
-                    ajout(e);
-                }
-                break;
-            case 2:
-                do {
-                    nomEnt = pv.saisie("Entrez le nom de l'entreprise que vous recherchez");
-                    e = (Entreprise) pm.get(nomEnt, "", e);
 
-                } while (pm.get(nomEnt, "", e) == null);
-                System.out.println(pm.get(nomEnt, "", e));
-        }
-        p.setEnt(e);
-        pm.ajouter(p);
-        v = creerProjetDiscipline(p);
-        if (!v) {
-            pv.affMessage("Vous n'avez pas entré de discipline.");
-        }
-        v = creerProjetMembre(p);
-        if (!v) {
-            pv.affMessage("Vous n'avez pas entré de membre.");
+        do {
+            c = pv.menuCreerProjetEntreprise();
+            switch (c) {
+                case 1:
+                    do {
+                        e = pv.saisieEntreprise();
+                    } while (e == null);
+                    if (pm.get(e.getNom(), "", e) == null) {
+                        ajout(e);
+                    }
+                    break;
+                case 2:
+                    do {
+                        nomEnt = pv.saisie("Entrez le nom de l'entreprise que vous recherchez");
+                        e = (Entreprise) pm.get(nomEnt, "", e);
+                    } while (pm.get(nomEnt, "", e) == null);
+                    System.out.println(pm.get(nomEnt, "", e));
+            }
+        } while (c != 1 && c != 2);
+        if (choix == 1) {
+            p.setEnt(e);
+            pm.ajouter(p);
+            
+            v = creerProjetDiscipline(p);
+            if (!v) {
+                pv.affMessage("Vous n'avez pas entré de discipline.");
+            }
+            v = creerProjetMembre(p);
+            if (!v) {
+                pv.affMessage("Vous n'avez pas entré de membre.");
+            }
+        } else {
+            sp.setEnt(e);
+            System.out.println(pm.ajouter(sp));
+            System.out.println((pm.ajoutSousProjet(sp, pm.getProjet().get(c/*-1*/))));
+            v = creerProjetDiscipline(sp);
+            if (!v) {
+                pv.affMessage("Vous n'avez pas entré de discipline.");
+            }
+            v = creerProjetMembre(sp);
+            if (!v) {
+                pv.affMessage("Vous n'avez pas entré de membre.");
+            }
         }
 
     }
@@ -683,6 +716,13 @@ public class ProjetControleur {
     public boolean creerProjetMembre(ProjetGeneral p) {
         int c;
         Membre mem = null;
+        try {
+            Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
+            membreBuild.setNomMem("bla").setPrenomMem("bla");
+            mem = membreBuild.build();
+        } catch (Exception ex) {
+            System.out.println("Pas creation");
+        }
         Travail t;
         String m, m1;
         boolean v = false;
@@ -763,6 +803,7 @@ public class ProjetControleur {
         Discipline dis = new Discipline();
         int c = 0;
         List<Discipline> listeDis = pm.listeDisciplineProjet(projet.getTitre(), projet);
+        pv.affListe(listeDis);
         membre = pv.saisieMembre();
         if (pm.get(membre.getNomMem(), membre.getPrenomMem(), membre) == null && membre != null) {
             ajout(membre);
@@ -772,7 +813,7 @@ public class ProjetControleur {
                 do {
                     pv.affListe(listeDis);
                     c = pv.saisieInt("Entrez le numéro de la discipline pour le membre");
-                    if (c < listeDis.size()) {
+                    if (c <= listeDis.size()) {
                         dis = listeDis.get(c - 1);
                         niveau = pv.saisieNiveaux();
                         ajout(niveau);

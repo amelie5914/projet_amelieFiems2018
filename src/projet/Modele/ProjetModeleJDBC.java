@@ -107,7 +107,6 @@ public class ProjetModeleJDBC extends ProjetModele {
                     message = e.getMessage();
                 }
             } else if (o instanceof Membre) {
-                System.out.println("Je suis dans membre");
                 query = "insert into MEMBRE(NOMMEM,PRENOMMEN,TELMEM,EMAIL) values (?,?,?,?) ";
                 try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
                     dbConnect.setAutoCommit(true);
@@ -147,9 +146,11 @@ public class ProjetModeleJDBC extends ProjetModele {
                     message = e.getMessage();
                 }
             } else if (o instanceof ProjetSimple || o instanceof Sous_projet) {
+                
                 ResultSet rs = null;
                 int ident = 0;
                 if (o instanceof ProjetSimple) {
+                    
                     if (((ProjetSimple) o).getEnt() != null) {
                         query = "select ident from entreprise where noment=?";
                         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
@@ -160,8 +161,10 @@ public class ProjetModeleJDBC extends ProjetModele {
                             }
                         } catch (SQLException e) {
                             message = e.getMessage();
+                            System.out.println(message);
                         } catch (Exception e) {
                             message = e.getMessage();
+                            System.out.println(message);
                         } finally {
                             try {
                                 if (rs != null) {
@@ -177,6 +180,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1, ((ProjetSimple) o).getTitre());
                         int jour = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(0, 1));
+                        
                         int mois = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(3, 4));
                         int annee = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(6, 9));
                         LocalDate dd = LocalDate.of(annee, mois, jour);
@@ -187,9 +191,10 @@ public class ProjetModeleJDBC extends ProjetModele {
                         dd = LocalDate.of(annee, mois, jour);
                         pstm.setDate(3, java.sql.Date.valueOf(dd));
                         pstm.setInt(4, ident);
+                        
                         int n = pstm.executeUpdate();
                         if (n == 1) {
-                            message = "ajout projet effectué";
+                            message = "ajout projet effectué "+dd;
                         } else {
                             message = "ajout projet non effectué";
                         }
@@ -203,6 +208,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 } else {
                     rs = null;
                     ident = 0;
+                    System.out.println("Je suis dans ajout sous_projet");
                     if (((Sous_projet) o).getEnt() != null) {
                         query = "select ident from entreprise where noment=?";
                         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
@@ -213,8 +219,10 @@ public class ProjetModeleJDBC extends ProjetModele {
                             }
                         } catch (SQLException e) {
                             message = e.getMessage();
+                            System.out.println(message);
                         } catch (Exception e) {
                             message = e.getMessage();
+                            System.out.println(message);
                         } finally {
                             try {
                                 if (rs != null) {
@@ -228,15 +236,15 @@ public class ProjetModeleJDBC extends ProjetModele {
                     query = "INSERT INTO PROJET(TITRE,DATEDEBUT,DATEFIN,IDCLI) values (?,?,?,?)";
                     try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
                         dbConnect.setAutoCommit(true);
-                        pstm.setString(1, ((ProjetSimple) o).getTitre());
-                        int jour = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(0, 2));
-                        int mois = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(4, 6));
-                        int annee = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(8, 12));
+                        pstm.setString(1, ((Sous_projet) o).getTitre());
+                        int jour = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(0, 1));
+                        int mois = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(3, 4));
+                        int annee = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(6,9));
                         LocalDate dd = LocalDate.of(annee, mois, jour);
                         pstm.setDate(2, java.sql.Date.valueOf(dd));
-                        jour = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(0, 2));
-                        mois = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(4, 6));
-                        annee = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(8, 12));
+                        jour = Integer.parseInt(((Sous_projet) o).getDateFin().substring(0, 1));
+                        mois = Integer.parseInt(((Sous_projet) o).getDateFin().substring(3, 4));
+                        annee = Integer.parseInt(((Sous_projet) o).getDateFin().substring(6, 9));
                         dd = LocalDate.of(annee, mois, jour);
                         pstm.setDate(3, java.sql.Date.valueOf(dd));
                         pstm.setInt(4, ident);
@@ -409,7 +417,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 m = rs.getInt("IDMEM");
             }
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de membre " + e);
         } catch (Exception e) {
             message = e.getMessage();
         } finally {
@@ -435,7 +443,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 m = rs.getInt("IDNIV");
             }
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de niveau " + e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -464,7 +472,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 m = rs.getInt("IDDIS");
             }
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de discipline " + e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -504,7 +512,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             }
 
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de projet " + e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -528,7 +536,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 return ent;
             }
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de entreprise " + e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -782,7 +790,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                         return null;
                     }
                 } catch (SQLException e) {
-                    System.err.println("erreur de recherche d'acheteur " + e);
+                    System.err.println("erreur de recherche de get entreprise " + e);
                 } finally {
                     try {
                         if (rs != null) {
@@ -793,8 +801,9 @@ public class ProjetModeleJDBC extends ProjetModele {
                     }
                 }
             } else if (o instanceof Membre) {
-                String query = "";
+                String query;
                 String message = "";
+                System.out.println("Je suis bien dans membre");
                 query = "select NOMMEM,PRENOMMEN,TELMEM,EMAIL from MEMBRE where NOMMEM=? AND PRENOMMEN=?";
                 ResultSet rs = null;
                 try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
@@ -814,7 +823,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                         return null;
                     }
                 } catch (SQLException e) {
-                    System.err.println("erreur de recherche d'acheteur " + e);
+                    System.err.println("erreur de recherche de get membre " + e);
                 } catch (Exception e) {
                     System.out.println("Erreur de création" + e);
                 } finally {
@@ -842,7 +851,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                         return null;
                     }
                 } catch (SQLException e) {
-                    System.err.println("erreur de recherche d'acheteur " + e);
+                    System.err.println("erreur de recherche de get discipline " + e);
                 } finally {
                     try {
                         if (rs != null) {
@@ -886,7 +895,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             }
 
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de getProjet " + e);
             return null;
         } finally {
             try {
@@ -911,12 +920,12 @@ public class ProjetModeleJDBC extends ProjetModele {
             pstm.setInt(1, idproj);
             rs = pstm.executeQuery();
             while (rs.next()) {
-                id = rs.getInt("IDPROJ");
+                id = rs.getInt("IDCLI");
                 t = rs.getString("TITRE");
                 LocalDate dd = rs.getDate("DATEDEBUT").toLocalDate();
                 LocalDate df = rs.getDate("DATEFIN").toLocalDate();
                 idCli = rs.getInt("IDCLI");
-                idProjCompo = rs.getInt("IDPROJCOMPO");
+                idProjCompo = rs.getInt("idProjCompo");
                 if (idProjCompo != 0) {
                     p = new Sous_projet(t, dd.toString(), df.toString(), getEnt(idCli));
                 } else {
@@ -926,7 +935,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             }
 
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de getProjet avec id en paramètre " + e);
         } finally {
             try {
                 if (rs != null) {
@@ -995,7 +1004,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 return d;
             }
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de dis " + e);
             return null;
         } catch (Exception e) {
             System.out.println("Erreur de création" + e);
@@ -1440,7 +1449,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             pstm.setString(1, m);
             rs = pstm.executeQuery();
             if (!rs.next()) {
-                System.out.println("aucune discipline dans ce projet");
+                return null;
             } else {
                 do {
                     id = rs.getInt("IDDIS");
@@ -1517,24 +1526,25 @@ public class ProjetModeleJDBC extends ProjetModele {
     @Override
     public String ajoutSousProjet(Sous_projet sp, ProjetGeneral pg) {
         String query = "";
-        String message = "";
+        String msg = "";
         int id = 0, idCli, idProjCompo;
         String t;
         ProjetGeneral p;
         query = "select idproj from projet where titre=?";
         ResultSet rs = null;
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-            pstm.setString(1, pg.getTitre());
+            pstm.setString(1, sp.getTitre());
             rs = pstm.executeQuery();
             if (rs.next()) {
                 id = rs.getInt("IDPROJ");
+                msg="le sous projet existe";
             } else {
-                message = "Le sous projet n'existe pas";
+                msg = "Le sous projet n'existe pas";
                 return null;
             }
 
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de projet " + e);
         } finally {
             try {
                 if (rs != null) {
@@ -1545,12 +1555,12 @@ public class ProjetModeleJDBC extends ProjetModele {
             }
         }
         query = "UPDATE PROJET SET id_proj_composite = ? where TITRE= ?";
-        String msg;
+        System.out.println("titre du sous_projet"+ pg.getTitre());
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             dbConnect.setAutoCommit(true);
 
             pstm.setInt(1, id);
-            pstm.setString(2, sp.getTitre());
+            pstm.setString(2, pg.getTitre());
             int n = pstm.executeUpdate();
             if (n == 1) {
                 msg = "changement du projet effectué";
@@ -1559,7 +1569,11 @@ public class ProjetModeleJDBC extends ProjetModele {
             }
 
         } catch (SQLException ex) {
-            msg = "erreur lors du changement du titre " + ex;
+            msg = ex.getMessage();
+            System.out.println(msg);
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
         }
         return msg;
     }
@@ -1760,7 +1774,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 ln.add(temps);
             }
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de temps " + e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -1790,7 +1804,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                 ln.add(trav);
             }
         } catch (SQLException e) {
-            System.err.println("erreur de recherche d'acheteur " + e);
+            System.err.println("erreur de recherche de travail " + e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

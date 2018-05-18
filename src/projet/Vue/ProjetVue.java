@@ -225,7 +225,7 @@ public class ProjetVue {
         return membre;
     }
 
-    public ProjetGeneral saisieProjet(int choix) {
+    public ProjetSimple saisieProjetSimple() {
         sc.nextLine();
         String dateDebut, dateFin, titre;
         do {
@@ -239,12 +239,25 @@ public class ProjetVue {
             dateFin = saisie("Entrez la date de fin du projet");
         } while (!dateFin.matches("^[0-9]{2}-[0-9]{2}-[0-9]{4}$"));
         Entreprise client = new Entreprise();
-        ProjetGeneral p;
-        if (choix == 1) {
-            p = new ProjetSimple(titre, dateDebut, dateFin, client);
-        } else {
-            p = new Sous_projet(titre, dateDebut, dateFin, client);
-        }
+        ProjetSimple p= new ProjetSimple(titre, dateDebut, dateFin, client);
+         
+        return p;
+    }
+    public Sous_projet saisieSous_projet(){
+        sc.nextLine();
+        String dateDebut, dateFin, titre;
+        do {
+            titre = saisie("Entrez le titre du projet");
+        } while (titre.equals(""));
+        do {
+            dateDebut = saisie("Entrez la date de debut du projet");
+        } while (!dateDebut.matches("^[0-9]{2}-[0-9]{2}-[0-9]{4}$"));
+
+        do {
+            dateFin = saisie("Entrez la date de fin du projet");
+        } while (!dateFin.matches("^[0-9]{2}-[0-9]{2}-[0-9]{4}$"));
+        Entreprise client = new Entreprise();
+        Sous_projet p= new Sous_projet(titre, dateDebut, dateFin, client);
         return p;
     }
 
