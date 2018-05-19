@@ -4,7 +4,7 @@
 #AnchorPane1{
 	-fx-background-image:url(imageAccueil.jpg);
 }
-.button{
+#boutonAccueil{
 	-fx-background-color:#A0D8F0;
 	-fx-text-fill:white;
 	-fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -22,4 +22,24 @@
 	-fx-font-size:100px;
 	-fx-font-family: Verdana, Geneva, sans-serif;
 	-fx-text-fill:white;
+}
+
+#boutonProjet{
+	-fx-background-color:#A0D8F0;
+	-fx-text-fill:white;
+	-fx-font-size:30px;
+}
+#boutonProjetAjoutAffichage{
+	-fx-background-color:white;
+	-fx-text-fill:#00A3D5;
+	-fx-font-size:20px;
+}
+.label{
+	-fx-font-size:25px;
+}
+.SplitPane{
+	-fx-background-color:white;
+}
+#AnchorPaneProjetAjouter{
+	-fx-background-color:white;
 }

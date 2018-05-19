@@ -42,9 +42,13 @@ public class ProjetModele {
         String message = "";
         List l = null;
         if (o != null) {
-            if (o instanceof Entreprise && !entreprise.contains(o)) {
-                l = entreprise;
-                message = "entreprise ajoutée";
+            if (o instanceof Entreprise ) {
+                if (!entreprise.contains(o)) {
+                    l = entreprise;
+                    message = "entreprise ajouté";
+                } else {
+                    message = "entreprise déjà ajouté";
+                }
             } else if (o instanceof Competence) {
                 if (!comp.contains(o)) {
                     l = comp;

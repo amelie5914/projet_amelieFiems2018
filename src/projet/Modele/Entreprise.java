@@ -25,11 +25,6 @@ public class Entreprise {
         telEnt="";
         adresse="";
     }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone(); //To change body of generated methods, choose Tools | Templates.
-    }
     public Entreprise(String nomEnt, String telEnt, String adresse) {
         this.nomEnt = nomEnt;
         this.telEnt = telEnt;

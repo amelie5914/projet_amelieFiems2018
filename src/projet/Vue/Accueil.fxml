@@ -6,7 +6,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.AccueilController">
    <children>
-      <Button layoutX="147.0" layoutY="623.0" mnemonicParsing="false" onAction="#goToScreen2" text="Liste" />
-      <Button layoutX="710.0" layoutY="627.0" mnemonicParsing="false" text="Base de donnée" />
+      <Button id="boutonAccueil" layoutX="147.0" layoutY="623.0" mnemonicParsing="false" onAction="#goToScreen2" text="Liste" />
+      <Button id="boutonAccueil" layoutX="710.0" layoutY="627.0" mnemonicParsing="false" stylesheets="@../../resources/styleProjetJava.css" text="Base de donnée" />
    </children>
 </AnchorPane>

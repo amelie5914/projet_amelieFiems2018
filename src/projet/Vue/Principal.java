@@ -24,14 +24,18 @@ public class Principal extends Application {
     public static String screen1File = "Accueil.fxml";
     public static String screen2ID = "liste";
     public static String screen2File = "Liste.fxml";
-    
-    
+    public static String projetAjout="projetAjouter";
+    public static String projetAjoutFile = "ProjetAjouter.fxml";
+    public static String entrepriseAjout="entrepriseAjouter";
+    public static String entrepriseAjoutFile = "EntrepriseAjouter.fxml";
     @Override
     public void start(Stage primaryStage) {
         
         ControleurEcran mainContainer = new ControleurEcran();
         mainContainer.loadScreen(Principal.screen1ID, Principal.screen1File);
         mainContainer.loadScreen(Principal.screen2ID, Principal.screen2File);
+        mainContainer.loadScreen(Principal.projetAjoutFile, Principal.projetAjoutFile);
+        mainContainer.loadScreen(Principal.entrepriseAjoutFile, Principal.entrepriseAjoutFile);
         
         mainContainer.setScreen(Principal.screen1ID);
         
