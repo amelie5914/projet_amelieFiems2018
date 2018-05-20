@@ -48,15 +48,16 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
     private ObservableList<Entreprise> listEntreprise = FXCollections.observableArrayList();
     private Entreprise e;
     LocalDate date1 = null, date2 = null;
-    ProjetModele pm = new ProjetModele();
+    ProjetModeleJDBC pm = new ProjetModeleJDBC();
 
     /**
      * Initializes the controller class.
+     *
+     * @param pm
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        pm.personne();
         l = pm.getEntreprise();
         l.forEach((entreprise) -> {
             listEntreprise.add(entreprise);
@@ -105,8 +106,8 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
             }
         });
         LocalDate date = datedebut.getValue();
-        String d1=inverseDate(date);
-        
+        String d1 = inverseDate(date);
+
         String pattern1 = "dd-MM-yyyy";
 
         datedebut.setPromptText(pattern1.toLowerCase());
@@ -133,11 +134,11 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
             }
         });
         LocalDate date2 = datefin.getValue();
-        String d2=inverseDate(date2);
+        String d2 = inverseDate(date2);
         System.out.println("Selected date: " + d1);
         System.out.println("titre" + titre.getText());
-        ProjetSimple ps = new ProjetSimple(titre.getText(), d1,d2, e);
-        String message=ps+"\n"+pm.ajouter(ps);
+        ProjetSimple ps = new ProjetSimple(titre.getText(), d1, d2, e);
+        String message = ps + "\n" + Principal.pm.ajouter(ps);
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information ajout projet");
         alert.setHeaderText(null);
@@ -147,8 +148,6 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
 
     @FXML
     public void ajourSousProjet() {
-
-        
         String pattern = "dd-MM-yyyy";
 
         datedebut.setPromptText(pattern.toLowerCase());
@@ -175,8 +174,8 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
             }
         });
         LocalDate date = datedebut.getValue();
-        String d1=inverseDate(date);
-        
+        String d1 = inverseDate(date);
+
         String pattern1 = "dd-MM-yyyy";
 
         datedebut.setPromptText(pattern1.toLowerCase());
@@ -203,17 +202,16 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
             }
         });
         LocalDate date2 = datefin.getValue();
-        String d2=inverseDate(date2);
+        String d2 = inverseDate(date2);
         if (titre.getText().equals("")) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Titre incorrect");
             alert.setContentText("Vous devez remplir ce champs!");
             alert.showAndWait();
-        } 
-        else{
-            Sous_projet sp = new Sous_projet(titre.getText(), d1,d2, e);
-            String message=sp+"\n"+pm.ajouter(sp);
+        } else {
+            Sous_projet sp = new Sous_projet(titre.getText(), d1, d2, e);
+            String message = sp + "\n" + Principal.pm.ajouter(sp);
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Information ajout projet");
             alert.setHeaderText(null);
@@ -233,18 +231,45 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
         return inverse;
 
     }
-    
+
     @FXML
-    private void goToScreen2(ActionEvent event){
-       myController.setScreen(Principal.screen2ID);
+    private void goToScreen2(ActionEvent event) {
+        myController.setScreen(Principal.screen2ID);
     }
+
     @FXML
-    private void goToScreenProjetAjout(ActionEvent event){
-       myController.setScreen(Principal.projetAjoutFile);
+    private void goToScreenProjetAjout(ActionEvent event) {
+        myController.setScreen(Principal.projetAjoutFile);
     }
+
     @FXML
-    private void goToScreenEntrepriseAjout(ActionEvent event){
-       myController.setScreen(Principal.entrepriseAjoutFile);
+    private void goToScreenEntrepriseAjout(ActionEvent event) {
+        myController.setScreen(Principal.entrepriseAjoutFile);
     }
-    
+
+    @FXML
+    private void goToScreenProjetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeProjetFile);
+    }
+
+    @FXML
+    private void goToScreenTitreProjet(ActionEvent event) {
+        myController.setScreen(Principal.modifierTitreProjetFile);
+    }
+
+    @FXML
+    private void goToScreenDateDebutProjet(ActionEvent event) {
+        myController.setScreen(Principal.modifierDateDebutProjetFile);
+    }
+
+    @FXML
+    private void goToScreenDateFinProjet(ActionEvent event) {
+        myController.setScreen(Principal.modifierDateFinProjetFile);
+    }
+
+    @FXML
+    private void goToScreenSupprimerProjet(ActionEvent event) {
+        myController.setScreen(Principal.supprimerProjetFile);
+    }
+
 }

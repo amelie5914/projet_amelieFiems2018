@@ -18,8 +18,11 @@
         <menus>
           <Menu mnemonicParsing="false" text="Projets">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
-                  <MenuItem mnemonicParsing="false" text="Rechercher" />
+               <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerProjet" text="Supprimer" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Clients">
@@ -46,7 +49,10 @@
                   <MenuItem mnemonicParsing="false" text="Rechercher" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Listes" />
+            <Menu mnemonicParsing="false" text="Listes">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
+               </items></Menu>
         </menus>
       </MenuBar>
       <GridPane layoutX="112.0" layoutY="93.0" prefHeight="608.0" prefWidth="1034.0">

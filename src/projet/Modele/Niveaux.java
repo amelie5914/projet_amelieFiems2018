@@ -7,6 +7,8 @@ package projet.Modele;
 
 import java.util.Objects;
 import java.util.Set;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -27,7 +29,12 @@ public class Niveaux {
        signification="";
        
    }
-
+   public SimpleIntegerProperty getpDegre(){
+        return new SimpleIntegerProperty(degre);
+    }
+   public SimpleStringProperty getpSignification(){
+        return new SimpleStringProperty(signification);
+    }
     public int getDegre() {
         return degre;
     }

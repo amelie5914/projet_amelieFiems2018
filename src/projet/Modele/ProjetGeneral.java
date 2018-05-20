@@ -7,6 +7,7 @@ package projet.Modele;
 
 import java.util.Objects;
 import java.util.Set;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -89,7 +90,19 @@ public abstract class ProjetGeneral {
     public void setCoutMax(double coutMax) {
         this.coutMax = coutMax;
     }
-
+    public SimpleStringProperty getpTitre(){
+        return new SimpleStringProperty(titre);
+    }
+    public SimpleStringProperty getpDateDebut(){
+        return new SimpleStringProperty(dateDebut);
+    }
+    public SimpleStringProperty getpDateFin(){
+        return new SimpleStringProperty(dateFin);
+    }
+    public SimpleStringProperty getpEnt(){
+        return new SimpleStringProperty(ent.getNom());
+    }
+    
     
     @Override
     public String toString() {

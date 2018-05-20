@@ -179,33 +179,44 @@ public class ProjetModeleJDBC extends ProjetModele {
                     try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1, ((ProjetSimple) o).getTitre());
-                        int jour = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(0, 1));
+                        /*int jour = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(0, 1));
                         
-                        int mois = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(3, 4));
+                        int mois = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(3, 6));
                         int annee = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(6, 9));
                         LocalDate dd = LocalDate.of(annee, mois, jour);
                         pstm.setDate(2, java.sql.Date.valueOf(dd));
                         jour = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(0, 1));
-                        mois = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(3, 4));
-                        annee = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(6, 9));
+                        mois = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(3, 6));
+                        annee = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(6,9));
                         dd = LocalDate.of(annee, mois, jour);
-                        pstm.setDate(3, java.sql.Date.valueOf(dd));
+                        
+                        */
+                        pstm.setString(2, ((ProjetSimple) o).getDateDebut());
+                        pstm.setString(3, ((ProjetSimple) o).getDateFin());
                         pstm.setInt(4, ident);
                         
+                       /*uery = "INSERT INTO PROJET(TITRE,to_date(DATEDEBUT,'DD-MM-YYYY') ,to_date(DATEFIN,'DD-MM-YYYY'),IDCLI) values (?,?,?,?)";
+                       try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+                        dbConnect.setAutoCommit(true);
+                        pstm.setString(1, ((ProjetSimple) o).getTitre());
+                         pstm.setString(2,((ProjetSimple) o).getDateDebut());
+                         pstm.setString(3,((ProjetSimple) o).getDateFin());
+                         pstm.setInt(4, ident);*/
                         int n = pstm.executeUpdate();
                         if (n == 1) {
-                            message = "ajout projet effectué "+dd;
+                            message = "ajout projet effectué "+n;
                         } else {
                             message = "ajout projet non effectué";
                         }
                     } catch (SQLException e) {
                         message = e.getMessage();
+                        System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
                         System.out.println("Nombre invalide!");
                     } catch (Exception e) {
-                        message = e.getMessage();
+                        System.out.println(e.getMessage());
                     }
-                } else {
+                } else if (o instanceof Sous_projet){
                     rs = null;
                     ident = 0;
                     System.out.println("Je suis dans ajout sous_projet");
@@ -237,7 +248,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                     try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1, ((Sous_projet) o).getTitre());
-                        int jour = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(0, 1));
+                       /* int jour = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(0, 1));
                         int mois = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(3, 4));
                         int annee = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(6,9));
                         LocalDate dd = LocalDate.of(annee, mois, jour);
@@ -245,8 +256,9 @@ public class ProjetModeleJDBC extends ProjetModele {
                         jour = Integer.parseInt(((Sous_projet) o).getDateFin().substring(0, 1));
                         mois = Integer.parseInt(((Sous_projet) o).getDateFin().substring(3, 4));
                         annee = Integer.parseInt(((Sous_projet) o).getDateFin().substring(6, 9));
-                        dd = LocalDate.of(annee, mois, jour);
-                        pstm.setDate(3, java.sql.Date.valueOf(dd));
+                        dd = LocalDate.of(annee, mois, jour);*/
+                       pstm.setString(3,((Sous_projet) o).getDateFin());
+                        pstm.setString(2,((Sous_projet) o).getDateDebut());
                         pstm.setInt(4, ident);
                         int n = pstm.executeUpdate();
                         if (n == 1) {

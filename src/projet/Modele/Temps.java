@@ -6,6 +6,8 @@
 package projet.Modele;
 
 import java.util.Objects;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -33,7 +35,9 @@ public class Temps {
         this.proj=null;
         this.dis=null;
     }
-    
+    public SimpleIntegerProperty getpJhomme(){
+        return new SimpleIntegerProperty(jHomme);
+    }
 
     @Override
     public String toString() {

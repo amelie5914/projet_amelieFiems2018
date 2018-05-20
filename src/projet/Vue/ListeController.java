@@ -42,4 +42,25 @@ public class ListeController implements Initializable, ControlledEcran {
     private void goToScreenEntrepriseAjout(ActionEvent event){
        myController.setScreen(Principal.entrepriseAjoutFile);
     }
+    
+    @FXML
+    private void goToScreenProjetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeProjetFile);
+    }
+    @FXML
+    private void goToScreenTitreProjet(ActionEvent event) {
+        myController.setScreen(Principal.modifierTitreProjetFile);
+    }
+    @FXML
+    private void goToScreenDateDebutProjet(ActionEvent event) {
+        myController.setScreen(Principal.modifierDateDebutProjetFile);
+    }
+    @FXML
+    private void goToScreenDateFinProjet(ActionEvent event) {
+        myController.setScreen(Principal.modifierDateFinProjetFile);
+    }
+    @FXML
+    private void goToScreenSupprimerProjet(ActionEvent event) {
+        myController.setScreen(Principal.supprimerProjetFile);
+    }
 }

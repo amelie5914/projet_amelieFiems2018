@@ -6,6 +6,8 @@
 package projet.Modele;
 
 import java.util.Objects;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -51,7 +53,12 @@ public class Travail {
     public int getTaux() {
         return taux;
     }
-
+    public SimpleStringProperty getpDateEng(){
+        return new SimpleStringProperty(dateEng);
+    }
+    public SimpleIntegerProperty getpTaux(){
+        return new SimpleIntegerProperty(taux);
+    }
     @Override
     public String toString() {
         return "Travail{" + "dateEng=" + dateEng + ", taux=" + taux + ", proj=" + proj + ", mem=" + mem + '}';

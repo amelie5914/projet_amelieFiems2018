@@ -6,6 +6,7 @@
 package projet.Modele;
 
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -51,6 +52,17 @@ public class Entreprise {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+    public SimpleStringProperty getpNom(){
+        
+        return new SimpleStringProperty(nomEnt);
+        
+    }
+    public SimpleStringProperty getpTelEnt(){
+        return new SimpleStringProperty(telEnt);
+    }
+    public SimpleStringProperty getpAdresse(){
+        return new SimpleStringProperty(adresse);
     }
 
     @Override

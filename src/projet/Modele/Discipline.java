@@ -7,6 +7,7 @@ package projet.Modele;
 
 import java.util.Objects;
 import java.util.Set;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -34,7 +35,9 @@ public class Discipline {
     public void setNomdiscipline(String nomdiscipline) {
         this.nomdiscipline = nomdiscipline;
     }
-    
+    public SimpleStringProperty getpNom(){
+        return new SimpleStringProperty(nomdiscipline);
+    }
 
     @Override
     public int hashCode() {

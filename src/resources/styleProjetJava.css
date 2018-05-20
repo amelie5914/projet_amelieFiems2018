@@ -19,7 +19,7 @@
     -fx-font-size:24px;
 }
 #list{
-	-fx-font-size:100px;
+	-fx-font-size:20px;
 	-fx-font-family: Verdana, Geneva, sans-serif;
 	-fx-text-fill:white;
 }

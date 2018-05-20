@@ -6,6 +6,7 @@
 package projet.Modele;
 
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -38,7 +39,18 @@ public class Membre {
     public String getEmail() {
         return email;
     }
-
+    public SimpleStringProperty getpNom(){
+        return new SimpleStringProperty(nomMem);
+    }
+    public SimpleStringProperty getpPrenomMem(){
+        return new SimpleStringProperty(prenomMem);
+    }
+    public SimpleStringProperty getpGsm(){
+        return new SimpleStringProperty(gsmMem);
+    }
+    public SimpleStringProperty getpEmail(){
+        return new SimpleStringProperty(email);
+    }
     @Override
     public String toString() {
         return "Membre{" + "nomMem=" + nomMem + ", prenomMem=" + prenomMem + ", gsmMem=" + gsmMem + ", email=" + email +'}';
