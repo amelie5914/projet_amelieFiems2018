@@ -13,68 +13,44 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import projet.Modele.Entreprise;
+import projet.Modele.ProjetGeneral;
 import projet.Modele.ProjetModele;
 import projet.Modele.ProjetModeleJDBC;
+import projet.Modele.ProjetSimple;
+import projet.Modele.Sous_projet;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class EntrepriseAjouterController implements Initializable, ControlledEcran {
+public class ModifierNomEntrepriseController implements Initializable, ControlledEcran {
 
-    /**
-     * Initializes the controller class.
-     */
     ControleurEcran myController;
     @FXML
     TextField nom;
     @FXML
-    TextField adresse;
-    @FXML
-    TextField tel;
-
+    TextField nvxnom;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
 
     @FXML
-    public void ajout() {
-        if (!tel.getText().matches("^[0-9]{10}$")) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Le numero de téléphone n'est pas dans le bon format...");
-            alert.setContentText("Format: Il faut mettre que 10 chiffres");
-            alert.showAndWait();
-        } else if (adresse.getText().length() > 70) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("L'adresse est trop longue");
-            alert.setContentText("On n'accepte que 70 caractères");
-            alert.showAndWait();
-        } else if (nom.getText().equals("")) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Vous n'avez pas entré de nom");
-            alert.setContentText("Obligatoire de remplir ce champs!");
-            alert.showAndWait();
-        } else {
-            Entreprise e = new Entreprise(nom.getText(), tel.getText(), adresse.getText());
-            String message = e + "\n" + Principal.pm.ajouter(e);
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Information ajout entreprise");
+    public void modifierNomEntreprise() {
+            Entreprise e=new Entreprise();
+            e=(Entreprise)Principal.pm.get(nom.getText(), "", e);
+            String message = Principal.pm.modifierNomEntreprise(e, nom.getText());
+            String msg = "\n" + message;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information modification du nom de l'entreprise");
             alert.setHeaderText(null);
-            alert.setContentText(message);
+            alert.setContentText(msg);
             alert.showAndWait();
-            nom.setText("");
-            tel.setText("");
-            adresse.setText("");
-        }
     }
 
     @Override
@@ -98,30 +74,26 @@ public class EntrepriseAjouterController implements Initializable, ControlledEcr
     }
 
     @FXML
-    private void goToScreenProjetListe(ActionEvent event) {
-        myController.setScreen(Principal.listeProjetFile);
-    }
-
-    @FXML
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
 
     @FXML
+    private void goToScreenProjetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeProjetFile);
+    }
+    @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
-
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
-
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
-    }
-    @FXML
+    }@FXML
     private void goToScreenEntrepriseNom(ActionEvent event) {
         myController.setScreen(Principal.modifierNomEntrepriseFile);
     }
@@ -140,10 +112,10 @@ public class EntrepriseAjouterController implements Initializable, ControlledEcr
     @FXML
     private void goToScreenEntrepriseListe(ActionEvent event) {
         myController.setScreen(Principal.listeEntrepriseFile);
-    }
+    } 
     @FXML
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
     }
-
+    
 }

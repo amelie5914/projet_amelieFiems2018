@@ -21,11 +21,11 @@ import projet.Modele.ProjetModeleJDBC;
  * @author ameliefiems
  */
 public class Principal extends Application {
-
+    public static ProjetModeleJDBC pm=new ProjetModeleJDBC();
     public static String screen1ID = "accueil";
     public static String screen1File = "Accueil.fxml";
-    public static String screen2ID = "liste";
-    public static String screen2File = "Liste.fxml";
+    public static String screen2ID = "JDBC";
+    public static String screen2File = "JDBC.fxml";
     public static String projetAjout="projetAjouter";
     public static String projetAjoutFile = "ProjetAjouter.fxml";
     public static String entrepriseAjout="entrepriseAjouter";
@@ -52,14 +52,9 @@ public class Principal extends Application {
     public static String modifierDateFinProjetFile = "ModifierDateFinProjet.fxml";
     public static String supprimerProjet="supprimerProjet";
     public static String supprimerProjetFile = "SupprimerProjet.fxml";
+    public static String creerProjetMembre="creerProjetMembre";
+    public static String creerProjetMembreFile = "CreerProjetMembre.fxml";
     
-    public static ProjetModeleJDBC pm;
-    public Principal(){
-        pm = new ProjetModeleJDBC();
-       
-        pm.personne();
-        
-    }
     @Override
     public void start(Stage primaryStage) {
         
@@ -69,8 +64,16 @@ public class Principal extends Application {
         mainContainer.loadScreen(Principal.projetAjoutFile, Principal.projetAjoutFile);
         mainContainer.loadScreen(Principal.entrepriseAjoutFile, Principal.entrepriseAjoutFile);
         mainContainer.loadScreen(Principal.modifierDateDebutProjetFile, Principal.modifierDateDebutProjetFile);
-        //mainContainer.loadScreen(Principal.modifierDateFinProjetFile, Principal.modifierDateFinProjetFile);
+        mainContainer.loadScreen(Principal.modifierDateFinProjetFile, Principal.modifierDateFinProjetFile);
         mainContainer.loadScreen(Principal.modifierTitreProjetFile, Principal.modifierTitreProjetFile);
+        mainContainer.loadScreen(Principal.supprimerProjetFile, Principal.supprimerProjetFile);
+        mainContainer.loadScreen(Principal.creerProjetMembreFile, Principal.creerProjetMembreFile);
+        
+        mainContainer.loadScreen(Principal.listeEntrepriseFile, Principal.listeEntrepriseFile);
+        mainContainer.loadScreen(Principal.modifierAdresseEntrepriseFile, Principal.modifierAdresseEntrepriseFile);
+        mainContainer.loadScreen(Principal.modifierGSMEntrepriseFile, Principal.modifierGSMEntrepriseFile);
+        mainContainer.loadScreen(Principal.supprimerEntrepriseFile, Principal.supprimerEntrepriseFile);
+        mainContainer.loadScreen(Principal.modifierNomEntrepriseFile, Principal.modifierNomEntrepriseFile);
         
         mainContainer.loadScreen(Principal.listeProjetFile, Principal.listeProjetFile);
         mainContainer.setScreen(Principal.screen1ID);
@@ -91,6 +94,7 @@ public class Principal extends Application {
      *
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
         Principal p=new Principal();
         launch(args);

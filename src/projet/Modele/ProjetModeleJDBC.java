@@ -29,7 +29,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             System.exit(1);//Pour fermer un programme. quand un programme se ferme normalement alors c'est 0
         }
     }
-
+   
     public void close() {
         try {
             dbConnect.close();

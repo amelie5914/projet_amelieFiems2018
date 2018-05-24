@@ -20,6 +20,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import projet.Modele.ProjetGeneral;
+import projet.Modele.ProjetModele;
+import projet.Modele.ProjetModeleJDBC;
 import projet.Modele.ProjetSimple;
 import projet.Modele.Sous_projet;
 
@@ -31,6 +33,7 @@ import projet.Modele.Sous_projet;
 public class SupprimerProjetController implements Initializable, ControlledEcran {
 
     ControleurEcran myController;
+   // ProjetModeleJDBC pm;
     @FXML
     DatePicker dateDebut;
     @FXML
@@ -78,8 +81,8 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
         } else {
             
            Sous_projet ps = new Sous_projet();
-             ps=(Sous_projet) Principal.pm.getProjet(ps, titre.getText());
-            boolean ok  = Principal.pm.supprimer(ps);
+             ps=(Sous_projet)Principal.pm.getProjet(ps, titre.getText());
+            boolean ok  =Principal.pm.supprimer(ps);
             if(ok){
                 message=ps+" a bien été supprimer.";
             }
@@ -100,7 +103,11 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-
+    /*@Override
+    public void setModele(ProjetModeleJDBC modele) {
+        this.pm=modele;
+    }
+*/
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -136,5 +143,29 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseNom(ActionEvent event) {
+        myController.setScreen(Principal.modifierNomEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseAdresse(ActionEvent event) {
+        myController.setScreen(Principal.modifierAdresseEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseTel(ActionEvent event) {
+        myController.setScreen(Principal.modifierGSMEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenSupprimerEntreprise(ActionEvent event) {
+        myController.setScreen(Principal.supprimerEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseListe(ActionEvent event) {
+        myController.setScreen(Principal.listeEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenCreerProjetMembre(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetMembreFile);
     }
 }

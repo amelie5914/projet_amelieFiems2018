@@ -5,6 +5,8 @@
  */
 package projet.Vue;
 
+import projet.Modele.*;
+
 /**
  *
  * @author ameliefiems

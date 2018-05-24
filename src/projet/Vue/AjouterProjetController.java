@@ -14,11 +14,15 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import projet.Modele.*;
@@ -28,46 +32,30 @@ import projet.Modele.*;
  *
  * @author ameliefiems
  */
-public class ProjetAjouterController implements Initializable, ControlledEcran {
+public class AjouterProjetController implements Initializable, ControlledEcran {
 
-    private ObservableList<Entreprise> listEntreprise = FXCollections.observableArrayList();
-    private ObservableList<Membre> listMembre = FXCollections.observableArrayList();
-    private ObservableList<Discipline> listDiscipline = FXCollections.observableArrayList();
+    private ControleurEcran myController;
+    //private ProjetModeleJDBC pm;
+    @FXML
+    private ListView<Entreprise> entrepriseListView;
+    private List<Entreprise> l = new ArrayList();
+
     @FXML
     TextField titre;
     @FXML
     DatePicker datedebut;
     @FXML
     DatePicker datefin;
-    @FXML
-    private ListView<Entreprise> entrepriseListView;
-    @FXML
-    private ListView<Membre> membreListView;
-    @FXML
-    private ListView<Discipline> disciplineListView;
-    private List<Entreprise> l = new ArrayList();
-    private List<Membre> lm = new ArrayList();
-    private List<Discipline> ld = new ArrayList();
-    ControleurEcran myController;
-    //ProjetModeleJDBC pm;
-    Entreprise e = new Entreprise();
-    Discipline d=new Discipline();
-    Membre mem;
+    private ObservableList<Entreprise> listEntreprise = FXCollections.observableArrayList();
+    private Entreprise e;
+    LocalDate date1 = null, date2 = null;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Entreprise ent = new Entreprise("Aucun");
-        if (Principal.pm.getEntreprise() != null) {
-            l = Principal.pm.getEntreprise();
-            l.forEach((entreprise) -> {
-                listEntreprise.add(entreprise);
-            });
-        } else {
-            listEntreprise.add(ent);
-        }
+        l = Principal.pm.getEntreprise();
+        l.forEach((entreprise) -> {
+            listEntreprise.add(entreprise);
+        });
         entrepriseListView.setItems(listEntreprise);
 
         entrepriseListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -76,51 +64,13 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
                 System.out.println("Entreprise" + e);
             }
         });
-        try {
-            Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
-            membreBuild.setNomMem("bla").setPrenomMem("bla");
-            mem = membreBuild.build();
-        } catch (Exception ex) {
-            System.out.println("Pas creation");
-        }
-        if (Principal.pm.getMembre() != null) {
-            lm = Principal.pm.getMembre();
-            lm.forEach((membre) -> {
-                listMembre.add(membre);
-            });
-            membreListView.setItems(listMembre);
-            membreListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-                if (newSelection != null) {
-                    mem = membreListView.getSelectionModel().getSelectedItem();
-                }
-            });
-        }
-        else{
-            System.out.println("pas de membre");
-        }
-        
-        Discipline dis = new Discipline("Aucun");
-        if (Principal.pm.getDis() != null) {
-            ld = Principal.pm.getDis();
-            ld.forEach((discipline) -> {
-                listDiscipline.add(discipline);
-            });
-        } else {
-            listDiscipline.add(dis);
-        }
-        if(listDiscipline!=null){
-        disciplineListView.setItems(listDiscipline);
-        }
-        else{
-            System.out.println("prout");
-        }
-        disciplineListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                d = disciplineListView.getSelectionModel().getSelectedItem();
-                
-            }
-        });
     }
+
+    @Override
+    public void setScreenParent(ControleurEcran screenParent) {
+        myController = screenParent;
+    }
+
     @FXML
     public void ajoutProjetSimple() {
 
@@ -183,13 +133,14 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
         System.out.println("titre" + titre.getText());
         ProjetSimple ps = new ProjetSimple(titre.getText(), d1, d2, e);
         String message = ps + "\n" +Principal.pm.ajouter(ps);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information ajout projet");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-@FXML
+
+    @FXML
     public void ajoutSousProjet() {
         String pattern = "dd-MM-yyyy";
 
@@ -247,7 +198,7 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
         LocalDate date2 = datefin.getValue();
         String d2 = inverseDate(date2);
         if (titre.getText().equals("")) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
+            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Titre incorrect");
             alert.setContentText("Vous devez remplir ce champs!");
@@ -255,7 +206,7 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
         } else {
             Sous_projet sp = new Sous_projet(titre.getText(), d1, d2, e);
             String message = sp + "\n" + Principal.pm.ajouter(sp);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Information ajout projet");
             alert.setHeaderText(null);
             alert.setContentText(message);
@@ -263,6 +214,7 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
             titre.setText("");
         }
     }
+
     public String inverseDate(LocalDate date) {
         String inverse;
         inverse = date.toString();
@@ -273,16 +225,12 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
         return inverse;
 
     }
-    @Override
-    public void setScreenParent(ControleurEcran screenParent) {
-        myController = screenParent;
-    }
-
+    
     /*@Override
     public void setModele(ProjetModeleJDBC modele) {
         this.pm=modele;
-    }*/
-
+    }
+*/
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -299,53 +247,48 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
     }
 
     @FXML
-    private void goToScreenProjetListe(ActionEvent event) {
-        myController.setScreen(Principal.listeProjetFile);
-    }
-
-    @FXML
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
 
     @FXML
+    private void goToScreenProjetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeProjetFile);
+    }
+    @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
-
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
-
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
-    }
-
-    @FXML
+    }@FXML
     private void goToScreenEntrepriseNom(ActionEvent event) {
         myController.setScreen(Principal.modifierNomEntrepriseFile);
     }
-
     @FXML
     private void goToScreenEntrepriseAdresse(ActionEvent event) {
         myController.setScreen(Principal.modifierAdresseEntrepriseFile);
     }
-
     @FXML
     private void goToScreenEntrepriseTel(ActionEvent event) {
         myController.setScreen(Principal.modifierGSMEntrepriseFile);
     }
-
     @FXML
     private void goToScreenSupprimerEntreprise(ActionEvent event) {
         myController.setScreen(Principal.supprimerEntrepriseFile);
     }
-
     @FXML
     private void goToScreenEntrepriseListe(ActionEvent event) {
         myController.setScreen(Principal.listeEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenCreerProjetMembre(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetMembreFile);
     }
 
 }

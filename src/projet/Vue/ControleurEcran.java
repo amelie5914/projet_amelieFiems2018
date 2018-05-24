@@ -5,7 +5,9 @@
  */
 package projet.Vue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -22,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import projet.Modele.ProjetModele;
+import projet.Modele.ProjetModeleJDBC;
 
 /**
  *
@@ -36,7 +40,8 @@ import javafx.util.Duration;
  */
 public class ControleurEcran extends StackPane {
     
-   private HashMap<String, Node> screens = new HashMap<>();
+    private HashMap<String, Node> screens = new HashMap<>();
+   // private List<ControlledEcran> liste=new ArrayList();
     
     public ControleurEcran() {
         super();
@@ -44,7 +49,12 @@ public class ControleurEcran extends StackPane {
 
     //Add the screen to the collection
     public void addScreen(String name, Node screen) {
+        try{
         screens.put(name, screen);
+        }
+        catch(Exception e){
+                System.out.println(e.getMessage());
+                }
     }
 
     //Returns the Node with the appropriate name
@@ -60,10 +70,14 @@ public class ControleurEcran extends StackPane {
             Parent loadScreen = (Parent) myLoader.load();
             ControlledEcran myScreenControler = ((ControlledEcran) myLoader.getController());
             myScreenControler.setScreenParent(this);
+            
+            
             addScreen(name, loadScreen);
             return true;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("name"+name+" "+e.getMessage());
+            System.out.println(e.getCause());
+            System.out.println(e.getLocalizedMessage());
             return false;
         }
     }
@@ -106,21 +120,6 @@ public class ControleurEcran extends StackPane {
             return false;
         }
 
-
-        /*Node screenToRemove;
-         if(screens.get(name) != null){   //screen loaded
-         if(!getChildren().isEmpty()){    //if there is more than one screen
-         getChildren().add(0, screens.get(name));     //add the screen
-         screenToRemove = getChildren().get(1);
-         getChildren().remove(1);                    //remove the displayed screen
-         }else{
-         getChildren().add(screens.get(name));       //no one else been displayed, then just show
-         }
-         return true;
-         }else {
-         System.out.println("screen hasn't been loaded!!! \n");
-         return false;
-         }*/
     }
 
     //This method will remove the screen with the given name from the collection of screens
@@ -132,6 +131,14 @@ public class ControleurEcran extends StackPane {
             return true;
         }
     }
+    
+    /*public void setModele(ProjetModeleJDBC modele){
+        if(modele!=null){
+            for (ControlledEcran controlledEcran : liste) {
+                   controlledEcran.setModele(modele);
+            }
+        }
+    }*/
 
    
 }

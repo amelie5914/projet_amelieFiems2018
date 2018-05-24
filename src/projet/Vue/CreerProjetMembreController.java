@@ -8,6 +8,8 @@ package projet.Vue;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,29 +21,33 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+import projet.Modele.Membre;
 import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetModele;
-import projet.Modele.ProjetModeleJDBC;
 import projet.Modele.ProjetSimple;
 import projet.Modele.Sous_projet;
+import projet.Modele.Travail;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class ModifierDateDebutProjetController implements Initializable, ControlledEcran {
-
+public class CreerProjetMembreController implements Initializable,ControlledEcran {
     ControleurEcran myController;
-   // ProjetModeleJDBC pm;
-    @FXML
-    DatePicker dateDebut;
     @FXML
     TextField titre;
     @FXML
+    DatePicker dateEng;
+    @FXML
+    TextField pourcentage;
+    @FXML
+    private ListView<Membre> membreListView;
+    private ObservableList<Membre> listMembre = FXCollections.observableArrayList();
+    private List<Membre> lm = new ArrayList();
     ListView<String> list=new ListView<String>();
     private String choix;
 
+    Membre mem;
     /**
      * Initializes the controller class.
      */
@@ -56,19 +62,44 @@ public class ModifierDateDebutProjetController implements Initializable, Control
                 System.out.println("choix=" + choix);
             }
         });
+        try {
+            Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
+            membreBuild.setNomMem("bla").setPrenomMem("bla");
+            mem = membreBuild.build();
+        } catch (Exception ex) {
+            System.out.println("Pas creation");
+        }
+        if (Principal.pm.getMembre() != null) {
+            lm = Principal.pm.getMembre();
+            lm.forEach((membre) -> {
+                listMembre.add(membre);
+            });
+            membreListView.setItems(listMembre);
+            membreListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    mem = membreListView.getSelectionModel().getSelectedItem();
+                }
+            });
+        }
+        else{
+            System.out.println("pas de membre");
+        }
+    } 
+    @Override
+    public void setScreenParent(ControleurEcran screenParent) {
+        myController = screenParent;
     }
-
     @FXML
-    public void modifierDateDebutProjet() {
+    public void ajout(){
         if (choix.equals("Simple")) {
             ProjetSimple ps = new ProjetSimple();
             ProjetGeneral pg;
             System.out.println("TITRE TROUVE" + Principal.pm.getProjet(ps, titre.getText()));
             String pattern = "dd-MM-yyyy";
 
-            dateDebut.setPromptText(pattern.toLowerCase());
+            dateEng.setPromptText(pattern.toLowerCase());
 
-            dateDebut.setConverter(new StringConverter<LocalDate>() {
+            dateEng.setConverter(new StringConverter<LocalDate>() {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
                 @Override
@@ -89,15 +120,18 @@ public class ModifierDateDebutProjetController implements Initializable, Control
                     }
                 }
             });
-            LocalDate date = dateDebut.getValue();
+            LocalDate date = dateEng.getValue();
             String d1 = inverseDate(date);
 
             ps = (ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
-            String message = Principal.pm.modifierDateDebutProjet(ps, d1);
-
+            int taux=Integer.parseInt(pourcentage.getText());
+            Travail t=new Travail(d1, taux,ps,mem);
+            
+            String message = Principal.pm.ajouter(t);
+            
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information modification du titre du projet");
+            alert.setTitle("Information ajout du membre dans le projet");
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
@@ -107,9 +141,9 @@ public class ModifierDateDebutProjetController implements Initializable, Control
             System.out.println("TITRE TROUVE" +Principal.pm.getProjet(sp, titre.getText()));
             String pattern = "dd-MM-yyyy";
 
-            dateDebut.setPromptText(pattern.toLowerCase());
+            dateEng.setPromptText(pattern.toLowerCase());
 
-            dateDebut.setConverter(new StringConverter<LocalDate>() {
+            dateEng.setConverter(new StringConverter<LocalDate>() {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
                 @Override
@@ -130,23 +164,29 @@ public class ModifierDateDebutProjetController implements Initializable, Control
                     }
                 }
             });
-            LocalDate date = dateDebut.getValue();
+            LocalDate date = dateEng.getValue();
             String d1 = inverseDate(date);
 
             sp = (Sous_projet) Principal.pm.getProjet(sp, titre.getText());
-            String message = Principal.pm.modifierDateDebutProjet(sp, d1);
+            int taux=Integer.parseInt(pourcentage.getText());
+            Travail t=new Travail(d1, taux,sp,mem);
+            
+            String message = Principal.pm.ajouter(t);
 
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information modification du titre du projet");
+            alert.setTitle("Information modification de la date de fin du projet");
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
         }
-
     }
 
-    public String inverseDate(LocalDate date) {
+    /*@Override
+    public void setModele(ProjetModeleJDBC modele) {
+        this.pm=modele;
+    }*/
+public String inverseDate(LocalDate date) {
         String inverse;
         inverse = date.toString();
         String annee = inverse.substring(0, 4);
@@ -156,17 +196,6 @@ public class ModifierDateDebutProjetController implements Initializable, Control
         return inverse;
 
     }
-
-    @Override
-    public void setScreenParent(ControleurEcran screenParent) {
-        myController = screenParent;
-    }
-    
-   /* @Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }*/
-
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -191,34 +220,42 @@ public class ModifierDateDebutProjetController implements Initializable, Control
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
+
     @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
+
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
+
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
     }
+
     @FXML
     private void goToScreenEntrepriseNom(ActionEvent event) {
         myController.setScreen(Principal.modifierNomEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseAdresse(ActionEvent event) {
         myController.setScreen(Principal.modifierAdresseEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseTel(ActionEvent event) {
         myController.setScreen(Principal.modifierGSMEntrepriseFile);
     }
+
     @FXML
     private void goToScreenSupprimerEntreprise(ActionEvent event) {
         myController.setScreen(Principal.supprimerEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseListe(ActionEvent event) {
         myController.setScreen(Principal.listeEntrepriseFile);
@@ -227,5 +264,5 @@ public class ModifierDateDebutProjetController implements Initializable, Control
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
     }
-
+    
 }

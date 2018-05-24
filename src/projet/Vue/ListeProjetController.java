@@ -27,7 +27,7 @@ import projet.Modele.*;
  * @author ameliefiems
  */
 public class ListeProjetController implements Initializable, ControlledEcran {
-    
+     //private ProjetModeleJDBC pm;
     ControleurEcran myController;
      private ObservableList<ProjetGeneral> projetData = FXCollections.observableArrayList();
     private List<ProjetGeneral> l = new ArrayList();
@@ -45,11 +45,10 @@ public class ListeProjetController implements Initializable, ControlledEcran {
     /**
      * Initializes the controller class.
      */
-    ProjetModeleJDBC pm=new ProjetModeleJDBC();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        l = pm.getProjet();
+        l = Principal.pm.getProjet();
         l.forEach((projet) -> {
             projetData.add(projet);
         });
@@ -76,6 +75,10 @@ public class ListeProjetController implements Initializable, ControlledEcran {
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+    /*@Override
+    public void setModele(ProjetModeleJDBC modele) {
+        this.pm=modele;
+    }*/
 
     @FXML
     private void goToScreen2(ActionEvent event) {
@@ -111,6 +114,30 @@ public class ListeProjetController implements Initializable, ControlledEcran {
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseNom(ActionEvent event) {
+        myController.setScreen(Principal.modifierNomEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseAdresse(ActionEvent event) {
+        myController.setScreen(Principal.modifierAdresseEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseTel(ActionEvent event) {
+        myController.setScreen(Principal.modifierGSMEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenSupprimerEntreprise(ActionEvent event) {
+        myController.setScreen(Principal.supprimerEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenEntrepriseListe(ActionEvent event) {
+        myController.setScreen(Principal.listeEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenCreerProjetMembre(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetMembreFile);
     }
     
 }

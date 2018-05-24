@@ -30,12 +30,12 @@ import projet.Modele.Sous_projet;
  *
  * @author ameliefiems
  */
-public class ModifierDateDebutProjetController implements Initializable, ControlledEcran {
+public class ModifierDateFinProjetController implements Initializable, ControlledEcran {
 
     ControleurEcran myController;
-   // ProjetModeleJDBC pm;
+    //ProjetModeleJDBC pm;
     @FXML
-    DatePicker dateDebut;
+    DatePicker dateFin;
     @FXML
     TextField titre;
     @FXML
@@ -59,16 +59,16 @@ public class ModifierDateDebutProjetController implements Initializable, Control
     }
 
     @FXML
-    public void modifierDateDebutProjet() {
+    public void modifierDateFinProjet() {
         if (choix.equals("Simple")) {
             ProjetSimple ps = new ProjetSimple();
             ProjetGeneral pg;
             System.out.println("TITRE TROUVE" + Principal.pm.getProjet(ps, titre.getText()));
             String pattern = "dd-MM-yyyy";
 
-            dateDebut.setPromptText(pattern.toLowerCase());
+            dateFin.setPromptText(pattern.toLowerCase());
 
-            dateDebut.setConverter(new StringConverter<LocalDate>() {
+            dateFin.setConverter(new StringConverter<LocalDate>() {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
                 @Override
@@ -89,15 +89,15 @@ public class ModifierDateDebutProjetController implements Initializable, Control
                     }
                 }
             });
-            LocalDate date = dateDebut.getValue();
+            LocalDate date = dateFin.getValue();
             String d1 = inverseDate(date);
 
             ps = (ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
-            String message = Principal.pm.modifierDateDebutProjet(ps, d1);
+            String message = Principal.pm.modifierDateFinProjet(ps, d1);
 
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information modification du titre du projet");
+            alert.setTitle("Information modification de la date de fin  du projet");
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
@@ -107,9 +107,9 @@ public class ModifierDateDebutProjetController implements Initializable, Control
             System.out.println("TITRE TROUVE" +Principal.pm.getProjet(sp, titre.getText()));
             String pattern = "dd-MM-yyyy";
 
-            dateDebut.setPromptText(pattern.toLowerCase());
+            dateFin.setPromptText(pattern.toLowerCase());
 
-            dateDebut.setConverter(new StringConverter<LocalDate>() {
+            dateFin.setConverter(new StringConverter<LocalDate>() {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
                 @Override
@@ -130,15 +130,15 @@ public class ModifierDateDebutProjetController implements Initializable, Control
                     }
                 }
             });
-            LocalDate date = dateDebut.getValue();
+            LocalDate date = dateFin.getValue();
             String d1 = inverseDate(date);
 
             sp = (Sous_projet) Principal.pm.getProjet(sp, titre.getText());
-            String message = Principal.pm.modifierDateDebutProjet(sp, d1);
+            String message = Principal.pm.modifierDateFinProjet(sp, d1);
 
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information modification du titre du projet");
+            alert.setTitle("Information modification de la date de fin du projet");
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
@@ -162,7 +162,7 @@ public class ModifierDateDebutProjetController implements Initializable, Control
         myController = screenParent;
     }
     
-   /* @Override
+    /*@Override
     public void setModele(ProjetModeleJDBC modele) {
         this.pm=modele;
     }*/

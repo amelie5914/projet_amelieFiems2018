@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import projet.Modele.ProjetModele;
+import projet.Modele.ProjetModeleJDBC;
 
 /**
  * FXML Controller class
@@ -27,6 +29,7 @@ import javafx.stage.Stage;
 public class AccueilController implements Initializable, ControlledEcran{
 
     ControleurEcran myController;
+    //ProjetModeleJDBC pm;
     /**
      * Initializes the controller class.
      */
@@ -41,13 +44,12 @@ public class AccueilController implements Initializable, ControlledEcran{
 
     @FXML
     private void goToScreen2(ActionEvent event){
+        //tPrincipal.pm=new ProjetModeleJDBC();
+        
+       //myController.setModele(pm);
        myController.setScreen(Principal.screen2ID);
+       
     }
-    
-    
-
-    
-
     /**
      * Initializes the controller class.
      */

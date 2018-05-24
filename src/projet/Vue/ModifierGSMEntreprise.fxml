@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane1" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.SupprimerProjetController">
-   <children>
+<AnchorPane id="AnchorPane1" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="projet.Vue.ModifierGSMEntrepriseController">
+    <children>
       <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
         <menus>
           <Menu mnemonicParsing="false" text="Projets">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
+               <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
@@ -64,11 +56,6 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                   <ListView fx:id="list" layoutX="-162.0" layoutY="-220.0" prefHeight="454.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
                   <GridPane prefHeight="407.0" prefWidth="623.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -80,10 +67,11 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Titre " GridPane.halignment="RIGHT" />
-                        <TextField fx:id="titre" GridPane.columnIndex="1" />
-                        <Button id="boutonProjet" mnemonicParsing="false" onAction="#supprimerProjet" text="Supprimer" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        
+                        <Label text="Nom " GridPane.halignment="RIGHT" />
+                        <Label text="Nouveau numero" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <TextField fx:id="nom" GridPane.columnIndex="1" />
+                        <TextField fx:id="nvxNum" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button id="boutonProjet" mnemonicParsing="false" onAction="#modifierGSMEntreprise" text="Modifier" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

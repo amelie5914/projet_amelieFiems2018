@@ -739,7 +739,6 @@ public class ProjetControleur {
                     if (pm.get(m, m1, mem) != null) {
                         System.out.println(pm.get(m, m1, mem));
                         mem = (Membre) pm.get(m, m1, mem);
-                        System.out.println("Après l'avoir récuperer:");
                         v = true;
                     }
                     if (mem != null) {

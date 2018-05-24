@@ -28,7 +28,10 @@
           <Menu mnemonicParsing="false" text="Clients">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseAjout" text="Ajouter" />
-                  <MenuItem mnemonicParsing="false" text="Rechercher" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseNom" text="Modifier le nom" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseAdresse" text="Modifier l'adresse" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseTel" text="Modifier le numero" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerEntreprise" text="Supprimer" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Membres">

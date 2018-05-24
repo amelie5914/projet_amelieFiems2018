@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane1" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.SupprimerProjetController">
+<AnchorPane id="AnchorPane1" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.ModifierDateFinProjetController">
    <children>
       <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
         <menus>
@@ -81,9 +81,10 @@
                     </rowConstraints>
                      <children>
                         <Label text="Titre " GridPane.halignment="RIGHT" />
+                        <Label text="Nouvelle date de fin" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                         <TextField fx:id="titre" GridPane.columnIndex="1" />
-                        <Button id="boutonProjet" mnemonicParsing="false" onAction="#supprimerProjet" text="Supprimer" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        
+                        <Button id="boutonProjet" mnemonicParsing="false" onAction="#modifierDateFinProjet" text="Modifier" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="dateFin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

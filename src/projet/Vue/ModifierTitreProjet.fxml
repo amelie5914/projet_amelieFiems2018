@@ -17,9 +17,9 @@
    <children>
       <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Projets">
+         <Menu mnemonicParsing="false" text="Projets">
             <items>
-               <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
@@ -29,7 +29,10 @@
           <Menu mnemonicParsing="false" text="Clients">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseAjout" text="Ajouter" />
-                  <MenuItem mnemonicParsing="false" text="Rechercher" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseNom" text="Modifier le nom" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseAdresse" text="Modifier l'adresse" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseTel" text="Modifier le numero" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerEntreprise" text="Supprimer" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Membres">
@@ -60,7 +63,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                   <ListView fx:id="list" layoutX="-162.0" layoutY="-220.0" prefHeight="454.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                   <ListView id="list" fx:id="list" layoutX="-162.0" layoutY="-220.0" prefHeight="454.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
