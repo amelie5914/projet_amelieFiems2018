@@ -54,6 +54,19 @@ public class Principal extends Application {
     public static String supprimerProjetFile = "SupprimerProjet.fxml";
     public static String creerProjetMembre="creerProjetMembre";
     public static String creerProjetMembreFile = "CreerProjetMembre.fxml";
+    public static String creerProjetDis="creerProjetDis";
+    public static String creerProjetDisFile = "CreerProjetDis.fxml";
+    
+    public static String ajoutMembre="ajoutMembre";
+    public static String ajoutMembreFile = "AjouterMembre.fxml";
+    public static String modifierEmailMembre="modifierEmailMembre";
+    public static String modifierEmailMembreFile = "ModifierEmailMembre.fxml";
+    
+    public static String modifierGSMMembre="modifierGSMMembre";
+    public static String modifierGSMMembreFile = "ModifierGSMMembre.fxml";
+    public static String supprimerMembre="supprimerembre";
+    public static String supprimerMembreFile = "SupprimerMembre.fxml";
+    
     
     @Override
     public void start(Stage primaryStage) {
@@ -68,12 +81,18 @@ public class Principal extends Application {
         mainContainer.loadScreen(Principal.modifierTitreProjetFile, Principal.modifierTitreProjetFile);
         mainContainer.loadScreen(Principal.supprimerProjetFile, Principal.supprimerProjetFile);
         mainContainer.loadScreen(Principal.creerProjetMembreFile, Principal.creerProjetMembreFile);
-        
+        mainContainer.loadScreen(Principal.creerProjetDisFile, Principal.creerProjetDisFile);
+
         mainContainer.loadScreen(Principal.listeEntrepriseFile, Principal.listeEntrepriseFile);
         mainContainer.loadScreen(Principal.modifierAdresseEntrepriseFile, Principal.modifierAdresseEntrepriseFile);
         mainContainer.loadScreen(Principal.modifierGSMEntrepriseFile, Principal.modifierGSMEntrepriseFile);
         mainContainer.loadScreen(Principal.supprimerEntrepriseFile, Principal.supprimerEntrepriseFile);
         mainContainer.loadScreen(Principal.modifierNomEntrepriseFile, Principal.modifierNomEntrepriseFile);
+        
+        mainContainer.loadScreen(Principal.ajoutMembreFile, Principal.ajoutMembreFile);
+        mainContainer.loadScreen(Principal.modifierEmailMembreFile, Principal.modifierEmailMembreFile);
+        mainContainer.loadScreen(Principal.modifierGSMMembreFile, Principal.modifierGSMMembreFile);
+        mainContainer.loadScreen(Principal.supprimerMembreFile, Principal.supprimerMembreFile);
         
         mainContainer.loadScreen(Principal.listeProjetFile, Principal.listeProjetFile);
         mainContainer.setScreen(Principal.screen1ID);

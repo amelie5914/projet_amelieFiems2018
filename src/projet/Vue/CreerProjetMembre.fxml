@@ -80,7 +80,7 @@
             <DatePicker fx:id="dateEng" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button id="boutonProjet" mnemonicParsing="false" onAction="#ajout" text="Ajout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <TextField fx:id="pourcentage" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ListView prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </GridPane>
    </children>

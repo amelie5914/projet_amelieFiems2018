@@ -6,106 +6,54 @@
 package projet.Vue;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
-import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetModele;
-import projet.Modele.ProjetModeleJDBC;
+import projet.Modele.Entreprise;
 import projet.Modele.ProjetSimple;
-import projet.Modele.Sous_projet;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerProjetController implements Initializable, ControlledEcran {
-
+public class SupprimerEntrepriseController implements Initializable,ControlledEcran {
     ControleurEcran myController;
    // ProjetModeleJDBC pm;
     @FXML
-    TextField titre;
-    @FXML
-    ListView<String> list=new ListView<String>();
-    private String choix;
-
+    TextField nom;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Simple", "Composite");
-        list.setItems(items);
-        list.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                choix = list.getSelectionModel().getSelectedItem();
-                System.out.println("choix=" + choix);
-            }
-        });
-    }
-
-    @FXML
-    public void supprimerProjet() {
+        // TODO
+    }    
+    public void supprimer(){
         String message="";
-        if (choix.equals("Simple")) {
-             ProjetSimple ps = new ProjetSimple();
-             ps=(ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
-            boolean ok  = Principal.pm.supprimer(ps);
+        Entreprise e = new Entreprise();
+             e=(Entreprise) Principal.pm.get(nom.getText(), "", e);
+            boolean ok  = Principal.pm.supprimer(e);
             if(ok){
-                message=ps+" a bien été supprimer.";
+                message=e+" a bien été supprimer.";
             }
             else{
-                message=ps+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
+                message=e+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
             }
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du projet");
+            alert.setTitle("Information suppression de l'entreprise");
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
-            
-        } else {
-            
-           Sous_projet ps = new Sous_projet();
-             ps=(Sous_projet)Principal.pm.getProjet(ps, titre.getText());
-            boolean ok  =Principal.pm.supprimer(ps);
-            if(ok){
-                message=ps+" a bien été supprimer.";
-            }
-            else{
-                message=ps+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du projet");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
-        }
-
     }
-
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-    /*@Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }
-*/
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -166,4 +114,6 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
     }
+
+    
 }

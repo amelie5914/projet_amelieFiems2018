@@ -6,95 +6,56 @@
 package projet.Vue;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
-import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetModele;
-import projet.Modele.ProjetModeleJDBC;
-import projet.Modele.ProjetSimple;
-import projet.Modele.Sous_projet;
+import projet.Modele.Entreprise;
+import projet.Modele.Membre;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerProjetController implements Initializable, ControlledEcran {
+public class ModifierGSMMembreController implements Initializable,ControlledEcran {
 
     ControleurEcran myController;
-   // ProjetModeleJDBC pm;
+    //ProjetModeleJDBC pm;
     @FXML
-    TextField titre;
+    TextField nom;
     @FXML
-    ListView<String> list=new ListView<String>();
-    private String choix;
-
-    /**
-     * Initializes the controller class.
-     */
+    TextField prenom;
+    @FXML
+    TextField nvxNum;
+    Membre mem=null;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Simple", "Composite");
-        list.setItems(items);
-        list.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                choix = list.getSelectionModel().getSelectedItem();
-                System.out.println("choix=" + choix);
-            }
-        });
+        
     }
 
     @FXML
-    public void supprimerProjet() {
-        String message="";
-        if (choix.equals("Simple")) {
-             ProjetSimple ps = new ProjetSimple();
-             ps=(ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
-            boolean ok  = Principal.pm.supprimer(ps);
-            if(ok){
-                message=ps+" a bien été supprimer.";
-            }
-            else{
-                message=ps+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
+    public void modifierGSMMembre() {
+            mem=(Membre)Principal.pm.get(nom.getText(),prenom.getText(), mem);
+            if(mem!=null){
+              String message = Principal.pm.modifierGSMMembre(mem, nvxNum.getText());
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du projet");
+            alert.setTitle("Information modification du numero du membre");
             alert.setHeaderText(null);
             alert.setContentText(msg);
-            alert.showAndWait();
-            
-        } else {
-            
-           Sous_projet ps = new Sous_projet();
-             ps=(Sous_projet)Principal.pm.getProjet(ps, titre.getText());
-            boolean ok  =Principal.pm.supprimer(ps);
-            if(ok){
-                message=ps+" a bien été supprimer.";
+            alert.showAndWait();  
             }
             else{
-                message=ps+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du projet");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information modification du numero du membre");
             alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
-        }
-
+            alert.setContentText("Le membre n'existe pas");
+            alert.showAndWait(); 
+            }
+            
     }
 
     @Override
@@ -104,8 +65,8 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     /*@Override
     public void setModele(ProjetModeleJDBC modele) {
         this.pm=modele;
-    }
-*/
+    }*/
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -122,13 +83,13 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     }
 
     @FXML
-    private void goToScreenProjetListe(ActionEvent event) {
-        myController.setScreen(Principal.listeProjetFile);
+    private void goToScreenTitreProjet(ActionEvent event) {
+        myController.setScreen(Principal.modifierTitreProjetFile);
     }
 
     @FXML
-    private void goToScreenTitreProjet(ActionEvent event) {
-        myController.setScreen(Principal.modifierTitreProjetFile);
+    private void goToScreenProjetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeProjetFile);
     }
     @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
@@ -141,8 +102,7 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
-    }
-    @FXML
+    }@FXML
     private void goToScreenEntrepriseNom(ActionEvent event) {
         myController.setScreen(Principal.modifierNomEntrepriseFile);
     }
@@ -165,5 +125,6 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     @FXML
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
-    }
+    }  
+    
 }

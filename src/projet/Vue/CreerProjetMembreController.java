@@ -44,6 +44,7 @@ public class CreerProjetMembreController implements Initializable,ControlledEcra
     private ListView<Membre> membreListView;
     private ObservableList<Membre> listMembre = FXCollections.observableArrayList();
     private List<Membre> lm = new ArrayList();
+   @FXML
     ListView<String> list=new ListView<String>();
     private String choix;
 
@@ -124,6 +125,8 @@ public class CreerProjetMembreController implements Initializable,ControlledEcra
             String d1 = inverseDate(date);
 
             ps = (ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
+            
+        try {
             int taux=Integer.parseInt(pourcentage.getText());
             Travail t=new Travail(d1, taux,ps,mem);
             
@@ -135,6 +138,16 @@ public class CreerProjetMembreController implements Initializable,ControlledEcra
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERREUR");
+            alert.setHeaderText(null);
+            alert.setContentText("Nombre invalide");
+            alert.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+            
         } else {
             Sous_projet sp = new Sous_projet();
             ProjetGeneral pg;
@@ -168,17 +181,27 @@ public class CreerProjetMembreController implements Initializable,ControlledEcra
             String d1 = inverseDate(date);
 
             sp = (Sous_projet) Principal.pm.getProjet(sp, titre.getText());
+            try {
             int taux=Integer.parseInt(pourcentage.getText());
             Travail t=new Travail(d1, taux,sp,mem);
             
             String message = Principal.pm.ajouter(t);
-
+            
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information modification de la date de fin du projet");
+            alert.setTitle("Information ajout du membre dans le projet");
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERREUR");
+            alert.setHeaderText(null);
+            alert.setContentText("Nombre invalide");
+            alert.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         }
     }
 

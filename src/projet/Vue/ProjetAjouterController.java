@@ -263,7 +263,7 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
             titre.setText("");
         }
     }
-    public String inverseDate(LocalDate date) {
+     public String inverseDate(LocalDate date) {
         String inverse;
         inverse = date.toString();
         String annee = inverse.substring(0, 4);
@@ -346,6 +346,10 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
     @FXML
     private void goToScreenEntrepriseListe(ActionEvent event) {
         myController.setScreen(Principal.listeEntrepriseFile);
+    }
+    @FXML
+    private void goToScreenCreerProjetMembre(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetMembreFile);
     }
 
 }

@@ -9,63 +9,66 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane1" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.ListeProjetController">
-   <children>
-      <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Projets">
+    <children>
+        <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Projets">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerProjet" text="Supprimer" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetMembre" text="Ajouter membre dans projet" />
+
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Clients">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Membres">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Disciplines">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Niveaux">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Listes">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane layoutX="47.0" layoutY="110.0" prefHeight="602.0" prefWidth="1135.0">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerProjet" text="Supprimer" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TableView fx:id="personTable" layoutX="43.0" layoutY="105.0" prefHeight="600.0" prefWidth="334.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="titreColumn" prefWidth="252.87564086914062" text="Titre" />
+                                <TableColumn fx:id="entrepriseLabel" prefWidth="297.1715087890625" text="Client" />
+                                <TableColumn fx:id="dateDebutLabel" prefWidth="262.8285217285156" text="Date debut" />
+                                <TableColumn fx:id="dateFinLabel" prefWidth="313.71917724609375" text="Date fin" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
             </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Clients">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseAjout" text="Ajouter" />
-                  <MenuItem mnemonicParsing="false" text="Rechercher" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Membres">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Ajouter" />
-                  <MenuItem mnemonicParsing="false" text="Rechercher" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Disciplines">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Ajouter" />
-                  <MenuItem mnemonicParsing="false" text="Rechercher" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Niveaux">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Ajouter" />
-                  <MenuItem mnemonicParsing="false" text="Rechercher" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Listes">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
-               </items></Menu>
-        </menus>
-      </MenuBar>
-      <SplitPane layoutX="47.0" layoutY="110.0" prefHeight="602.0" prefWidth="1135.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <TableView fx:id="personTable" layoutX="43.0" layoutY="105.0" prefHeight="600.0" prefWidth="334.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="titreColumn" prefWidth="252.87564086914062" text="Titre" />
-                        <TableColumn fx:id="entrepriseLabel" prefWidth="297.1715087890625" text="Client" />
-                        <TableColumn fx:id="dateDebutLabel" prefWidth="262.8285217285156" text="Date debut" />
-                        <TableColumn fx:id="dateFinLabel" prefWidth="313.71917724609375" text="Date fin" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-         </children>
+        </SplitPane>
+    </children>
 </AnchorPane>

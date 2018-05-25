@@ -33,6 +33,8 @@
               <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseAdresse" text="Modifier l'adresse" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseTel" text="Modifier le numero" />
               <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerEntreprise" text="Supprimer" />
+              <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetMembre" text="Ajouter membre dans projet" />
+           
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Membres">

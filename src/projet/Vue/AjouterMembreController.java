@@ -6,106 +6,91 @@
 package projet.Vue;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
-import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetModele;
-import projet.Modele.ProjetModeleJDBC;
-import projet.Modele.ProjetSimple;
-import projet.Modele.Sous_projet;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerProjetController implements Initializable, ControlledEcran {
-
+public class AjouterMembreController implements Initializable,ControlledEcran {
+    @FXML
+    TextField nom;
+    @FXML
+    TextField prenom;
+    @FXML
+    TextField gsm;
+    @FXML
+    TextField email;
     ControleurEcran myController;
-   // ProjetModeleJDBC pm;
-    @FXML
-    TextField titre;
-    @FXML
-    ListView<String> list=new ListView<String>();
-    private String choix;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Simple", "Composite");
-        list.setItems(items);
-        list.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                choix = list.getSelectionModel().getSelectedItem();
-                System.out.println("choix=" + choix);
-            }
-        });
-    }
-
-    @FXML
-    public void supprimerProjet() {
-        String message="";
-        if (choix.equals("Simple")) {
-             ProjetSimple ps = new ProjetSimple();
-             ps=(ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
-            boolean ok  = Principal.pm.supprimer(ps);
-            if(ok){
-                message=ps+" a bien été supprimer.";
-            }
-            else{
-                message=ps+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du projet");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
+        // TODO
+    } 
+     @FXML
+    public void ajout() {
+        Membre membre=null;
+        if (!gsm.getText().matches("^[0-9]{10}$")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Le numero de téléphone n'est pas dans le bon format...");
+            alert.setContentText("Format: Il faut mettre que 10 chiffres");
             alert.showAndWait();
-            
+        } else if (!email.getText().matches("^[A-Za-z0-9]+\\.[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]{2,3}$")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("L'email est pas dnas le bon format");
+            alert.setContentText("Format: nom.prenom@nav.be  (ou .com)");
+            alert.showAndWait();
+        } else if (prenom.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Vous n'avez pas entré de prenom");
+            alert.setContentText("Obligatoire de remplir ce champs!");
+            alert.showAndWait();
+        }else if (nom.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Vous n'avez pas entré de nom");
+            alert.setContentText("Obligatoire de remplir ce champs!");
+            alert.showAndWait();
         } else {
-            
-           Sous_projet ps = new Sous_projet();
-             ps=(Sous_projet)Principal.pm.getProjet(ps, titre.getText());
-            boolean ok  =Principal.pm.supprimer(ps);
-            if(ok){
-                message=ps+" a bien été supprimer.";
-            }
-            else{
-                message=ps+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du projet");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
-        }
+            Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
+        membreBuild.setNomMem(nom.getText()).setPrenomMem(prenom.getText()).setGsm(gsm.getText()).setEmail(email.getText());
+        try {
+            membre = membreBuild.build();
 
+        } catch (Exception e) {
+            System.out.println("Erreur de création" + e);
+        }
+            String message = membre + "\n" + Principal.pm.ajouter(membre);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information ajout membre");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+            nom.setText("");
+            prenom.setText("");
+            gsm.setText("");
+            email.setText("");
+        }
     }
 
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-    /*@Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }
-*/
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -130,14 +115,17 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
+
     @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
+
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
+
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
@@ -166,4 +154,5 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
     }
+    
 }
