@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane1" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.ModifierDateFinProjetController">
+<AnchorPane id="AnchorPane" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.4" fx:controller="projet.Vue.ListeMembreController">
     <children>
         <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
             <menus>
@@ -66,33 +60,18 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.22019867549668873" layoutX="24.0" layoutY="113.0" prefHeight="456.0" prefWidth="1210.0">
+        <SplitPane layoutX="47.0" layoutY="110.0" prefHeight="602.0" prefWidth="1135.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <ListView fx:id="list" layoutX="-162.0" layoutY="-220.0" prefHeight="454.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                    <children>
-                        <GridPane prefHeight="407.0" prefWidth="623.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Label text="Titre " GridPane.halignment="RIGHT" />
-                                <Label text="Nouvelle date de fin" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                                <TextField fx:id="titre" GridPane.columnIndex="1" />
-                                <Button id="boutonProjet" mnemonicParsing="false" onAction="#modifierDateFinProjet" text="Modifier" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                                <DatePicker fx:id="dateFin" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                            </children>
-                        </GridPane>
+                        <TableView fx:id="personTable" layoutX="43.0" layoutY="105.0" prefHeight="600.0" prefWidth="334.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="nomColumn" prefWidth="252.87564086914062" text="Nom" />
+                                <TableColumn fx:id="prenomColumn" prefWidth="262.8285217285156" text="Prenom" />
+                                <TableColumn fx:id="gsmLabel" prefWidth="313.71917724609375" text="GSM" />
+                        <TableColumn fx:id="emailLabel" prefWidth="301.99993896484375" text="Email" />
+                            </columns>
+                        </TableView>
                     </children>
                 </AnchorPane>
             </items>

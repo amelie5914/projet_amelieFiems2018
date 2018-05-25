@@ -34,22 +34,25 @@ public class JDBCController implements Initializable, ControlledEcran {
     }
     
     @FXML
-    private void goToScreen2(ActionEvent event){
-       myController.setScreen(Principal.screen2ID);
+    private void goToScreen2(ActionEvent event) {
+        myController.setScreen(Principal.screen2ID);
     }
+
     @FXML
-    private void goToScreenProjetAjout(ActionEvent event){
-       myController.setScreen(Principal.projetAjoutFile);
+    private void goToScreenProjetAjout(ActionEvent event) {
+        myController.setScreen(Principal.projetAjoutFile);
     }
+
     @FXML
-    private void goToScreenEntrepriseAjout(ActionEvent event){
-       myController.setScreen(Principal.entrepriseAjoutFile);
+    private void goToScreenEntrepriseAjout(ActionEvent event) {
+        myController.setScreen(Principal.entrepriseAjoutFile);
     }
-    
+
     @FXML
     private void goToScreenProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeProjetFile);
     }
+
     @FXML
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
@@ -89,5 +92,25 @@ public class JDBCController implements Initializable, ControlledEcran {
     @FXML
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
+    }
+     @FXML
+    private void goToScreenCreerProjetDis(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetDisFile);
+    }
+    @FXML
+    private void goToScreenMembreAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutMembreFile);
+    }
+    @FXML
+    private void goToScreenEmailMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierEmailMembreFile);
+    }
+    @FXML
+    private void goToScreenGSMMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierGSMMembreFile);
+    }
+    @FXML
+    private void goToScreenSupprimerMembre(ActionEvent event) {
+        myController.setScreen(Principal.supprimerMembreFile);
     }
 }

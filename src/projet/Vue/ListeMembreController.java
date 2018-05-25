@@ -6,52 +6,55 @@
 package projet.Vue;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import projet.Modele.Entreprise;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import projet.Modele.Membre;
+import projet.Modele.ProjetGeneral;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerMembreController implements Initializable,ControlledEcran {
-    ControleurEcran myController;
-   // ProjetModeleJDBC pm;
+public class ListeMembreController implements Initializable,ControlledEcran {
+ControleurEcran myController;
+private ObservableList<Membre> membreData = FXCollections.observableArrayList();
+    private List<Membre> l = new ArrayList();
+     @FXML
+    private TableView<Membre> personTable;
     @FXML
-    TextField nom;
+    private TableColumn<Membre, String> nomColumn;
     @FXML
-    TextField prenom;
+    private TableColumn<Membre, String> prenomColumn;
+
+    @FXML
+    private TableColumn<Membre, String> gsmLabel;
+    @FXML
+    private TableColumn<Membre, String> emailLabel;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    public void supprimer(){
-        String message="";
-        Membre mem = null;
-             mem=(Membre) Principal.pm.get(nom.getText(), prenom.getText(), mem);
-            boolean ok  = Principal.pm.supprimer(mem);
-            if(ok){
-                message=mem+" a bien été supprimer.";
-            }
-            else{
-                message=mem+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du membre");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
-    }
+        l = Principal.pm.getMembre();
+        l.forEach((mem) -> {
+            membreData.add(mem);
+        });
+        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getpNom());
+        prenomColumn.setCellValueFactory(cellData -> cellData.getValue().getpPrenomMem());
+        gsmLabel.setCellValueFactory(cellData -> cellData.getValue().getpGsm());
+        emailLabel.setCellValueFactory(cellData -> cellData.getValue().getpEmail());
+        
+        personTable.setItems(membreData);
+    }  
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
@@ -136,6 +139,4 @@ public class SupprimerMembreController implements Initializable,ControlledEcran 
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
-    
-    
 }

@@ -6,56 +6,68 @@
 package projet.Vue;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
+import projet.Modele.Discipline;
 import projet.Modele.Entreprise;
 import projet.Modele.Membre;
+import projet.Modele.ProjetSimple;
+import projet.Modele.Sous_projet;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerMembreController implements Initializable,ControlledEcran {
-    ControleurEcran myController;
-   // ProjetModeleJDBC pm;
+public class AjoutDisciplineController implements Initializable, ControlledEcran {
+
     @FXML
     TextField nom;
-    @FXML
-    TextField prenom;
+
+    ControleurEcran myController;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    public void supprimer(){
-        String message="";
-        Membre mem = null;
-             mem=(Membre) Principal.pm.get(nom.getText(), prenom.getText(), mem);
-            boolean ok  = Principal.pm.supprimer(mem);
-            if(ok){
-                message=mem+" a bien été supprimer.";
-            }
-            else{
-                message=mem+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du membre");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
+
     }
+
+    @FXML
+    public void ajout() {
+
+        Discipline d = new Discipline(nom.getText());
+        String message = d + "\n" + Principal.pm.ajouter(d);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information ajout discipline");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+
+    /*@Override
+    public void setModele(ProjetModeleJDBC modele) {
+        this.pm=modele;
+    }*/
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -80,62 +92,75 @@ public class SupprimerMembreController implements Initializable,ControlledEcran 
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
+
     @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
+
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
+
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
     }
+
     @FXML
     private void goToScreenEntrepriseNom(ActionEvent event) {
         myController.setScreen(Principal.modifierNomEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseAdresse(ActionEvent event) {
         myController.setScreen(Principal.modifierAdresseEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseTel(ActionEvent event) {
         myController.setScreen(Principal.modifierGSMEntrepriseFile);
     }
+
     @FXML
     private void goToScreenSupprimerEntreprise(ActionEvent event) {
         myController.setScreen(Principal.supprimerEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseListe(ActionEvent event) {
         myController.setScreen(Principal.listeEntrepriseFile);
     }
+
     @FXML
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
     }
-     @FXML
+
+    @FXML
     private void goToScreenCreerProjetDis(ActionEvent event) {
         myController.setScreen(Principal.creerProjetDisFile);
     }
+
     @FXML
     private void goToScreenMembreAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutMembreFile);
     }
+
     @FXML
     private void goToScreenEmailMembre(ActionEvent event) {
         myController.setScreen(Principal.modifierEmailMembreFile);
     }
+
     @FXML
     private void goToScreenGSMMembre(ActionEvent event) {
         myController.setScreen(Principal.modifierGSMMembreFile);
     }
+
     @FXML
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
-    
-    
+
 }

@@ -29,8 +29,8 @@ public class Niveaux {
        signification="";
        
    }
-   public SimpleIntegerProperty getpDegre(){
-        return new SimpleIntegerProperty(degre);
+   public SimpleStringProperty getpDegre(){
+        return new SimpleStringProperty(Integer.toString(degre));
     }
    public SimpleStringProperty getpSignification(){
         return new SimpleStringProperty(signification);

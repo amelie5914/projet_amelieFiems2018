@@ -1822,4 +1822,62 @@ public class ProjetModeleJDBC extends ProjetModele {
         }
         return ln;
     }
+    
+    public List<ProjetGeneral> listeSousProjet(Sous_projet sp) {
+        List<ProjetGeneral> listpg=new ArrayList();
+        String query = "";
+        String msg = "";
+        int id = 0;
+        String t;
+        query = "select idproj from projet where titre=?";
+        ResultSet rs = null;
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, sp.getTitre());
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("IDPROJ");
+                msg="le sous projet existe";
+            } else {
+                msg = "Le sous projet n'existe pas";
+                return null;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("erreur de recherche de projet " + e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("erreur de fermeture de resultset " + e);
+            }
+        }
+        query = "select titre ,idcli,datedebut,datefin from projet where id_proj_composite= ?";
+        rs = null;
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                String titre = rs.getString("TITRE");
+                String dateDebut = rs.getString("DATEDEBUT");
+                String dateFin = rs.getString("DATEFIN");
+                ProjetSimple p = new ProjetSimple(titre, dateDebut,dateFin);
+                listpg.add(p);
+            }
+        } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("erreur de fermeture de resultset " + e);
+            }
+        }
+        return listpg;
+    }
 }

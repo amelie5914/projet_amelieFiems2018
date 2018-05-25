@@ -12,50 +12,60 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import projet.Modele.Entreprise;
-import projet.Modele.Membre;
+import projet.Modele.Discipline;
+import projet.Modele.Niveaux;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerMembreController implements Initializable,ControlledEcran {
+public class ModificationSignificationNiveauxController implements Initializable, ControlledEcran {
+
     ControleurEcran myController;
-   // ProjetModeleJDBC pm;
+    //ProjetModeleJDBC pm;
     @FXML
-    TextField nom;
+    TextField degre;
     @FXML
-    TextField prenom;
-    /**
-     * Initializes the controller class.
-     */
+    TextField nvSigni;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    public void supprimer(){
-        String message="";
-        Membre mem = null;
-             mem=(Membre) Principal.pm.get(nom.getText(), prenom.getText(), mem);
-            boolean ok  = Principal.pm.supprimer(mem);
-            if(ok){
-                message=mem+" a bien été supprimer.";
-            }
-            else{
-                message=mem+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
+        
+    }
+
+    @FXML
+    public void modifierSignNiveaux() {
+            Niveaux n=new Niveaux();
+            n=(Niveaux)Principal.pm.get(Integer.parseInt(degre.getText()), n);
+            if(n!=null){
+              String message = Principal.pm.modifierDescriptionNiveaux(n, nvSigni.getText());
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du membre");
+            alert.setTitle("Information modification de la signification du degre");
             alert.setHeaderText(null);
             alert.setContentText(msg);
-            alert.showAndWait();
+            alert.showAndWait();  
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information modification de la signification du degre");
+            alert.setHeaderText(null);
+            alert.setContentText("Le degre n'existe pas");
+            alert.showAndWait(); 
+            }
+            
     }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+    /*@Override
+    public void setModele(ProjetModeleJDBC modele) {
+        this.pm=modele;
+    }*/
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -136,6 +146,5 @@ public class SupprimerMembreController implements Initializable,ControlledEcran 
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
-    
     
 }

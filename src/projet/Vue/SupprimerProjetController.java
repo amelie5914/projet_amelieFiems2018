@@ -166,4 +166,24 @@ public class SupprimerProjetController implements Initializable, ControlledEcran
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
     }
+     @FXML
+    private void goToScreenCreerProjetDis(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetDisFile);
+    }
+    @FXML
+    private void goToScreenMembreAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutMembreFile);
+    }
+    @FXML
+    private void goToScreenEmailMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierEmailMembreFile);
+    }
+    @FXML
+    private void goToScreenGSMMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierGSMMembreFile);
+    }
+    @FXML
+    private void goToScreenSupprimerMembre(ActionEvent event) {
+        myController.setScreen(Principal.supprimerMembreFile);
+    }
 }

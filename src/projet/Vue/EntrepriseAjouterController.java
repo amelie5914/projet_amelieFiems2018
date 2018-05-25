@@ -106,17 +106,14 @@ public class EntrepriseAjouterController implements Initializable, ControlledEcr
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
-
     @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
-
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
-
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
@@ -144,6 +141,26 @@ public class EntrepriseAjouterController implements Initializable, ControlledEcr
     @FXML
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
+    }
+     @FXML
+    private void goToScreenCreerProjetDis(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetDisFile);
+    }
+    @FXML
+    private void goToScreenMembreAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutMembreFile);
+    }
+    @FXML
+    private void goToScreenEmailMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierEmailMembreFile);
+    }
+    @FXML
+    private void goToScreenGSMMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierGSMMembreFile);
+    }
+    @FXML
+    private void goToScreenSupprimerMembre(ActionEvent event) {
+        myController.setScreen(Principal.supprimerMembreFile);
     }
 
 }

@@ -13,11 +13,12 @@
                 <Menu mnemonicParsing="false" text="Projets">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetMembre" text="Ajouter membre dans un projet" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetDis" text="Ajouter discipline dans un projet" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerProjet" text="Supprimer" />
-                        <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetMembre" text="Ajouter membre dans projet" />
 
                     </items>
                 </Menu>
@@ -32,8 +33,10 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Membres">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenEmailMembre" text="Modifier email" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenGSMMembre" text="Modifier GSM" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerMembre" text="Supprimer" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Disciplines">

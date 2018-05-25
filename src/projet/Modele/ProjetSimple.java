@@ -17,6 +17,11 @@ public class ProjetSimple extends ProjetGeneral{
    public ProjetSimple(String titre){
        super(titre);
    }
+   public ProjetSimple(String titre,String dateDebut,String datefin){
+       this.titre=titre;
+       this.dateDebut=dateDebut;
+       this.dateFin=datefin;
+   }
    public ProjetSimple(){
     
 }

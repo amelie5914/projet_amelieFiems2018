@@ -7,55 +7,66 @@ package projet.Vue;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import projet.Modele.Entreprise;
-import projet.Modele.Membre;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerMembreController implements Initializable,ControlledEcran {
+public class SupprimerNiveauxController implements Initializable, ControlledEcran {
+
     ControleurEcran myController;
    // ProjetModeleJDBC pm;
     @FXML
-    TextField nom;
-    @FXML
-    TextField prenom;
+    TextField degre;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    public void supprimer(){
+        
+    }
+
+    @FXML
+    public void supprimerNiveaux() {
         String message="";
-        Membre mem = null;
-             mem=(Membre) Principal.pm.get(nom.getText(), prenom.getText(), mem);
-            boolean ok  = Principal.pm.supprimer(mem);
+           Niveaux n = new Niveaux();
+             n=(Niveaux)Principal.pm.get(Integer.parseInt(degre.getText()), n);
+            boolean ok  =Principal.pm.supprimer(n);
             if(ok){
-                message=mem+" a bien été supprimer.";
+                message=n+" a bien été supprimer.";
             }
             else{
-                message=mem+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
+                message=n+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
             }
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du membre");
+            alert.setTitle("Information suppression du niveau");
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
+        
+
     }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+    /*@Override
+    public void setModele(ProjetModeleJDBC modele) {
+        this.pm=modele;
+    }
+*/
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -136,6 +147,5 @@ public class SupprimerMembreController implements Initializable,ControlledEcran 
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
-    
     
 }

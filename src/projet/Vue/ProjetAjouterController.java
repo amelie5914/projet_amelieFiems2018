@@ -76,50 +76,7 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
                 System.out.println("Entreprise" + e);
             }
         });
-        try {
-            Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
-            membreBuild.setNomMem("bla").setPrenomMem("bla");
-            mem = membreBuild.build();
-        } catch (Exception ex) {
-            System.out.println("Pas creation");
-        }
-        if (Principal.pm.getMembre() != null) {
-            lm = Principal.pm.getMembre();
-            lm.forEach((membre) -> {
-                listMembre.add(membre);
-            });
-            membreListView.setItems(listMembre);
-            membreListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-                if (newSelection != null) {
-                    mem = membreListView.getSelectionModel().getSelectedItem();
-                }
-            });
-        }
-        else{
-            System.out.println("pas de membre");
-        }
         
-        Discipline dis = new Discipline("Aucun");
-        if (Principal.pm.getDis() != null) {
-            ld = Principal.pm.getDis();
-            ld.forEach((discipline) -> {
-                listDiscipline.add(discipline);
-            });
-        } else {
-            listDiscipline.add(dis);
-        }
-        if(listDiscipline!=null){
-        disciplineListView.setItems(listDiscipline);
-        }
-        else{
-            System.out.println("prout");
-        }
-        disciplineListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                d = disciplineListView.getSelectionModel().getSelectedItem();
-                
-            }
-        });
     }
     @FXML
     public void ajoutProjetSimple() {
@@ -307,42 +264,34 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
-
     @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
-
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
-
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
     }
-
     @FXML
     private void goToScreenEntrepriseNom(ActionEvent event) {
         myController.setScreen(Principal.modifierNomEntrepriseFile);
     }
-
     @FXML
     private void goToScreenEntrepriseAdresse(ActionEvent event) {
         myController.setScreen(Principal.modifierAdresseEntrepriseFile);
     }
-
     @FXML
     private void goToScreenEntrepriseTel(ActionEvent event) {
         myController.setScreen(Principal.modifierGSMEntrepriseFile);
     }
-
     @FXML
     private void goToScreenSupprimerEntreprise(ActionEvent event) {
         myController.setScreen(Principal.supprimerEntrepriseFile);
     }
-
     @FXML
     private void goToScreenEntrepriseListe(ActionEvent event) {
         myController.setScreen(Principal.listeEntrepriseFile);
@@ -350,6 +299,26 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
     @FXML
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
+    }
+     @FXML
+    private void goToScreenCreerProjetDis(ActionEvent event) {
+        myController.setScreen(Principal.creerProjetDisFile);
+    }
+    @FXML
+    private void goToScreenMembreAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutMembreFile);
+    }
+    @FXML
+    private void goToScreenEmailMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierEmailMembreFile);
+    }
+    @FXML
+    private void goToScreenGSMMembre(ActionEvent event) {
+        myController.setScreen(Principal.modifierGSMMembreFile);
+    }
+    @FXML
+    private void goToScreenSupprimerMembre(ActionEvent event) {
+        myController.setScreen(Principal.supprimerMembreFile);
     }
 
 }

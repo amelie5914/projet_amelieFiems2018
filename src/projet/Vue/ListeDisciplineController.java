@@ -6,13 +6,17 @@
 package projet.Vue;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import projet.Modele.Entreprise;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import projet.Modele.Discipline;
 import projet.Modele.Membre;
 
 /**
@@ -20,38 +24,27 @@ import projet.Modele.Membre;
  *
  * @author ameliefiems
  */
-public class SupprimerMembreController implements Initializable,ControlledEcran {
-    ControleurEcran myController;
-   // ProjetModeleJDBC pm;
+public class ListeDisciplineController implements Initializable,ControlledEcran {
+ControleurEcran myController;
+private ObservableList<Discipline> disData = FXCollections.observableArrayList();
+    private List<Discipline> l = new ArrayList();
+     @FXML
+    private TableView<Discipline> personTable;
     @FXML
-    TextField nom;
-    @FXML
-    TextField prenom;
+    private TableColumn<Discipline, String> nomColumn;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    public void supprimer(){
-        String message="";
-        Membre mem = null;
-             mem=(Membre) Principal.pm.get(nom.getText(), prenom.getText(), mem);
-            boolean ok  = Principal.pm.supprimer(mem);
-            if(ok){
-                message=mem+" a bien été supprimer.";
-            }
-            else{
-                message=mem+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
-            }
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information suppression du membre");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
-    }
+        l = Principal.pm.getDis();
+        l.forEach((dis) -> {
+            disData.add(dis);
+        });
+        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getpNom());
+        
+        personTable.setItems(disData);
+    }  
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
@@ -136,6 +129,5 @@ public class SupprimerMembreController implements Initializable,ControlledEcran 
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
-    
     
 }
