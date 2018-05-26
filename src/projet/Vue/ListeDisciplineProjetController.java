@@ -14,68 +14,45 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import projet.Modele.Discipline;
-import projet.Modele.Entreprise;
-import projet.Modele.Membre;
-import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetSimple;
-import projet.Modele.Sous_projet;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class AjoutSousProjetController implements Initializable,ControlledEcran {
-
-    private ObservableList<ProjetGeneral> listProjet = FXCollections.observableArrayList();
+public class ListeDisciplineProjetController implements Initializable,ControlledEcran {
+ControleurEcran myController;
+private ObservableList<Discipline> membreData = FXCollections.observableArrayList();
+    private List<Discipline> l = new ArrayList();
+     @FXML
+    private TableView<Discipline> personTable;
     @FXML
-    TextField titre;
+    private TableColumn<Discipline, String> nomColumn;
+    
     @FXML
-    private ListView<ProjetGeneral> projetListView;
-    private List<ProjetGeneral> l = new ArrayList();
-    ControleurEcran myController;
-    ProjetGeneral pg;
-
+    private TextField titre;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        if (Principal.pm.getProjet() != null) {
-            l = Principal.pm.getProjet();
-            l.forEach((projet) -> {
-                listProjet.add(projet);
-            });
-        }
-        projetListView.setItems(listProjet);
-
-        projetListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                pg = projetListView.getSelectionModel().getSelectedItem();
-            }
-        });
-
-    }
-
-    @FXML
-    public void ajoutSousProjet() {
-        ProjetGeneral pg1 = null;
-        System.out.println("TITRE TROUVE" + Principal.pm.getProjet(pg1, titre.getText()));
-        String message = Principal.pm.ajoutSousProjet((Sous_projet) Principal.pm.getProjet(pg1, titre.getText()), pg);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information ajout projet");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
         
+    } 
+    @FXML
+    public void rech(){
+        ProjetGeneral pg=null;
+        l=Principal.pm.listeDisciplineProjet(titre.getText(), pg);
+        l.forEach((m) -> {
+            membreData.add(m);
+        });
+        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getpNom());
+        
+        personTable.setItems(membreData);
     }
-    
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
@@ -233,5 +210,5 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
-
+    
 }

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.AjoutNiveauxController">
+<AnchorPane id="AnchorPane" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.4" fx:controller="projet.Vue.AjoutNiveauxController">
     <children>
         <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
             <menus>
@@ -41,19 +46,28 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Disciplines">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNomDiscipline" text="Modifier nom" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerDiscipline" text="Supprimer" />
+                    
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Niveaux">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSignificationNiveaux" text="Modifier signification" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerNiveaux" text="Supprimer" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Listes">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
+                        <MenuItem mnemonicParsing="false" text="Membre des projets" />
+                        <MenuItem mnemonicParsing="false" text="Discipline des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseListe" text="Client" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreListe" text="Membres" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineListe" text="Discipline" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxListe" text="Niveaux" />
                     </items>
                 </Menu>
             </menus>
@@ -62,6 +76,7 @@
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -72,8 +87,8 @@
             <children>
                 <Label text="Degre" GridPane.halignment="CENTER" />
                 <TextField fx:id="degre" GridPane.columnIndex="1" />
-                <Label text="Signification" GridPane.halignment="CENTER" />
-                <TextField fx:id="sign" GridPane.columnIndex="2" />
+                <Label text="Signification" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                <TextField fx:id="sign" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Button id="boutonProjet" mnemonicParsing="false" onAction="#ajout" text="Ajouter" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             </children>
         </GridPane>

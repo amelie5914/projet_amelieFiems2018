@@ -15,31 +15,31 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import projet.Modele.Discipline;
-import projet.Modele.Entreprise;
 import projet.Modele.Membre;
 import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetSimple;
-import projet.Modele.Sous_projet;
+import projet.Modele.Travail;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class AjoutSousProjetController implements Initializable,ControlledEcran {
+public class SupprimerMembreProjetController implements Initializable, ControlledEcran {
 
-    private ObservableList<ProjetGeneral> listProjet = FXCollections.observableArrayList();
-    @FXML
-    TextField titre;
-    @FXML
-    private ListView<ProjetGeneral> projetListView;
-    private List<ProjetGeneral> l = new ArrayList();
     ControleurEcran myController;
-    ProjetGeneral pg;
+    private ObservableList<Membre> membreData = FXCollections.observableArrayList();
+    private List<Membre> l = new ArrayList();
+    private ObservableList<Membre> listMembre = FXCollections.observableArrayList();
+    private List<Membre> lm = new ArrayList();
+    @FXML
+    private TextField titre;
+    @FXML
+    private ListView<Membre> membreListView;
+    Membre mem;
 
     /**
      * Initializes the controller class.
@@ -47,40 +47,50 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        if (Principal.pm.getProjet() != null) {
-            l = Principal.pm.getProjet();
-            l.forEach((projet) -> {
-                listProjet.add(projet);
-            });
-        }
-        projetListView.setItems(listProjet);
-
-        projetListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                pg = projetListView.getSelectionModel().getSelectedItem();
-            }
-        });
-
     }
 
     @FXML
-    public void ajoutSousProjet() {
-        ProjetGeneral pg1 = null;
-        System.out.println("TITRE TROUVE" + Principal.pm.getProjet(pg1, titre.getText()));
-        String message = Principal.pm.ajoutSousProjet((Sous_projet) Principal.pm.getProjet(pg1, titre.getText()), pg);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information ajout projet");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-        
+    public void rech() {
+
+        ProjetGeneral pg = null;
+        l = Principal.pm.listeMembreProjet(titre.getText(), pg);
+        if (l != null) {
+            l.forEach((memb) -> {
+                listMembre.add(memb);
+            });
+        }
+        membreListView.setItems(listMembre);
+
+        membreListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                mem = membreListView.getSelectionModel().getSelectedItem();
+                System.out.println("Membre" + mem);
+            }
+        });
+        titre.setText("");
     }
-    
+
+    @FXML
+    public void supprimer() {
+        ProjetGeneral p = null;
+        if (!titre.getText().equals("") && mem != null) {
+            Travail t = Principal.pm.getTrav(mem, Principal.pm.getProjet(p, titre.getText()));
+            Principal.pm.supprimer(t);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information modification de la suppresion du membre");
+            alert.setHeaderText(null);
+            alert.setContentText("Vous n'avez pas entré de titre et/ou selectionner un membre");
+            alert.showAndWait();
+        }
+    }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-    @FXML
+
+   @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
     }

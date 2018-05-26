@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.4" fx:controller="projet.Vue.ListeNiveauxController">
+<AnchorPane id="AnchorPane" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.ListeNiveauxController">
     <children>
         <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
             <menus>
@@ -41,30 +41,39 @@
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerMembre" text="Supprimer" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Disciplines">
+               <Menu mnemonicParsing="false" text="Disciplines">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNomDiscipline" text="Modifier nom" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerDiscipline" text="Supprimer" />
+                    
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Niveaux">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSignificationNiveaux" text="Modifier signification" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerNiveaux" text="Supprimer" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Listes">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
+                        <MenuItem mnemonicParsing="false" text="Membre des projets" />
+                        <MenuItem mnemonicParsing="false" text="Discipline des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseListe" text="Client" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreListe" text="Membres" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineListe" text="Discipline" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxListe" text="Niveaux" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane layoutX="47.0" layoutY="110.0" prefHeight="602.0" prefWidth="1135.0">
+        <SplitPane layoutX="84.0" layoutY="113.0" prefHeight="602.0" prefWidth="1135.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <TableView fx:id="personTable" layoutX="-35.0" layoutY="-2.0" prefHeight="600.0" prefWidth="411.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="-35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="-2.0">
+                        <TableView fx:id="personTable" layoutX="11.0" layoutY="6.0" prefHeight="600.0" prefWidth="1133.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="degreColumn" prefWidth="490.2262420654297" text="Degre" />
                         <TableColumn fx:id="signColumn" prefWidth="717.7737731933594" text="Signification" />

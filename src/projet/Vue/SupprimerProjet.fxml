@@ -27,6 +27,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerProjet" text="Supprimer" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineProjetSupprimer" text="Supprimer discipline d'un projet" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreProjetSupprimer" text="Supprimer membre d'un projet" />
 
                     </items>
                 </Menu>
@@ -49,19 +51,29 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Disciplines">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNomDiscipline" text="Modifier nom" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerDiscipline" text="Supprimer" />
+                    
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Niveaux">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSignificationNiveaux" text="Modifier signification" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerNiveaux" text="Supprimer" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Listes">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreProjetListe" text="Membre des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineProjetListe" text="Discipline des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSous_projetListe" text="Sous_projet des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseListe" text="Client" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreListe" text="Membres" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineListe" text="Discipline" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxListe" text="Niveaux" />
                     </items>
                 </Menu>
             </menus>

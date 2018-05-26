@@ -14,15 +14,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import projet.Modele.Discipline;
-import projet.Modele.Entreprise;
 import projet.Modele.Membre;
 import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetSimple;
 import projet.Modele.Sous_projet;
 
 /**
@@ -30,16 +27,24 @@ import projet.Modele.Sous_projet;
  *
  * @author ameliefiems
  */
-public class AjoutSousProjetController implements Initializable,ControlledEcran {
+public class ListeSousProjetController implements Initializable, ControlledEcran {
 
-    private ObservableList<ProjetGeneral> listProjet = FXCollections.observableArrayList();
-    @FXML
-    TextField titre;
-    @FXML
-    private ListView<ProjetGeneral> projetListView;
-    private List<ProjetGeneral> l = new ArrayList();
     ControleurEcran myController;
-    ProjetGeneral pg;
+    private ObservableList<ProjetGeneral> projetData = FXCollections.observableArrayList();
+    private List<ProjetGeneral> l = new ArrayList();
+    @FXML
+    private TableView<ProjetGeneral> personTable;
+    @FXML
+    private TableColumn<ProjetGeneral, String> titreColumn;
+
+    @FXML
+    private TableColumn<ProjetGeneral, String> dateDebutLabel;
+    @FXML
+    private TableColumn<ProjetGeneral, String> dateFinLabel;
+    @FXML
+    private TableColumn<ProjetGeneral, String> entrepriseLabel;
+    @FXML
+    private TextField titre;
 
     /**
      * Initializes the controller class.
@@ -47,39 +52,29 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        if (Principal.pm.getProjet() != null) {
-            l = Principal.pm.getProjet();
-            l.forEach((projet) -> {
-                listProjet.add(projet);
-            });
-        }
-        projetListView.setItems(listProjet);
-
-        projetListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                pg = projetListView.getSelectionModel().getSelectedItem();
-            }
-        });
-
     }
 
     @FXML
-    public void ajoutSousProjet() {
-        ProjetGeneral pg1 = null;
-        System.out.println("TITRE TROUVE" + Principal.pm.getProjet(pg1, titre.getText()));
-        String message = Principal.pm.ajoutSousProjet((Sous_projet) Principal.pm.getProjet(pg1, titre.getText()), pg);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information ajout projet");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    public void rech() {
+        ProjetGeneral pg = null;
+        Sous_projet  p=null;
+        p=(Sous_projet)Principal.pm.getProjet(p, titre.getText());
+        l = Principal.pm.listeSousProjet(p);
+        l.forEach((projet) -> {
+            projetData.add(projet);
+        });
+        titreColumn.setCellValueFactory(cellData -> cellData.getValue().getpTitre());
+        dateDebutLabel.setCellValueFactory(cellData -> cellData.getValue().getpDateDebut());
+        dateFinLabel.setCellValueFactory(cellData -> cellData.getValue().getpDateFin());
         
+        personTable.setItems(projetData);
     }
-    
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);

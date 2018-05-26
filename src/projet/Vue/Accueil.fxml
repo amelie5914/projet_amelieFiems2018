@@ -6,6 +6,6 @@
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.AccueilController">
    <children>
       
-      <Button id="boutonAccueil" layoutX="710.0" layoutY="627.0" mnemonicParsing="false" onAction="#goToScreen2" stylesheets="@../../resources/styleProjetJava.css" text="Base de donnée" />
+      <Button id="boutonAccueil" layoutX="430.0" layoutY="592.0" mnemonicParsing="false" onAction="#goToScreen2" stylesheets="@../../resources/styleProjetJava.css" text="Base de donnée" />
    </children>
 </AnchorPane>

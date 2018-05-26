@@ -41,19 +41,28 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Disciplines">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNomDiscipline" text="Modifier nom" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerDiscipline" text="Supprimer" />
+                    
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Niveaux">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ajouter" />
-                        <MenuItem mnemonicParsing="false" text="Rechercher" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxAjout" text="Ajouter" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSignificationNiveaux" text="Modifier signification" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerNiveaux" text="Supprimer" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Listes">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
+                        <MenuItem mnemonicParsing="false" text="Membre des projets" />
+                        <MenuItem mnemonicParsing="false" text="Discipline des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseListe" text="Client" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreListe" text="Membres" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineListe" text="Discipline" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxListe" text="Niveaux" />
                     </items>
                 </Menu>
             </menus>

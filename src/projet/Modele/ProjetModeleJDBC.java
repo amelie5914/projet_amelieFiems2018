@@ -847,7 +847,6 @@ public class ProjetModeleJDBC extends ProjetModele {
                         System.err.println("erreur de fermeture de resultset " + e);
                     }
                 }
-
             } else if (o instanceof Discipline) {
                 String query = "";
                 query = "select NOMDIS from DISCIPLINE where NOMDIS=?";
@@ -874,6 +873,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                     }
                 }
             }
+            
         }
         return null;
 
@@ -960,27 +960,21 @@ public class ProjetModeleJDBC extends ProjetModele {
         return null;
     }
 
-    public Travail getTrav(Membre m) {
+    public Travail getTrav(Membre m,ProjetGeneral p) {
         String query = "";
-        ProjetGeneral p;
+        
         String message = "";
-        query = "select T.DATEENG DATEENG,NVL(T.IDPROJ,0) IDPROJ,T.TAUX TAUX,m.IDMEM IDMEM, m.NOMMEM NOMMEM,m.PRENOMMEN PRENOMMEN,m.TELMEM TELMEM,m.EMAIL EMAIL from TRAVAIL T join Membre m on m.idmem=T.idmem where m.NOMMEM=? AND m.PRENOMMEN=?";
+        query = "select T.DATEENG DATEENG,NVL(T.IDPROJ,0) IDPROJ,T.TAUX TAUX,m.IDMEM IDMEM, m.NOMMEM NOMMEM,m.PRENOMMEN PRENOMMEN,m.TELMEM TELMEM,m.EMAIL EMAIL from Projet p join TRAVAIL T on T.idproj=p.idproj join Membre m on m.idmem=T.idmem where m.NOMMEM=? AND m.PRENOMMEN=? and p.titre=?";
         Travail t = new Travail();
         ResultSet rs = null;
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1, m.getNomMem());
             pstm.setString(2, m.getPrenomMem());
+            pstm.setString(3, p.getTitre());
             rs = pstm.executeQuery();
             if (rs.next()) {
                 int taux = rs.getInt("TAUX");
-                int idProj = rs.getInt("IDPROJ");
-                if (idProj != 0) {
-                    p = getProjet(idProj);
-                } else {
-                    p = null;
-                }
-                String tel = rs.getString("TELMEM");
-                String email = rs.getString("EMAIL");
+                
                 LocalDate de = rs.getDate("DATEENG").toLocalDate();
                 t = new Travail(de.toString(), taux, p, m);
                 return t;
@@ -1002,7 +996,39 @@ public class ProjetModeleJDBC extends ProjetModele {
         }
         return t;
     }
-
+public Temps getTemps(Discipline d,ProjetGeneral p) {
+        String query = "";
+        
+        String message = "";
+        query = "select T.JHOMME JHOMME from Projet p join TEMPS T on T.idproj=p.idproj join Discipline d on d.iddis=T.iddis where d.NOMDIS=? and p.titre=?";
+        Temps t = new Temps();
+        ResultSet rs = null;
+        try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setString(1, d.getNomdiscipline());
+            pstm.setString(2, p.getTitre());
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                int jhomme = rs.getInt("JHOMME");
+                t = new Temps(jhomme, p, d);
+                return t;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.println("erreur de recherche d'acheteur " + e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("erreur de fermeture de resultset " + e);
+            }
+        }
+        return t;
+    }
     public Discipline getDis(int idDis) {
         String message = "";
         String query = "select NOMDIS from DISCIPLINE where IDDIS=?";

@@ -91,61 +91,133 @@ public class ModifierEmailMembreController implements Initializable, ControlledE
     private void goToScreenTitreProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierTitreProjetFile);
     }
+
     @FXML
     private void goToScreenDateDebutProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateDebutProjetFile);
     }
+
     @FXML
     private void goToScreenDateFinProjet(ActionEvent event) {
         myController.setScreen(Principal.modifierDateFinProjetFile);
     }
+
     @FXML
     private void goToScreenSupprimerProjet(ActionEvent event) {
         myController.setScreen(Principal.supprimerProjetFile);
     }
+
     @FXML
     private void goToScreenEntrepriseNom(ActionEvent event) {
         myController.setScreen(Principal.modifierNomEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseAdresse(ActionEvent event) {
         myController.setScreen(Principal.modifierAdresseEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseTel(ActionEvent event) {
         myController.setScreen(Principal.modifierGSMEntrepriseFile);
     }
+
     @FXML
     private void goToScreenSupprimerEntreprise(ActionEvent event) {
         myController.setScreen(Principal.supprimerEntrepriseFile);
     }
+
     @FXML
     private void goToScreenEntrepriseListe(ActionEvent event) {
         myController.setScreen(Principal.listeEntrepriseFile);
     }
+
     @FXML
     private void goToScreenCreerProjetMembre(ActionEvent event) {
         myController.setScreen(Principal.creerProjetMembreFile);
     }
-     @FXML
+
+    @FXML
     private void goToScreenCreerProjetDis(ActionEvent event) {
         myController.setScreen(Principal.creerProjetDisFile);
     }
+
     @FXML
     private void goToScreenMembreAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutMembreFile);
     }
+
     @FXML
     private void goToScreenEmailMembre(ActionEvent event) {
         myController.setScreen(Principal.modifierEmailMembreFile);
     }
+
     @FXML
     private void goToScreenGSMMembre(ActionEvent event) {
         myController.setScreen(Principal.modifierGSMMembreFile);
     }
+
     @FXML
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
-
+    @FXML
+    private void goToScreenDisciplineAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutDisciplineFile);
+    }
+    @FXML
+    private void goToScreenNomDiscipline(ActionEvent event) {
+        myController.setScreen(Principal.modifierNomDisciplineFile);
+    }
+    @FXML
+    private void goToScreenSupprimerDiscipline(ActionEvent event) {
+        myController.setScreen(Principal.supprimerDisciplineFile);
+    }
+    @FXML
+    private void goToScreenNiveauxAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutNiveauxFile);
+    }
+    @FXML
+    private void goToScreenSignificationNiveaux(ActionEvent event) {
+        myController.setScreen(Principal.modifierSignificationNiveauxFile);
+    }
+    @FXML
+    private void goToScreenSupprimerNiveaux(ActionEvent event) {
+        myController.setScreen(Principal.supprimerNiveauxFile);
+    }
+    @FXML
+    private void goToScreenMembreListe(ActionEvent event) {
+        myController.setScreen(Principal.listeMembreFile);
+    }
+    @FXML
+    private void goToScreenDisciplineListe(ActionEvent event) {
+        myController.setScreen(Principal.listeDisciplineFile);
+    }
+    @FXML
+    private void goToScreenNiveauxListe(ActionEvent event) {
+        myController.setScreen(Principal.listeNiveauxFile);
+    }
+    
+    
+    
+    @FXML
+    private void goToScreenMembreProjetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeMembreProjetFile);
+    }
+    @FXML
+    private void goToScreenDisciplineProjetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeDisciplineProjetFile);
+    }
+    @FXML
+    private void goToScreenSous_projetListe(ActionEvent event) {
+        myController.setScreen(Principal.listeSousProjetFile);
+    }
+    @FXML
+    private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
+        myController.setScreen(Principal.supprimerDisciplineProjetFile);
+    }
+    @FXML
+    private void goToScreenMembreProjetSupprimer(ActionEvent event) {
+        myController.setScreen(Principal.supprimerMembreProjetFile);
+    }
 }

@@ -80,6 +80,24 @@ public class Principal extends Application {
     public static String supprimerNiveaux="supprimerNiveaux";
     public static String supprimerNiveauxFile = "SupprimerNiveaux.fxml";
     
+    public static String listeMembre="listeMembre";
+    public static String listeMembreFile = "ListeMembre.fxml";
+    public static String listeDiscipline="listeDiscipline";
+    public static String listeDisciplineFile = "ListeDiscipline.fxml";
+    public static String listeNiveaux="listeNiveaux";
+    public static String listeNiveauxFile = "ListeNiveaux.fxml";
+    public static String listeMembreProjet="listeMembreProjet";
+    public static String listeMembreProjetFile = "ListeMembreProjet.fxml";
+    public static String listeDisciplineProjet="listeDisciplineProjet";
+    public static String listeDisciplineProjetFile = "ListeDisciplineProjet.fxml";
+    
+     public static String listeSousProjet="listeSousProjet";
+    public static String listeSousProjetFile = "ListeSousProjet.fxml";
+     public static String supprimerDisciplineProjet="supprimerDisciplineProjet";
+    public static String supprimerDisciplineProjetFile = "SupprimerDisciplineProjet.fxml";
+    public static String supprimerMembreProjet="supprimerMembreProjet";
+    public static String supprimerMembreProjetFile = "SupprimerMembreProjet.fxml";
+    
     @Override
     public void start(Stage primaryStage) {
         
@@ -113,6 +131,16 @@ public class Principal extends Application {
         mainContainer.loadScreen(Principal.ajoutNiveauxFile, Principal.ajoutNiveauxFile);
         mainContainer.loadScreen(Principal.modifierSignificationNiveauxFile, Principal.modifierSignificationNiveauxFile);
         mainContainer.loadScreen(Principal.supprimerNiveauxFile, Principal.supprimerNiveauxFile);
+        
+        mainContainer.loadScreen(Principal.listeMembreFile, Principal.listeMembreFile);
+        mainContainer.loadScreen(Principal.listeDisciplineFile, Principal.listeDisciplineFile);
+        mainContainer.loadScreen(Principal.listeNiveauxFile, Principal.listeNiveauxFile);
+        
+        mainContainer.loadScreen(Principal.listeMembreProjetFile, Principal.listeMembreProjetFile);
+        mainContainer.loadScreen(Principal.listeDisciplineProjetFile, Principal.listeDisciplineProjetFile);
+        mainContainer.loadScreen(Principal.listeSousProjetFile, Principal.listeSousProjetFile);
+        mainContainer.loadScreen(Principal.supprimerDisciplineProjetFile, Principal.supprimerDisciplineProjetFile);
+        mainContainer.loadScreen(Principal.supprimerMembreProjetFile, Principal.supprimerMembreProjetFile);
         
         mainContainer.loadScreen(Principal.listeProjetFile, Principal.listeProjetFile);
         mainContainer.setScreen(Principal.screen1ID);
