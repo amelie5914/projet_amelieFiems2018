@@ -22,6 +22,8 @@ import projet.Modele.Discipline;
 import projet.Modele.Entreprise;
 import projet.Modele.Membre;
 import projet.Modele.ProjetGeneral;
+import projet.Modele.ProjetModele;
+import projet.Modele.ProjetModeleJDBC;
 import projet.Modele.ProjetSimple;
 import projet.Modele.Sous_projet;
 
@@ -40,15 +42,15 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
     private List<ProjetGeneral> l = new ArrayList();
     ControleurEcran myController;
     ProjetGeneral pg;
-
+    ProjetModeleJDBC pm=new ProjetModeleJDBC();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        if (Principal.pm.getProjet() != null) {
-            l = Principal.pm.getProjet();
+        if (pm.getProjet() != null) {
+            l = pm.getProjet();
             l.forEach((projet) -> {
                 listProjet.add(projet);
             });
@@ -232,6 +234,10 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
+    }
+    @FXML
+    private void goToScreenSousProjetAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutSousProjetFile);
     }
 
 }

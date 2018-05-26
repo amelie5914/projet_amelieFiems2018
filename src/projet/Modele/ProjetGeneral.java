@@ -106,7 +106,7 @@ public abstract class ProjetGeneral {
     
     @Override
     public String toString() {
-        return "Projet{" + "titre=" + titre + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", ent=" + ent + '}';
+        return "titre=" + titre + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", ent=" + ent ;
     }
 
     @Override

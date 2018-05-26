@@ -94,7 +94,7 @@ public class Entreprise {
 
     @Override
     public String toString() {
-        return "Entreprise{" + "nomEnt=" + nomEnt + ", telEnt=" + telEnt + ", adresse=" + adresse + '}';
+        return  "nom=" + nomEnt + ", tel=" + telEnt + ", adresse=" + adresse ;
     }
 
     

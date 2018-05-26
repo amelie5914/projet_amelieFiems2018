@@ -53,7 +53,7 @@ public class Membre {
     }
     @Override
     public String toString() {
-        return "Membre{" + "nomMem=" + nomMem + ", prenomMem=" + prenomMem + ", gsmMem=" + gsmMem + ", email=" + email +'}';
+        return "nom=" + nomMem + ", prenom=" + prenomMem + ", gsm=" + gsmMem + ", email=" + email;
     }
 
     @Override

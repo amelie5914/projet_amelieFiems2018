@@ -23,6 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import projet.Modele.Membre;
 import projet.Modele.ProjetGeneral;
+import projet.Modele.ProjetModele;
+import projet.Modele.ProjetModeleJDBC;
 import projet.Modele.ProjetSimple;
 import projet.Modele.Sous_projet;
 import projet.Modele.Travail;
@@ -49,6 +51,7 @@ public class CreerProjetMembreController implements Initializable,ControlledEcra
     private String choix;
 
     Membre mem;
+    ProjetModeleJDBC pm=new ProjetModeleJDBC();
     /**
      * Initializes the controller class.
      */
@@ -70,8 +73,8 @@ public class CreerProjetMembreController implements Initializable,ControlledEcra
         } catch (Exception ex) {
             System.out.println("Pas creation");
         }
-        if (Principal.pm.getMembre() != null) {
-            lm = Principal.pm.getMembre();
+        if (pm.getMembre() != null) {
+            lm = pm.getMembre();
             lm.forEach((membre) -> {
                 listMembre.add(membre);
             });
@@ -371,5 +374,9 @@ public String inverseDate(LocalDate date) {
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
+    }
+    @FXML
+    private void goToScreenSousProjetAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutSousProjetFile);
     }
 }

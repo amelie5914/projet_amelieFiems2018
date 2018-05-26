@@ -41,7 +41,7 @@ public class Temps {
 
     @Override
     public String toString() {
-        return "Temps{" + "jHomme=" + jHomme + ", proj=" + proj + ", dis=" + dis + '}';
+        return "jHomme=" + jHomme + ", proj=" + proj + ", dis=" + dis;
     }
 
     public int getjHomme() {

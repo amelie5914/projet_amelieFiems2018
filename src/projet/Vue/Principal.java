@@ -97,7 +97,8 @@ public class Principal extends Application {
     public static String supprimerDisciplineProjetFile = "SupprimerDisciplineProjet.fxml";
     public static String supprimerMembreProjet="supprimerMembreProjet";
     public static String supprimerMembreProjetFile = "SupprimerMembreProjet.fxml";
-    
+    public static String ajoutSousProjet="ajoutSousProjetProjet";
+    public static String ajoutSousProjetFile = "AjoutSousProjet.fxml";
     @Override
     public void start(Stage primaryStage) {
         
@@ -141,6 +142,8 @@ public class Principal extends Application {
         mainContainer.loadScreen(Principal.listeSousProjetFile, Principal.listeSousProjetFile);
         mainContainer.loadScreen(Principal.supprimerDisciplineProjetFile, Principal.supprimerDisciplineProjetFile);
         mainContainer.loadScreen(Principal.supprimerMembreProjetFile, Principal.supprimerMembreProjetFile);
+                mainContainer.loadScreen(Principal.ajoutSousProjetFile, Principal.ajoutSousProjetFile);
+
         
         mainContainer.loadScreen(Principal.listeProjetFile, Principal.listeProjetFile);
         mainContainer.setScreen(Principal.screen1ID);

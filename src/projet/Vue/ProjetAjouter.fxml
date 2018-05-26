@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -22,6 +23,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetMembre" text="Ajouter membre dans un projet" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetDis" text="Ajouter discipline dans un projet" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSousProjetAjout" text="Ajouter un sous projet" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
@@ -77,47 +79,71 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <GridPane layoutX="25.0" layoutY="111.0" prefHeight="626.0" prefWidth="1213.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.923828125" minWidth="10.0" prefWidth="287.923828125" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.00848388671875" minWidth="10.0" prefWidth="197.076171875" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <ListView fx:id="entrepriseListView" prefHeight="200.0" prefWidth="200.0" />
-                <Label text="Titre" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                <Label text="Date de début" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                <Label text="Date de fin" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                <TextField fx:id="titre" GridPane.columnIndex="2" />
-                <DatePicker fx:id="datedebut" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <DatePicker fx:id="datefin" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <Button id="boutonProjet" mnemonicParsing="false" onAction="#ajoutProjetSimple" text="Projet simple" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                <Button id="boutonProjet" mnemonicParsing="false" onAction="#ajoutSousProjet" text="Projet composite" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <ListView fx:id="membreListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <ListView fx:id="disciplineListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
-            <Label text="L'investissement " GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
-            <Label text="Date d'engagement" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label text="Pourcentage" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label text="Degre" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <ListView fx:id="niveauListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
-            <Label text="en temps" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label text="jour/homme" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-            <Label text="Signification" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <TextField fx:id="jhomme" GridPane.columnIndex="4" />
-            <TextField fx:id="taux" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <TextField fx:id="degre" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <TextField fx:id="signification" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <DatePicker fx:id="dateEng" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            </children>
-        </GridPane>
+      <SplitPane dividerPositions="0.19836214740673339" layoutX="83.0" layoutY="71.0" prefHeight="669.0" prefWidth="1101.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <GridPane layoutX="3.0" layoutY="2.0" prefHeight="667.0" prefWidth="261.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                            <ListView fx:id="entrepriseListView" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView fx:id="niveauListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
+                        <ListView fx:id="membreListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <ListView fx:id="disciplineListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                    <GridPane prefHeight="626.0" prefWidth="1213.0">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.923828125" minWidth="10.0" prefWidth="287.923828125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.00848388671875" minWidth="10.0" prefWidth="197.076171875" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                            <Label text="Titre" GridPane.halignment="CENTER" />
+                            <Label text="Date de début" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                            <Label text="Date de fin" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                            <TextField fx:id="titre" GridPane.columnIndex="1" />
+                            <DatePicker fx:id="datedebut" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <DatePicker fx:id="datefin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Button id="boutonProjet" mnemonicParsing="false" onAction="#ajoutProjetSimple" text="Projet simple" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                            <Button id="boutonProjet" mnemonicParsing="false" onAction="#ajoutSousProjet" text="Projet composite" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Label text="L'investissement " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                        <Label text="Date d'engagement" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Label text="Pourcentage" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label text="Degre" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Label text="en temps" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Label text="jour/homme" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                        <Label text="Signification" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <TextField fx:id="jhomme" GridPane.columnIndex="3" />
+                        <TextField fx:id="taux" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <TextField fx:id="degre" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <TextField fx:id="signification" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <DatePicker fx:id="dateEng" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        </children>
+                    </GridPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
     </children>
 </AnchorPane>

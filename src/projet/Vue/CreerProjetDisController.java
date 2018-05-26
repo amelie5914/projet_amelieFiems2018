@@ -43,7 +43,7 @@ public class CreerProjetDisController implements Initializable,ControlledEcran {
     ListView<String> list=new ListView<String>();
     private String choix;
         Discipline d=new Discipline();
-
+    ProjetModeleJDBC pm=new ProjetModeleJDBC();
     /**
      * Initializes the controller class.
      */
@@ -59,8 +59,8 @@ public class CreerProjetDisController implements Initializable,ControlledEcran {
             }
         });
         Discipline dis = new Discipline("Aucun");
-        if (Principal.pm.getDis() != null) {
-            ld = Principal.pm.getDis();
+        if (pm.getDis() != null) {
+            ld =pm.getDis();
             ld.forEach((discipline) -> {
                 listDiscipline.add(discipline);
             });
@@ -308,5 +308,9 @@ public String inverseDate(LocalDate date) {
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
+    }
+    @FXML
+    private void goToScreenSousProjetAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutSousProjetFile);
     }
 }

@@ -53,7 +53,7 @@ public class Niveaux {
     
     @Override
     public String toString() {
-        return "Niveaux{" + "degre=" + degre + ", signification=" + signification + '}';
+        return "degre=" + degre + ", signification=" + signification ;
     }
 
     @Override

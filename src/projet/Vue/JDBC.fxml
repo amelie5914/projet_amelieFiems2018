@@ -16,6 +16,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetMembre" text="Ajouter membre dans un projet" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetDis" text="Ajouter discipline dans un projet" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSousProjetAjout" text="Ajouter un sous projet" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />

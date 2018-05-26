@@ -25,7 +25,7 @@ public class Discipline {
 
     @Override
     public String toString() {
-        return "Discipline{" + "nomdiscipline=" + nomdiscipline + '}';
+        return  "nom=" + nomdiscipline ;
     }
 
     public String getNomdiscipline() {

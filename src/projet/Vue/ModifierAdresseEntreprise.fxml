@@ -9,16 +9,19 @@
 <AnchorPane id="AnchorPane" prefHeight="744.0" prefWidth="1256.0" stylesheets="@../../resources/styleProjetJava.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.Vue.ModifierAdresseEntrepriseController">
      <children>
       <MenuBar id="menu1" layoutX="22.0" layoutY="13.0" prefHeight="57.0" prefWidth="884.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Projets">
+            <menus>
+                <Menu mnemonicParsing="false" text="Projets">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetAjout" text="Ajouter" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetMembre" text="Ajouter membre dans un projet" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenCreerProjetDis" text="Ajouter discipline dans un projet" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSousProjetAjout" text="Ajouter un sous projet" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenTitreProjet" text="Modifier titre" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateDebutProjet" text="Modifier date debut" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDateFinProjet" text="Modifier date fin" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerProjet" text="Supprimer" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineProjetSupprimer" text="Supprimer discipline d'un projet" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreProjetSupprimer" text="Supprimer membre d'un projet" />
 
                     </items>
                 </Menu>
@@ -39,7 +42,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenSupprimerMembre" text="Supprimer" />
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Disciplines">
+                <Menu mnemonicParsing="false" text="Disciplines">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineAjout" text="Ajouter" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenNomDiscipline" text="Modifier nom" />
@@ -57,16 +60,17 @@
                 <Menu mnemonicParsing="false" text="Listes">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenProjetListe" text="Projets" />
-                        <MenuItem mnemonicParsing="false" text="Membre des projets" />
-                        <MenuItem mnemonicParsing="false" text="Discipline des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreProjetListe" text="Membre des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineProjetListe" text="Discipline des projets" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToScreenSous_projetListe" text="Sous_projet des projets" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenEntrepriseListe" text="Client" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenMembreListe" text="Membres" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenDisciplineListe" text="Discipline" />
                         <MenuItem mnemonicParsing="false" onAction="#goToScreenNiveauxListe" text="Niveaux" />
                     </items>
                 </Menu>
-        </menus>
-      </MenuBar>
+            </menus>
+        </MenuBar>
       <SplitPane dividerPositions="0.22019867549668873" layoutX="24.0" layoutY="113.0" prefHeight="456.0" prefWidth="1210.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

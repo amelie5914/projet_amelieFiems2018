@@ -46,7 +46,7 @@ public class Competence {
 
     @Override
     public String toString() {
-        return "Competence{" +   " discipline=" + discipline + ", niveau=" + niveau + ", mem=" + mem + '}';
+        return " discipline=" + discipline + " niveau=" + niveau + " mem=" + mem;
     }
 
     @Override

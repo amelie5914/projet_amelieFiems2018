@@ -235,4 +235,8 @@ public class EntrepriseAjouterController implements Initializable, ControlledEcr
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+@FXML
+    private void goToScreenSousProjetAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutSousProjetFile);
+    }
 }

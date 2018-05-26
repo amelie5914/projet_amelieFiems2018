@@ -228,5 +228,9 @@ public class ListeSousProjetController implements Initializable, ControlledEcran
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+    @FXML
+    private void goToScreenSousProjetAjout(ActionEvent event) {
+        myController.setScreen(Principal.ajoutSousProjetFile);
+    }
 
 }

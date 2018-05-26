@@ -61,7 +61,7 @@ public class Travail {
     }
     @Override
     public String toString() {
-        return "Travail{" + "dateEng=" + dateEng + ", taux=" + taux + ", proj=" + proj + ", mem=" + mem + '}';
+        return  "dateEng=" + dateEng + ", taux=" + taux + ", proj=" + proj + ", mem=" + mem ;
     }
 
     public ProjetGeneral getProj() {
