@@ -20,52 +20,60 @@ import projet.Modele.Membre;
  *
  * @author ameliefiems
  */
-public class ModifierGSMMembreController implements Initializable,ControlledEcran {
+public class ModifierGSMMembreController implements Initializable, ControlledEcran {
 
     ControleurEcran myController;
-    //ProjetModeleJDBC pm;
     @FXML
     TextField nom;
     @FXML
     TextField prenom;
     @FXML
     TextField nvxNum;
-    Membre mem=null;
+    Membre mem = null;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     @FXML
     public void modifierGSMMembre() {
-            mem=(Membre)Principal.pm.get(nom.getText(),prenom.getText(), mem);
-            if(mem!=null){
-              String message = Principal.pm.modifierGSMMembre(mem, nvxNum.getText());
+        //je dois initialiser mon objet membre vu qu'il vient du design pattern builder
+        Membre membre = null;
+        Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
+        membreBuild.setNomMem("bla").setPrenomMem("bla");
+        try {
+            membre = membreBuild.build();
+
+        } catch (Exception e) {
+            System.out.println("Erreur de création" + e);
+        }
+        mem = (Membre) Principal.pm.get(nom.getText(), prenom.getText(), membre);
+        if (mem != null) {
+            String message = Principal.pm.modifierGSMMembre(mem, nvxNum.getText());
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information modification du numero du membre");
             alert.setHeaderText(null);
             alert.setContentText(msg);
-            alert.showAndWait();  
-            }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information modification du numero du membre");
             alert.setHeaderText(null);
             alert.setContentText("Le membre n'existe pas");
-            alert.showAndWait(); 
-            }
-            
+            alert.showAndWait();
+        }
+        nom.setText("");
+        prenom.setText("");
+        nvxNum.setText("");
+
     }
 
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-    /*@Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }*/
 
     @FXML
     private void goToScreen2(ActionEvent event) {
@@ -161,68 +169,80 @@ public class ModifierGSMMembreController implements Initializable,ControlledEcra
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);
     }
-    
+
 }

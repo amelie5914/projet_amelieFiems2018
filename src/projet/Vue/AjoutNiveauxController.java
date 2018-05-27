@@ -36,7 +36,9 @@ public class AjoutNiveauxController implements Initializable, ControlledEcran {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-
+    /**
+     * Ajouter un niveau
+     */
     @FXML
     public void ajout() {
         try {
@@ -67,7 +69,8 @@ public class AjoutNiveauxController implements Initializable, ControlledEcran {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        degre.setText("");
+        sign.setText("");
     }
 
     @Override

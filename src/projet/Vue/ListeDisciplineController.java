@@ -16,8 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import projet.Modele.Discipline;
-import projet.Modele.Membre;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
@@ -37,6 +36,11 @@ private ObservableList<Discipline> disData = FXCollections.observableArrayList()
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+    }  
+    @FXML
+    public void affichage(){
+        disData.clear();
         l = Principal.pm.getDis();
         l.forEach((dis) -> {
             disData.add(dis);
@@ -44,7 +48,7 @@ private ObservableList<Discipline> disData = FXCollections.observableArrayList()
         nomColumn.setCellValueFactory(cellData -> cellData.getValue().getpNom());
         
         personTable.setItems(disData);
-    }  
+    }
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;

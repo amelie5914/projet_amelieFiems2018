@@ -48,24 +48,22 @@ public class ListeProjetController implements Initializable, ControlledEcran {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
+    
+    @FXML
+    public void affichage(){
+        projetData.clear();
         l = Principal.pm.getProjet();
         l.forEach((projet) -> {
             projetData.add(projet);
         });
+        
         titreColumn.setCellValueFactory(cellData -> cellData.getValue().getpTitre());
         dateDebutLabel.setCellValueFactory(cellData -> cellData.getValue().getpDateDebut());
         dateFinLabel.setCellValueFactory(cellData -> cellData.getValue().getpDateFin());
         
-        //entrepriseLabel.setCellValueFactory(cellData -> cellData.getValue().getpEnt());
-        /*entrepriseLabel.setCellValueFactory(cellData -> {
-            return cellData.getValue();
-        });*/
-        
-
         personTable.setItems(projetData);
     }
-    
-
     /**
      * Returns the data as an observable list of Persons. 
      * @return
@@ -75,10 +73,6 @@ public class ListeProjetController implements Initializable, ControlledEcran {
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-    /*@Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }*/
 
    @FXML
     private void goToScreen2(ActionEvent event) {

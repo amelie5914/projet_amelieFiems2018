@@ -14,23 +14,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import projet.Modele.Membre;
-import projet.Modele.Niveaux;
-import projet.Modele.ProjetGeneral;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class ListeMembreProjetController implements Initializable,ControlledEcran {
-ControleurEcran myController;
-private ObservableList<Membre> membreData = FXCollections.observableArrayList();
+public class ListeMembreProjetController implements Initializable, ControlledEcran {
+
+    ControleurEcran myController;
+    private ObservableList<Membre> membreData = FXCollections.observableArrayList();
     private List<Membre> l = new ArrayList();
-     @FXML
+    @FXML
     private TableView<Membre> personTable;
     @FXML
     private TableColumn<Membre, String> nomColumn;
@@ -43,18 +43,22 @@ private ObservableList<Membre> membreData = FXCollections.observableArrayList();
     private TableColumn<Membre, String> emailLabel;
     @FXML
     private TextField titre;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    } 
+
+    }
+
     @FXML
-    public void rech(){
+    public void rech() {
         Membre mem;
-        ProjetGeneral pg=null;
-        l=Principal.pm.listeMembreProjet(titre.getText(), pg);
+        ProjetGeneral pg = null;
+        membreData.clear();
+        l = Principal.pm.listeMembreProjet(titre.getText(), pg);
+        if(l!=null){
         l.forEach((m) -> {
             membreData.add(m);
         });
@@ -62,13 +66,24 @@ private ObservableList<Membre> membreData = FXCollections.observableArrayList();
         prenomColumn.setCellValueFactory(cellData -> cellData.getValue().getpPrenomMem());
         gsmLabel.setCellValueFactory(cellData -> cellData.getValue().getpGsm());
         emailLabel.setCellValueFactory(cellData -> cellData.getValue().getpEmail());
-        
+
         personTable.setItems(membreData);
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information sur le projet");
+            alert.setHeaderText(null);
+            alert.setContentText("existe pas");
+            alert.showAndWait();
+        }
+        titre.setText("");
     }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -163,65 +178,77 @@ private ObservableList<Membre> membreData = FXCollections.observableArrayList();
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);

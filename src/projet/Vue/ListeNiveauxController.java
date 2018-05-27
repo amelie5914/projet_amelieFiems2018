@@ -16,42 +16,50 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import projet.Modele.Discipline;
-import projet.Modele.Niveaux;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class ListeNiveauxController implements Initializable,ControlledEcran {
-ControleurEcran myController;
-private ObservableList<Niveaux> nivData = FXCollections.observableArrayList();
+public class ListeNiveauxController implements Initializable, ControlledEcran {
+
+    ControleurEcran myController;
+    private ObservableList<Niveaux> nivData = FXCollections.observableArrayList();
     private List<Niveaux> l = new ArrayList();
-     @FXML
+    @FXML
     private TableView<Niveaux> personTable;
     @FXML
     private TableColumn<Niveaux, String> signColumn;
     @FXML
     private TableColumn<Niveaux, String> degreColumn;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
+    }
+
+    @FXML
+    public void affichage() {
+        nivData.clear();
         l = Principal.pm.getNiveau();
         l.forEach((dis) -> {
             nivData.add(dis);
         });
         signColumn.setCellValueFactory(cellData -> cellData.getValue().getpSignification());
-        degreColumn.setCellValueFactory(cellData->cellData.getValue().getpDegre());
+        degreColumn.setCellValueFactory(cellData -> cellData.getValue().getpDegre());
         personTable.setItems(nivData);
-    }  
+    }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -146,65 +154,77 @@ private ObservableList<Niveaux> nivData = FXCollections.observableArrayList();
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);

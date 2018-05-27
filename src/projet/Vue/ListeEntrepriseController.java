@@ -41,10 +41,14 @@ public class ListeEntrepriseController implements Initializable, ControlledEcran
     private TableColumn<Entreprise, String> adresseColumn;
     @FXML
     private TableColumn<Entreprise, String> telColumn;
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+    }
+    @FXML
+    public void affichage(){
+        entrepriseData.clear();
         l = Principal.pm.getEntreprise();
         l.forEach((entreprise) -> {
             entrepriseData.add(entreprise);
@@ -55,8 +59,6 @@ public class ListeEntrepriseController implements Initializable, ControlledEcran
         
         personTable.setItems(entrepriseData);
     }
-    
-
     /**
      * Returns the data as an observable list of Persons. 
      * @return

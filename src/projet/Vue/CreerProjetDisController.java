@@ -28,7 +28,7 @@ import projet.Modele.*;
  *
  * @author ameliefiems
  */
-public class CreerProjetDisController implements Initializable,ControlledEcran {
+public class CreerProjetDisController implements Initializable, ControlledEcran {
 
     ControleurEcran myController;
     @FXML
@@ -39,11 +39,11 @@ public class CreerProjetDisController implements Initializable,ControlledEcran {
     private ListView<Discipline> disciplineListView;
     private ObservableList<Discipline> listDiscipline = FXCollections.observableArrayList();
     private List<Discipline> ld = new ArrayList();
-   @FXML
-    ListView<String> list=new ListView<String>();
+    @FXML
+    ListView<String> list = new ListView<String>();
     private String choix;
-        Discipline d=new Discipline();
-    ProjetModeleJDBC pm=new ProjetModeleJDBC();
+    Discipline d = new Discipline();
+
     /**
      * Initializes the controller class.
      */
@@ -59,94 +59,104 @@ public class CreerProjetDisController implements Initializable,ControlledEcran {
             }
         });
         Discipline dis = new Discipline("Aucun");
-        if (pm.getDis() != null) {
-            ld =pm.getDis();
+        if (Principal.pm.getDis() != null) {
+            ld = Principal.pm.getDis();
             ld.forEach((discipline) -> {
                 listDiscipline.add(discipline);
             });
         } else {
             listDiscipline.add(dis);
         }
-        if(listDiscipline!=null){
-        disciplineListView.setItems(listDiscipline);
-        }
-        else{
+        if (listDiscipline != null) {
+            disciplineListView.setItems(listDiscipline);
+        } else {
             System.out.println("prout");
         }
         disciplineListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 d = disciplineListView.getSelectionModel().getSelectedItem();
-                
+
             }
         });
-    } 
+    }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+
     @FXML
-    public void ajout(){
+    public void ajout() {
         if (choix.equals("Simple")) {
             ProjetSimple ps = new ProjetSimple();
             ProjetGeneral pg;
-            System.out.println("TITRE TROUVE" + Principal.pm.getProjet(ps, titre.getText()));
-           
             ps = (ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
-            
-        try {
-            int j=Integer.parseInt(jhomme.getText());
-            Temps t=new Temps(j,ps,d);
-            String message = Principal.pm.ajouter(t);
-            
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information ajout du discipline dans le projet");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
-            alert.setHeaderText(null);
-            alert.setContentText("Nombre invalide");
-            alert.showAndWait();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-            
+            if (ps != null) {
+                try {
+                    int j = Integer.parseInt(jhomme.getText());
+                    Temps t = new Temps(j, ps, d);
+                    String message = Principal.pm.ajouter(t);
+                    String msg = "\n" + message;
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information ajout du discipline dans le projet");
+                    alert.setHeaderText(null);
+                    alert.setContentText(msg);
+                    alert.showAndWait();
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ERREUR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Nombre invalide");
+                    alert.showAndWait();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERREUR");
+                alert.setHeaderText(null);
+                alert.setContentText("le projet n'existe pas!");
+                alert.showAndWait();
+            }
+
         } else {
             Sous_projet sp = new Sous_projet();
             ProjetGeneral pg;
             sp = (Sous_projet) Principal.pm.getProjet(sp, titre.getText());
-            
-        try {
-            int j=Integer.parseInt(jhomme.getText());
-            Temps t=new Temps(j,sp,d);
-            String message = Principal.pm.ajouter(t);
-            
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information ajout du discipline dans le projet");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
-            alert.setHeaderText(null);
-            alert.setContentText("Nombre invalide");
-            alert.showAndWait();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (sp != null) {
+                try {
+                    int j = Integer.parseInt(jhomme.getText());
+                    Temps t = new Temps(j, sp, d);
+                    String message = Principal.pm.ajouter(t);
+
+                    String msg = "\n" + message;
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information ajout du discipline dans le projet");
+                    alert.setHeaderText(null);
+                    alert.setContentText(msg);
+                    alert.showAndWait();
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ERREUR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Nombre invalide");
+                    alert.showAndWait();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERREUR");
+                alert.setHeaderText(null);
+                alert.setContentText("le projet n'existe pas!");
+                alert.showAndWait();
+            }
         }
-        }
+        titre.setText("");
+        jhomme.setText("");
     }
 
-    /*@Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }*/
-public String inverseDate(LocalDate date) {
+    public String inverseDate(LocalDate date) {
         String inverse;
         inverse = date.toString();
         String annee = inverse.substring(0, 4);
@@ -156,6 +166,7 @@ public String inverseDate(LocalDate date) {
         return inverse;
 
     }
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -250,65 +261,77 @@ public String inverseDate(LocalDate date) {
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);

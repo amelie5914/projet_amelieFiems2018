@@ -26,9 +26,10 @@ import projet.Modele.ProjetModeleJDBC;
  *
  * @author ameliefiems
  */
-public class AccueilController implements Initializable, ControlledEcran{
+public class AccueilController implements Initializable, ControlledEcran {
 
     ControleurEcran myController;
+
     //ProjetModeleJDBC pm;
     /**
      * Initializes the controller class.
@@ -37,22 +38,15 @@ public class AccueilController implements Initializable, ControlledEcran{
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+
     @Override
-    public void setScreenParent(ControleurEcran screenParent){
+    public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
 
     @FXML
-    private void goToScreen2(ActionEvent event){
-        //tPrincipal.pm=new ProjetModeleJDBC();
-        
-       //myController.setModele(pm);
-       myController.setScreen(Principal.screen2ID);
-       
+    private void goToScreen2(ActionEvent event) {
+        myController.setScreen(Principal.screen2ID);
+
     }
-    /**
-     * Initializes the controller class.
-     */
-      
-    
 }

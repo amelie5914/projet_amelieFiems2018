@@ -85,7 +85,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="281.0" prefWidth="348.0">
                <children>
                   <Label layoutX="159.0" layoutY="88.0" text="Titre du projet" />
-                  <TextField layoutX="371.0" layoutY="90.0" />
+                  <TextField fx:id="titre" layoutX="371.0" layoutY="90.0" />
                   <Button id="boutonProjet" layoutX="183.0" layoutY="341.0" mnemonicParsing="false" onAction="#rech" text="Rechercher" />
                   <Button id="boutonProjet" layoutX="537.0" layoutY="339.0" mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
                </children>

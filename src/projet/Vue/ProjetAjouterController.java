@@ -63,7 +63,6 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
     private List<Discipline> ld = new ArrayList();
     private List<Niveaux> ln = new ArrayList();
     ControleurEcran myController;
-    //ProjetModeleJDBC pm;
     Entreprise e = new Entreprise();
     Discipline d = new Discipline();
     Membre mem;
@@ -140,268 +139,292 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
 
     @FXML
     public void ajoutProjetSimple() {
-        String message1="", message2="",message3="",message4="";
-        String pattern = "dd-MM-yyyy";
+        if (!titre.getText().equals("") && !taux.getText().equals("") && !jhomme.getText().equals("") && !degre.getText().equals("") && !signification.getText().equals("")) {
+            String message1 = "", message2 = "", message3 = "", message4 = "";
+            String pattern = "dd-MM-yyyy";
 
-        datedebut.setPromptText(pattern.toLowerCase());
+            datedebut.setPromptText(pattern.toLowerCase());
 
-        datedebut.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+            datedebut.setConverter(new StringConverter<LocalDate>() {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
+                @Override
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
                 }
-            }
 
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
+                @Override
+                public LocalDate fromString(String string) {
+                    if (string != null && !string.isEmpty()) {
+                        return LocalDate.parse(string, dateFormatter);
+                    } else {
+                        return null;
+                    }
                 }
-            }
-        });
-        LocalDate date = datedebut.getValue();
-        String d1 = inverseDate(date);
+            });
+            LocalDate date = datedebut.getValue();
+            String d1 = inverseDate(date);
 
-        String pattern1 = "dd-MM-yyyy";
+            String pattern1 = "dd-MM-yyyy";
 
-        datedebut.setPromptText(pattern1.toLowerCase());
+            datedebut.setPromptText(pattern1.toLowerCase());
 
-        datedebut.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern1);
+            datedebut.setConverter(new StringConverter<LocalDate>() {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern1);
 
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
+                @Override
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
                 }
-            }
 
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
+                @Override
+                public LocalDate fromString(String string) {
+                    if (string != null && !string.isEmpty()) {
+                        return LocalDate.parse(string, dateFormatter);
+                    } else {
+                        return null;
+                    }
                 }
+            });
+            LocalDate date2 = datefin.getValue();
+            String d2 = inverseDate(date2);
+            ProjetSimple ps = new ProjetSimple(titre.getText(), d1, d2, e);
+            String message = ps + "\n" + Principal.pm.ajouter(ps);
+
+            try {
+                int j = Integer.parseInt(jhomme.getText());
+                Temps t = new Temps(j, ps, d);
+                message1 = Principal.pm.ajouter(t);
+
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERREUR");
+                alert.setHeaderText(null);
+                alert.setContentText("Nombre invalide");
+                alert.showAndWait();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        });
-        LocalDate date2 = datefin.getValue();
-        String d2 = inverseDate(date2);
-        System.out.println("Selected date: " + d1);
-        System.out.println("titre" + titre.getText());
-        ProjetSimple ps = new ProjetSimple(titre.getText(), d1, d2, e);
-        String message = ps + "\n" + Principal.pm.ajouter(ps);
-        
+            String pattern2 = "dd-MM-yyyy";
 
-        try {
-            int j = Integer.parseInt(jhomme.getText());
-            Temps t = new Temps(j, ps, d);
-            message1 = Principal.pm.ajouter(t);
+            dateEng.setPromptText(pattern.toLowerCase());
 
-        } catch (NumberFormatException e) {
+            dateEng.setConverter(new StringConverter<LocalDate>() {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern2);
+
+                @Override
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
+                }
+
+                @Override
+                public LocalDate fromString(String string) {
+                    if (string != null && !string.isEmpty()) {
+                        return LocalDate.parse(string, dateFormatter);
+                    } else {
+                        return null;
+                    }
+                }
+            });
+            date = dateEng.getValue();
+            d1 = inverseDate(date);
+            try {
+                int pourcentage = Integer.parseInt(taux.getText());
+                int deg = Integer.parseInt(degre.getText());
+                Travail t = new Travail(d1, pourcentage, ps, mem);
+                n = new Niveaux(deg, signification.getText());
+                message2 = Principal.pm.ajouter(t);
+                message3 = Principal.pm.ajouter(n);
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ERREUR");
+                alert.setHeaderText(null);
+                alert.setContentText("Nombre invalide");
+                alert.showAndWait();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            Competence c = new Competence(d, n, mem);
+            message4 = Principal.pm.ajouter(c);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
+            alert.setTitle("Information ajout projet");
             alert.setHeaderText(null);
-            alert.setContentText("Nombre invalide");
+            alert.setContentText(message + "\n" + message1 + "\n" + message2 + "\n" + message3 + "\n" + message4);
             alert.showAndWait();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        String pattern2 = "dd-MM-yyyy";
-
-        dateEng.setPromptText(pattern.toLowerCase());
-
-        dateEng.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern2);
-
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
-                }
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
-                }
-            }
-        });
-        date = dateEng.getValue();
-        d1 = inverseDate(date);
-        try {
-            int pourcentage = Integer.parseInt(taux.getText());
-            int deg=Integer.parseInt(degre.getText());
-            Travail t = new Travail(d1, pourcentage, ps, mem);
-            n=new Niveaux(deg,signification.getText());
-            message2 = Principal.pm.ajouter(t);
-            message3= Principal.pm.ajouter(n);
-        } catch (NumberFormatException e) {
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
+            alert.setTitle("Information ajout projet");
             alert.setHeaderText(null);
-            alert.setContentText("Nombre invalide");
+            alert.setContentText("Vous avez entré aucun champ!");
             alert.showAndWait();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-        Competence c=new Competence(d, n, mem);
-        message4=Principal.pm.ajouter(c);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information ajout projet");
-        alert.setHeaderText(null);
-        alert.setContentText(message+"\n"+message1+"\n"+message2+"\n"+message3+"\n"+message4);
-        alert.showAndWait();
+        titre.setText("");
+        taux.setText("");
+        jhomme.setText("");
+        degre.setText("");
+        signification.setText("");
     }
 
     @FXML
     public void ajoutSousProjet() {
-        String pattern = "dd-MM-yyyy";
-        String message="",message1="",message2="",message3="",message4="";
-        datedebut.setPromptText(pattern.toLowerCase());
+        if (!titre.getText().equals("") && !taux.getText().equals("") && !jhomme.getText().equals("") && !degre.getText().equals("") && !signification.getText().equals("")) {
 
-        datedebut.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+            String pattern = "dd-MM-yyyy";
+            String message = "", message1 = "", message2 = "", message3 = "", message4 = "";
+            datedebut.setPromptText(pattern.toLowerCase());
 
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
+            datedebut.setConverter(new StringConverter<LocalDate>() {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+                @Override
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
                 }
-            }
 
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
+                @Override
+                public LocalDate fromString(String string) {
+                    if (string != null && !string.isEmpty()) {
+                        return LocalDate.parse(string, dateFormatter);
+                    } else {
+                        return null;
+                    }
                 }
-            }
-        });
-        LocalDate date = datedebut.getValue();
-        String d1 = inverseDate(date);
+            });
+            LocalDate date = datedebut.getValue();
+            String d1 = inverseDate(date);
 
-        String pattern1 = "dd-MM-yyyy";
+            String pattern1 = "dd-MM-yyyy";
 
-        datedebut.setPromptText(pattern1.toLowerCase());
+            datedebut.setPromptText(pattern1.toLowerCase());
 
-        datedebut.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern1);
+            datedebut.setConverter(new StringConverter<LocalDate>() {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern1);
 
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
+                @Override
+                public String toString(LocalDate date) {
+                    if (date != null) {
+                        return dateFormatter.format(date);
+                    } else {
+                        return "";
+                    }
                 }
-            }
 
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
+                @Override
+                public LocalDate fromString(String string) {
+                    if (string != null && !string.isEmpty()) {
+                        return LocalDate.parse(string, dateFormatter);
+                    } else {
+                        return null;
+                    }
                 }
+            });
+            LocalDate date2 = datefin.getValue();
+            String d2 = inverseDate(date2);
+            if (titre.getText().equals("")) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Titre incorrect");
+                alert.setContentText("Vous devez remplir ce champs!");
+                alert.showAndWait();
+            } else {
+                Sous_projet sp = new Sous_projet(titre.getText(), d1, d2, e);
+                message = sp + "\n" + Principal.pm.ajouter(sp);
+                try {
+                    int j = Integer.parseInt(jhomme.getText());
+                    Temps t = new Temps(j, sp, d);
+                    message1 = Principal.pm.ajouter(t);
+
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ERREUR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Nombre invalide");
+                    alert.showAndWait();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                String pattern2 = "dd-MM-yyyy";
+
+                dateEng.setPromptText(pattern.toLowerCase());
+
+                dateEng.setConverter(new StringConverter<LocalDate>() {
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern2);
+
+                    @Override
+                    public String toString(LocalDate date) {
+                        if (date != null) {
+                            return dateFormatter.format(date);
+                        } else {
+                            return "";
+                        }
+                    }
+
+                    @Override
+                    public LocalDate fromString(String string) {
+                        if (string != null && !string.isEmpty()) {
+                            return LocalDate.parse(string, dateFormatter);
+                        } else {
+                            return null;
+                        }
+                    }
+                });
+                date = dateEng.getValue();
+                d1 = inverseDate(date);
+
+                try {
+                    int pourcentage = Integer.parseInt(taux.getText());
+                    int deg = Integer.parseInt(degre.getText());
+                    Travail t = new Travail(d1, pourcentage, sp, mem);
+                    n = new Niveaux(deg, signification.getText());
+                    message2 = Principal.pm.ajouter(t);
+                    message3 = Principal.pm.ajouter(n);
+                } catch (NumberFormatException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ERREUR");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Nombre invalide");
+                    alert.showAndWait();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                Competence c = new Competence(d, n, mem);
+                message4 = Principal.pm.ajouter(c);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information ajout projet");
+                alert.setHeaderText(null);
+                alert.setContentText(message + "\n" + message1 + "\n" + message2 + "\n" + message3 + "\n" + message4);
+                alert.showAndWait();
+                titre.setText("");
             }
-        });
-        LocalDate date2 = datefin.getValue();
-        String d2 = inverseDate(date2);
-        if (titre.getText().equals("")) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Titre incorrect");
-            alert.setContentText("Vous devez remplir ce champs!");
-            alert.showAndWait();
         } else {
-            Sous_projet sp = new Sous_projet(titre.getText(), d1, d2, e);
-            message = sp + "\n" + Principal.pm.ajouter(sp);
-            try {
-            int j = Integer.parseInt(jhomme.getText());
-            Temps t = new Temps(j, sp, d);
-            message1 = Principal.pm.ajouter(t);
-
-        } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
+            alert.setTitle("Information ajout projet");
             alert.setHeaderText(null);
-            alert.setContentText("Nombre invalide");
+            alert.setContentText("Vous avez entré aucun champ!");
             alert.showAndWait();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-        String pattern2 = "dd-MM-yyyy";
+        titre.setText("");
+        taux.setText("");
+        jhomme.setText("");
+        degre.setText("");
+        signification.setText("");
 
-        dateEng.setPromptText(pattern.toLowerCase());
-
-        dateEng.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern2);
-
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
-                }
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
-                }
-            }
-        });
-        date = dateEng.getValue();
-        d1 = inverseDate(date);
-
-
-        try {
-            int pourcentage = Integer.parseInt(taux.getText());
-            int deg=Integer.parseInt(degre.getText());
-            Travail t = new Travail(d1, pourcentage, sp, mem);
-            n=new Niveaux(deg,signification.getText());
-            message2 = Principal.pm.ajouter(t);
-            message3= Principal.pm.ajouter(n);
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("ERREUR");
-            alert.setHeaderText(null);
-            alert.setContentText("Nombre invalide");
-            alert.showAndWait();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        Competence c=new Competence(d, n, mem);
-        message4=Principal.pm.ajouter(c);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information ajout projet");
-        alert.setHeaderText(null);
-        alert.setContentText(message+"\n"+message1+"\n"+message2+"\n"+message3+"\n"+message4);
-        alert.showAndWait();
-            titre.setText("");
-        }
     }
 
     public String inverseDate(LocalDate date) {
@@ -420,10 +443,6 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
         myController = screenParent;
     }
 
-    /*@Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }*/
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -518,65 +537,77 @@ public class ProjetAjouterController implements Initializable, ControlledEcran {
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);

@@ -164,8 +164,6 @@ public class JDBCController implements Initializable, ControlledEcran {
         myController.setScreen(Principal.listeNiveauxFile);
     }
     
-    
-    
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);

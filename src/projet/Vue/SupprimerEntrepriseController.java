@@ -12,36 +12,36 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import projet.Modele.Entreprise;
-import projet.Modele.ProjetSimple;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
  *
  * @author ameliefiems
  */
-public class SupprimerEntrepriseController implements Initializable,ControlledEcran {
+public class SupprimerEntrepriseController implements Initializable, ControlledEcran {
+
     ControleurEcran myController;
-   // ProjetModeleJDBC pm;
+    // ProjetModeleJDBC pm;
     @FXML
     TextField nom;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    public void supprimer(){
-        String message="";
+    }
+
+    public void supprimer() {
+        String message = "";
         Entreprise e = new Entreprise();
-             e=(Entreprise) Principal.pm.get(nom.getText(), "", e);
-            boolean ok  = Principal.pm.supprimer(e);
-            if(ok){
-                message=e+" a bien été supprimer.";
-            }
-            else{
-                message=e+" n'a pas été supprimer car il existe pas ou vous n'avez rien rentré";
+        e = (Entreprise) Principal.pm.get(nom.getText(), "", e);
+        if (e != null) {
+            boolean ok = Principal.pm.supprimer(e);
+            if (ok) {
+                message = e + " a bien été supprimer.";
             }
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -49,11 +49,23 @@ public class SupprimerEntrepriseController implements Initializable,ControlledEc
             alert.setHeaderText(null);
             alert.setContentText(msg);
             alert.showAndWait();
+        } else {
+            String msg = "\n" + message;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information suppression de l'entreprise");
+            alert.setHeaderText(null);
+            alert.setContentText("n'a pas été supprimer car il existe pas ou vous n'avez rien rentré");
+            alert.showAndWait();
+        }
+
+        nom.setText("");
     }
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -148,68 +160,80 @@ public class SupprimerEntrepriseController implements Initializable,ControlledEc
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);
     }
-    
+
 }

@@ -36,6 +36,7 @@ public class ModifierTitreProjetController implements Initializable, ControlledE
     private String choix;
     @FXML
     ListView<String> list = new ListView<String>();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> items = FXCollections.observableArrayList(
@@ -44,7 +45,7 @@ public class ModifierTitreProjetController implements Initializable, ControlledE
         list.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 choix = list.getSelectionModel().getSelectedItem();
-                System.out.println("choix="+choix);
+                System.out.println("choix=" + choix);
             }
         });
     }
@@ -54,28 +55,47 @@ public class ModifierTitreProjetController implements Initializable, ControlledE
         if (choix.equals("Simple")) {
             ProjetSimple ps = new ProjetSimple();
             ProjetGeneral pg;
-            System.out.println("TITRE TROUVE"+ Principal.pm.getProjet(ps,titre.getText()));
+            System.out.println("TITRE TROUVE" + Principal.pm.getProjet(ps, titre.getText()));
             ps = (ProjetSimple) Principal.pm.getProjet(ps, titre.getText());
-            String message = Principal.pm.modifierTitreProjet(ps, nvxTitre.getText());
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information modification du titre du projet");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
+            if (ps != null) {
+                String message = Principal.pm.modifierTitreProjet(ps, nvxTitre.getText());
+                String msg = "\n" + message;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information modification du titre du projet");
+                alert.setHeaderText(null);
+                alert.setContentText(msg);
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information modification du titre du projet");
+                alert.setHeaderText(null);
+                alert.setContentText("Il n'existe pas");
+                alert.showAndWait();
+            }
+
         } else {
             Sous_projet sp = new Sous_projet();
             ProjetGeneral pg;
-            
-            sp = (Sous_projet)Principal.pm.getProjet(sp, titre.getText());
-            String message = Principal.pm.modifierTitreProjet(sp, nvxTitre.getText());
-            String msg = "\n" + message;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information modification du titre du projet");
-            alert.setHeaderText(null);
-            alert.setContentText(msg);
-            alert.showAndWait();
+
+            sp = (Sous_projet) Principal.pm.getProjet(sp, titre.getText());
+            if (sp != null) {
+                String message = Principal.pm.modifierTitreProjet(sp, nvxTitre.getText());
+                String msg = "\n" + message;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information modification du titre du projet");
+                alert.setHeaderText(null);
+                alert.setContentText(msg);
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information modification du titre du projet");
+                alert.setHeaderText(null);
+                alert.setContentText("Il n'existe pas");
+                alert.showAndWait();
+            }
         }
+        titre.setText("");
+        nvxTitre.setText("");
 
     }
 
@@ -83,7 +103,8 @@ public class ModifierTitreProjetController implements Initializable, ControlledE
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-/*@Override
+
+    /*@Override
     public void setModele(ProjetModeleJDBC modele) {
         this.pm=modele;
     }*/
@@ -181,65 +202,77 @@ public class ModifierTitreProjetController implements Initializable, ControlledE
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);

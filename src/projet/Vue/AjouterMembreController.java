@@ -19,7 +19,8 @@ import projet.Modele.*;
  *
  * @author ameliefiems
  */
-public class AjouterMembreController implements Initializable,ControlledEcran {
+public class AjouterMembreController implements Initializable, ControlledEcran {
+
     @FXML
     TextField nom;
     @FXML
@@ -36,10 +37,11 @@ public class AjouterMembreController implements Initializable,ControlledEcran {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    } 
-     @FXML
+    }
+
+    @FXML
     public void ajout() {
-        Membre membre=null;
+        Membre membre = null;
         if (!gsm.getText().matches("^[0-9]{10}$")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
@@ -58,7 +60,7 @@ public class AjouterMembreController implements Initializable,ControlledEcran {
             alert.setHeaderText("Vous n'avez pas entré de prenom");
             alert.setContentText("Obligatoire de remplir ce champs!");
             alert.showAndWait();
-        }else if (nom.getText().equals("")) {
+        } else if (nom.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Vous n'avez pas entré de nom");
@@ -66,13 +68,12 @@ public class AjouterMembreController implements Initializable,ControlledEcran {
             alert.showAndWait();
         } else {
             Membre.MembreBuilder membreBuild = new Membre.MembreBuilder();
-        membreBuild.setNomMem(nom.getText()).setPrenomMem(prenom.getText()).setGsm(gsm.getText()).setEmail(email.getText());
-        try {
-            membre = membreBuild.build();
-
-        } catch (Exception e) {
-            System.out.println("Erreur de création" + e);
-        }
+            membreBuild.setNomMem(nom.getText()).setPrenomMem(prenom.getText()).setGsm(gsm.getText()).setEmail(email.getText());
+            try {
+                membre = membreBuild.build();
+            } catch (Exception e) {
+                System.out.println("Erreur de création" + e);
+            }
             String message = membre + "\n" + Principal.pm.ajouter(membre);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information ajout membre");
@@ -91,7 +92,7 @@ public class AjouterMembreController implements Initializable,ControlledEcran {
         myController = screenParent;
     }
 
-   @FXML
+    @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
     }
@@ -185,68 +186,80 @@ public class AjouterMembreController implements Initializable,ControlledEcran {
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);
     }
-    
+
 }

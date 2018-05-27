@@ -179,29 +179,11 @@ public class ProjetModeleJDBC extends ProjetModele {
                     try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1, ((ProjetSimple) o).getTitre());
-                        /*int jour = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(0, 1));
                         
-                        int mois = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(3, 6));
-                        int annee = Integer.parseInt(((ProjetSimple) o).getDateDebut().substring(6, 9));
-                        LocalDate dd = LocalDate.of(annee, mois, jour);
-                        pstm.setDate(2, java.sql.Date.valueOf(dd));
-                        jour = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(0, 1));
-                        mois = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(3, 6));
-                        annee = Integer.parseInt(((ProjetSimple) o).getDateFin().substring(6,9));
-                        dd = LocalDate.of(annee, mois, jour);
-                        
-                        */
                         pstm.setString(2, ((ProjetSimple) o).getDateDebut());
                         pstm.setString(3, ((ProjetSimple) o).getDateFin());
                         pstm.setInt(4, ident);
-                        
-                       /*uery = "INSERT INTO PROJET(TITRE,to_date(DATEDEBUT,'DD-MM-YYYY') ,to_date(DATEFIN,'DD-MM-YYYY'),IDCLI) values (?,?,?,?)";
-                       try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
-                        dbConnect.setAutoCommit(true);
-                        pstm.setString(1, ((ProjetSimple) o).getTitre());
-                         pstm.setString(2,((ProjetSimple) o).getDateDebut());
-                         pstm.setString(3,((ProjetSimple) o).getDateFin());
-                         pstm.setInt(4, ident);*/
+                       
                         int n = pstm.executeUpdate();
                         if (n == 1) {
                             message = "ajout projet effectué "+n;
@@ -248,15 +230,7 @@ public class ProjetModeleJDBC extends ProjetModele {
                     try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
                         dbConnect.setAutoCommit(true);
                         pstm.setString(1, ((Sous_projet) o).getTitre());
-                       /* int jour = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(0, 1));
-                        int mois = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(3, 4));
-                        int annee = Integer.parseInt(((Sous_projet) o).getDateDebut().substring(6,9));
-                        LocalDate dd = LocalDate.of(annee, mois, jour);
-                        pstm.setDate(2, java.sql.Date.valueOf(dd));
-                        jour = Integer.parseInt(((Sous_projet) o).getDateFin().substring(0, 1));
-                        mois = Integer.parseInt(((Sous_projet) o).getDateFin().substring(3, 4));
-                        annee = Integer.parseInt(((Sous_projet) o).getDateFin().substring(6, 9));
-                        dd = LocalDate.of(annee, mois, jour);*/
+                       
                        pstm.setString(3,((Sous_projet) o).getDateFin());
                         pstm.setString(2,((Sous_projet) o).getDateDebut());
                         pstm.setInt(4, ident);
@@ -414,7 +388,11 @@ public class ProjetModeleJDBC extends ProjetModele {
 
         return message;
     }
-
+/**
+ * recherche d'un membre en fonction de sa competence entrée en paramètre
+ * @param c competence donnée pour la recherche
+ * @return un entier qui est l'id du membre
+ */
     public int rechercheMembre(Competence c) {
         String query = "";
         String message = "";
@@ -443,7 +421,11 @@ public class ProjetModeleJDBC extends ProjetModele {
         }
         return m;
     }
-
+/**
+ * Recherche d'un niveau en fonction de sa competence entrée en paramètre
+ * @param c competence donnée pour la recherche
+ * @return  un entier qui est l'id du niveau
+ */
     public int rechercheNiveau(Competence c) {
         int m = 0;
         String query = "select idniv from niveau where degre=? ";
@@ -469,7 +451,11 @@ public class ProjetModeleJDBC extends ProjetModele {
         }
         return m;
     }
-
+/**
+ * Recherche d'une discipline en fonction de sa competence entrée en paramètre
+ * @param c competence donnée oour la recherche
+ * @return  un entier qui est l'id de la discipline
+ */
     public int rechercheDiscipline(Competence c) {
         String query = "";
         String query1 = "";
@@ -530,7 +516,11 @@ public class ProjetModeleJDBC extends ProjetModele {
         }
         return lp;
     }
-
+/**
+ * Recherche d'une entreprise à l'aide de son id
+ * @param id de l'entreprise recherché
+ * @return un objet entreprise trouvé ou retourne null si il le trouve pas
+ */
     public Entreprise getEnt(int id) {
         String query = "";
         String message = "";
@@ -598,7 +588,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement du numero effectué";
             } else {
-                msg = "changement du numero effectué";
+                msg = "changement du numero non effectué";
             }
 
         } catch (SQLException ex) {
@@ -621,7 +611,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement de l'adresse effectué";
             } else {
-                msg = "changement de l'adresse effectué";
+                msg = "changement de l'adresse non effectué";
             }
 
         } catch (SQLException ex) {
@@ -642,7 +632,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement du titre effectué";
             } else {
-                msg = "changement du titre effectué";
+                msg = "changement du titre non effectué";
             }
 
         } catch (SQLException ex) {
@@ -663,7 +653,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement de la date de debut effectué";
             } else {
-                msg = "changement de la date de debut effectué";
+                msg = "changement de la date de debut non effectué";
             }
 
         } catch (SQLException ex) {
@@ -684,7 +674,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement de la date de debut effectué";
             } else {
-                msg = "changement de la date de debut effectué";
+                msg = "changement de la date de debut non effectué";
             }
 
         } catch (SQLException ex) {
@@ -706,7 +696,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement du numero effectué";
             } else {
-                msg = "changement du numero effectué";
+                msg = "changement du numero non effectué";
             }
 
         } catch (SQLException ex) {
@@ -728,7 +718,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement du email effectué";
             } else {
-                msg = "changement du email effectué";
+                msg = "changement du email non effectué";
             }
 
         } catch (SQLException ex) {
@@ -749,7 +739,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement du nom effectué";
             } else {
-                msg = "changement du nom effectué";
+                msg = "changement du nom non effectué";
             }
 
         } catch (SQLException ex) {
@@ -771,7 +761,7 @@ public class ProjetModeleJDBC extends ProjetModele {
             if (n == 1) {
                 msg = "changement de la description effectué";
             } else {
-                msg = "changement de la description effectué";
+                msg = "changement de la description non effectué";
             }
 
         } catch (SQLException ex) {
@@ -878,12 +868,18 @@ public class ProjetModeleJDBC extends ProjetModele {
         return null;
 
     }
-
+/**
+ * Recherche d'un projet 
+ * @param p le type du projet
+ * @param m le titre du projet recherché
+ * @return le projet recherché
+ */
     public ProjetGeneral getProjet(ProjetGeneral p, String m) {
         String query = "";
         int id, idCli, idProjCompo;
         String t;
         Statement stmt = null;
+        ProjetGeneral pg;
         query = "select idproj,idcli,titre,datedebut,datefin,nvl(id_proj_composite,0) idProjCompo from projet where titre=?";
         ResultSet rs = null;
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
@@ -897,11 +893,11 @@ public class ProjetModeleJDBC extends ProjetModele {
                 idCli = rs.getInt("IDCLI");
                 idProjCompo = rs.getInt("IDPROJCOMPO");
                 if (p instanceof Sous_projet) {
-                    p = new Sous_projet(t, dd.toString(), df.toString(), getEnt(idCli));
+                    pg = new Sous_projet(t, dd.toString(), df.toString(), getEnt(idCli));
                 } else {
-                    p = new ProjetSimple(t, dd.toString(), df.toString(), getEnt(idCli));
+                    pg = new ProjetSimple(t, dd.toString(), df.toString(), getEnt(idCli));
                 }
-                return p;
+                return pg;
             } else {
                 return null;
             }
@@ -919,7 +915,11 @@ public class ProjetModeleJDBC extends ProjetModele {
             }
         }
     }
-
+/**
+ * Recherche d'un projet
+ * @param idproj l'id du projet recherché
+ * @return un objet de type ProjetGeneral trouvé
+ */
     public ProjetGeneral getProjet(int idproj) {
         String query = "";
         String message = "";
@@ -959,7 +959,12 @@ public class ProjetModeleJDBC extends ProjetModele {
         }
         return null;
     }
-
+/**
+ * Recherche d'un objet de type travail
+ * @param m objet Membre qui fait parti de l'objet travail recherché
+ * @param p objet Projet qui fait parti de l'objet travail recherché
+ * @return objet Travail trouvé
+ */
     public Travail getTrav(Membre m,ProjetGeneral p) {
         String query = "";
         
@@ -974,8 +979,8 @@ public class ProjetModeleJDBC extends ProjetModele {
             rs = pstm.executeQuery();
             if (rs.next()) {
                 int taux = rs.getInt("TAUX");
-                
                 LocalDate de = rs.getDate("DATEENG").toLocalDate();
+                System.out.println(de);
                 t = new Travail(de.toString(), taux, p, m);
                 return t;
             } else {
@@ -996,6 +1001,12 @@ public class ProjetModeleJDBC extends ProjetModele {
         }
         return t;
     }
+    /**
+ * Recherche d'un objet de type temps
+ * @param d objet Discipline qui fait parti de l'objet temps recherché
+ * @param p objet Projet qui fait parti de l'objet temps recherché
+ * @return objet Temps trouvé
+ */
 public Temps getTemps(Discipline d,ProjetGeneral p) {
         String query = "";
         
@@ -1029,6 +1040,11 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         }
         return t;
     }
+/**
+ * Recherche d'une discipline
+ * @param idDis l'id de la discipline recherché
+ * @return un objet Discipline trouvé
+ */
     public Discipline getDis(int idDis) {
         String message = "";
         String query = "select NOMDIS from DISCIPLINE where IDDIS=?";
@@ -1057,7 +1073,11 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         }
         return null;
     }
-
+/**
+ * Recherche d'un membre
+ * @param idMem l'id du membre recherché
+ * @return un objet Membre trouvé
+ */
     public Membre getMembre(int idMem) {
         String query = "";
         String message = "";
@@ -1102,7 +1122,6 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
      * @return objet trouvé ou null si la méthode ne le trouve pas
      */
     public Object get(int primary, Object o) {
-        //A verifier!!!!!!!!
 
         if (o instanceof Competence) {
             String query = "";
@@ -1258,12 +1277,16 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
             } else if (o instanceof Travail) {
                 String query = "";
                 String message = "";
-                query = "select IDTRAV from TRAVAIL where DATEENG=?";
+                query = "select T.IDTRAV IDTRAV,M.IDMEM,P.IDPROJ from Membre M join TRAVAIL T on T.IDMEM=M.IDMEM join PROJET P on P.IDPROJ=T.IDPROJ where M.NOMMEM=? AND M.PRENOMMEN=? AND P.TITRE=?";
                 String query1 = "DELETE FROM TRAVAIL WHERE idTrav=?";
                 ResultSet rs = null;
                 try (PreparedStatement pstm = dbConnect.prepareStatement(query); PreparedStatement pstm1 = dbConnect.prepareStatement(query1)) {
                     dbConnect.setAutoCommit(true);
-                    pstm.setString(1, ((Travail) o).getDateEng());
+                    Travail trav= getTrav(((Travail) o).getMem() ,((Travail) o).getProj());
+                    System.out.println(trav.getDateEng());
+                    pstm.setString(1, ((Travail) o).getMem().getNomMem());
+                    pstm.setString(2, ((Travail) o).getMem().getPrenomMem());
+                    pstm.setString(3,((Travail) o).getProj().getTitre());
                     rs = pstm.executeQuery();
                     if (rs.next()) {
                         int idTrav = rs.getInt("IDTRAV");
@@ -1277,6 +1300,8 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
                 } catch (Exception e) {
                     System.out.println("erreur =" + e);
                 }
+                
+                
             } else if (o instanceof Membre) {
                 String query = "";
                 String message = "";
@@ -1394,7 +1419,8 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
                 ResultSet rs = null;
                 try (PreparedStatement pstm = dbConnect.prepareStatement(query); PreparedStatement pstm1 = dbConnect.prepareStatement(query1)) {
                     dbConnect.setAutoCommit(true);
-                    pstm.setInt(1, ((Temps) o).getjHomme());
+                    Temps temps=getTemps(((Temps) o).getDis(),((Temps) o).getProj());
+                    pstm.setInt(1, temps.getjHomme());
                     rs = pstm.executeQuery();
                     if (rs.next()) {
                         int idTemps = rs.getInt("IDTEMPS");
@@ -1472,7 +1498,6 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
     public List<Discipline> listeDisciplineProjet(String m, ProjetGeneral p) {
         List<Discipline> listeDis = null;
         Discipline d;
-        ProjetGeneral pg = getProjet(p, m);
         String query = "";
         int id;
         String n, jhomme, titre;
@@ -1486,17 +1511,15 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
             listeDis = new ArrayList<>();
             pstm.setString(1, m);
             rs = pstm.executeQuery();
-            if (!rs.next()) {
-                return null;
-            } else {
-                do {
+            while (rs.next()) {
+            
                     id = rs.getInt("IDDIS");
                     n = rs.getString("NOM");
                     jhomme = rs.getString("JHOMME");
                     titre = rs.getString("TITRE");
                     d = new Discipline(n);
                     listeDis.add(d);
-                } while (rs.next());
+                
             }
         } catch (SQLException e) {
             System.err.println("erreur de recherche d'acheteur " + e);
@@ -1615,7 +1638,11 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         }
         return msg;
     }
-
+/**
+ * Recherche d'un objet Niveau
+ * @param idNiv l'id du niveau recherché
+ * @return un objet de type Niveau trouvé
+ */
     public Niveaux getNiv(int idNiv) {
         String query = "";
         String message = "";
@@ -1677,7 +1704,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         }
         return lc;
     }
-
+    @Override
     public List<Discipline> getDis() {
         String query = "";
         int iddis;
@@ -1699,11 +1726,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         return lc;
     }
 
-    /**
-     * getter de la liste d'entreprises
-     *
-     * @return la liste d'entreprises
-     */
+    @Override
     public List<Entreprise> getEntreprise() {
         String query = "";
         int idEnt;
@@ -1728,11 +1751,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         return lc;
     }
 
-    /**
-     * getter de la liste de membres
-     *
-     * @return la liste de membres
-     */
+    @Override
     public List<Membre> getMembre() {
         String query = "";
         String nom, tel;
@@ -1757,11 +1776,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         return lm;
     }
 
-    /**
-     * getter de la liste de niveaux
-     *
-     * @return la liste de niveaux
-     */
+    @Override
     public List<Niveaux> getNiveau() {
         String query = "";
         int idNiv, degre;
@@ -1784,17 +1799,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         return ln;
     }
 
-    /**
-     * getter de la liste de projets
-     *
-     * @return la liste de projets
-     */
-
-    /**
-     * getter de la liste des temps
-     *
-     * @return la liste des temps
-     */
+    @Override
     public List<Temps> getTemps() {
         String query = "";
         int idTemps, jhomme, idProj, idDis;
@@ -1819,11 +1824,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         return ln;
     }
 
-    /**
-     * getter de la liste des travaux
-     *
-     * @return liste des travaux
-     */
+    @Override
     public List<Travail> getTrav() {
         String query = "";
         int idTemps, jhomme, idProj, idTrav, idMem, taux;
@@ -1848,7 +1849,11 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         }
         return ln;
     }
-    
+    /**
+     * Liste de tous les sous projets
+     * @param sp projet dont on veut les sous projet
+     * @return list de tous les sous projet du projet
+     */
     public List<ProjetGeneral> listeSousProjet(Sous_projet sp) {
         List<ProjetGeneral> listpg=new ArrayList();
         String query = "";
@@ -1884,7 +1889,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
         try (PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 String titre = rs.getString("TITRE");
                 String dateDebut = rs.getString("DATEDEBUT");
                 String dateFin = rs.getString("DATEFIN");
@@ -1904,6 +1909,7 @@ public Temps getTemps(Discipline d,ProjetGeneral p) {
                 System.err.println("erreur de fermeture de resultset " + e);
             }
         }
+         
         return listpg;
     }
 }

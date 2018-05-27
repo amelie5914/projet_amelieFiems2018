@@ -32,22 +32,13 @@ import projet.Modele.ProjetModeleJDBC;
  * @author ameliefiems
  */
 
-   
-
-/**
- *
- * @author Angie
- */
 public class ControleurEcran extends StackPane {
     
     private HashMap<String, Node> screens = new HashMap<>();
-   // private List<ControlledEcran> liste=new ArrayList();
-    
     public ControleurEcran() {
         super();
     }
 
-    //Add the screen to the collection
     public void addScreen(String name, Node screen) {
         try{
         screens.put(name, screen);
@@ -56,14 +47,9 @@ public class ControleurEcran extends StackPane {
                 System.out.println(e.getMessage());
                 }
     }
-
-    //Returns the Node with the appropriate name
     public Node getScreen(String name) {
         return screens.get(name);
     }
-
-    //Loads the fxml file, add the screen to the screens collection and
-    //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
@@ -82,10 +68,6 @@ public class ControleurEcran extends StackPane {
         }
     }
 
-    //This method tries to displayed the screen with a predefined name.
-    //First it makes sure the screen has been already loaded.  Then if there is more than
-    //one screen the new screen is been added second, and then the current screen is removed.
-    // If there isn't any screen being displayed, the new screen is just added to the root.
     public boolean setScreen(final String name) {       
         if (screens.get(name) != null) {   //screen loaded
             final DoubleProperty opacity = opacityProperty();
@@ -122,7 +104,6 @@ public class ControleurEcran extends StackPane {
 
     }
 
-    //This method will remove the screen with the given name from the collection of screens
     public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
             System.out.println("Screen didn't exist");
@@ -131,14 +112,6 @@ public class ControleurEcran extends StackPane {
             return true;
         }
     }
-    
-    /*public void setModele(ProjetModeleJDBC modele){
-        if(modele!=null){
-            for (ControlledEcran controlledEcran : liste) {
-                   controlledEcran.setModele(modele);
-            }
-        }
-    }*/
 
    
 }

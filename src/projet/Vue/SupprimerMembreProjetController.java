@@ -21,6 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import projet.Modele.Membre;
 import projet.Modele.ProjetGeneral;
+import projet.Modele.ProjetModeleJDBC;
+import projet.Modele.Temps;
 import projet.Modele.Travail;
 
 /**
@@ -40,7 +42,7 @@ public class SupprimerMembreProjetController implements Initializable, Controlle
     @FXML
     private ListView<Membre> membreListView;
     Membre mem;
-
+    String ti;
     /**
      * Initializes the controller class.
      */
@@ -58,7 +60,7 @@ public class SupprimerMembreProjetController implements Initializable, Controlle
             l.forEach((memb) -> {
                 listMembre.add(memb);
             });
-        }
+        
         membreListView.setItems(listMembre);
 
         membreListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -67,15 +69,33 @@ public class SupprimerMembreProjetController implements Initializable, Controlle
                 System.out.println("Membre" + mem);
             }
         });
+        }
+        ti=titre.getText();
         titre.setText("");
     }
 
     @FXML
     public void supprimer() {
-        ProjetGeneral p = null;
-        if (!titre.getText().equals("") && mem != null) {
+        ProjetGeneral p =null;
+        if (!titre.getText().equals("") && mem != null&&Principal.pm.getProjet(p, titre.getText())!=null) {
+            titre.setText(ti);
+            
             Travail t = Principal.pm.getTrav(mem, Principal.pm.getProjet(p, titre.getText()));
+            if(t!=null){
             Principal.pm.supprimer(t);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information modification de la suppresion du membre");
+            alert.setHeaderText(null);
+            alert.setContentText("Vous avez bien supprimer le membre");
+            alert.showAndWait();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information modification de la suppresion du membre");
+            alert.setHeaderText(null);
+            alert.setContentText("N'existe pas!");
+            alert.showAndWait();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information modification de la suppresion du membre");

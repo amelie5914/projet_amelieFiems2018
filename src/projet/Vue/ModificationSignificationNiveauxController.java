@@ -12,8 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import projet.Modele.Discipline;
-import projet.Modele.Niveaux;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
@@ -28,44 +27,40 @@ public class ModificationSignificationNiveauxController implements Initializable
     TextField degre;
     @FXML
     TextField nvSigni;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
     @FXML
     public void modifierSignNiveaux() {
-            Niveaux n=new Niveaux();
-            n=(Niveaux)Principal.pm.get(Integer.parseInt(degre.getText()), n);
-            if(n!=null){
-              String message = Principal.pm.modifierDescriptionNiveaux(n, nvSigni.getText());
+        Niveaux n = new Niveaux();
+        n = (Niveaux) Principal.pm.get(Integer.parseInt(degre.getText()), n);
+        if (n != null&&degre.getText().equals("")&&nvSigni.equals("")) {
+            String message = Principal.pm.modifierDescriptionNiveaux(n, nvSigni.getText());
             String msg = "\n" + message;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information modification de la signification du degre");
             alert.setHeaderText(null);
             alert.setContentText(msg);
-            alert.showAndWait();  
-            }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information modification de la signification du degre");
             alert.setHeaderText(null);
             alert.setContentText("Le degre n'existe pas");
-            alert.showAndWait(); 
-            }
-            
+            alert.showAndWait();
+        }
+        degre.setText("");
+        nvSigni.setText("");
+
     }
 
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
-    /*@Override
-    public void setModele(ProjetModeleJDBC modele) {
-        this.pm=modele;
-    }*/
-
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -160,65 +155,77 @@ public class ModificationSignificationNiveauxController implements Initializable
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);

@@ -32,7 +32,7 @@ import projet.Modele.Sous_projet;
  *
  * @author ameliefiems
  */
-public class AjoutSousProjetController implements Initializable,ControlledEcran {
+public class AjoutSousProjetController implements Initializable, ControlledEcran {
 
     private ObservableList<ProjetGeneral> listProjet = FXCollections.observableArrayList();
     @FXML
@@ -42,15 +42,15 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
     private List<ProjetGeneral> l = new ArrayList();
     ControleurEcran myController;
     ProjetGeneral pg;
-    ProjetModeleJDBC pm=new ProjetModeleJDBC();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        if (pm.getProjet() != null) {
-            l = pm.getProjet();
+        if (Principal.pm.getProjet() != null) {
+            l = Principal.pm.getProjet();
             l.forEach((projet) -> {
                 listProjet.add(projet);
             });
@@ -64,24 +64,38 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
         });
 
     }
-
+    /**
+     * Ajout d'un sous projet à un projet composite
+     */
     @FXML
     public void ajoutSousProjet() {
-        ProjetGeneral pg1 = null;
+        Sous_projet pg1 = new Sous_projet();
         System.out.println("TITRE TROUVE" + Principal.pm.getProjet(pg1, titre.getText()));
-        String message = Principal.pm.ajoutSousProjet((Sous_projet) Principal.pm.getProjet(pg1, titre.getText()), pg);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information ajout projet");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-        
+        if (Principal.pm.getProjet(pg1, titre.getText()) != null && Principal.pm.getProjet(pg1, titre.getText()) instanceof Sous_projet) {
+            Sous_projet p = (Sous_projet) Principal.pm.getProjet(pg1, titre.getText());
+            String message = Principal.pm.ajoutSousProjet(p, pg);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information ajout projet");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        } else {
+            String message = "" + Principal.pm.getProjet(pg1, titre.getText());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information sur le projet");
+            alert.setHeaderText(null);
+            alert.setContentText(message + " n'existe pas");
+            alert.showAndWait();
+        }
+        titre.setText("");
+
     }
-    
+
     @Override
     public void setScreenParent(ControleurEcran screenParent) {
         myController = screenParent;
     }
+
     @FXML
     private void goToScreen2(ActionEvent event) {
         myController.setScreen(Principal.screen2ID);
@@ -176,65 +190,77 @@ public class AjoutSousProjetController implements Initializable,ControlledEcran 
     private void goToScreenSupprimerMembre(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutDisciplineFile);
     }
+
     @FXML
     private void goToScreenNomDiscipline(ActionEvent event) {
         myController.setScreen(Principal.modifierNomDisciplineFile);
     }
+
     @FXML
     private void goToScreenSupprimerDiscipline(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutNiveauxFile);
     }
+
     @FXML
     private void goToScreenSignificationNiveaux(ActionEvent event) {
         myController.setScreen(Principal.modifierSignificationNiveauxFile);
     }
+
     @FXML
     private void goToScreenSupprimerNiveaux(ActionEvent event) {
         myController.setScreen(Principal.supprimerNiveauxFile);
     }
+
     @FXML
     private void goToScreenMembreListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreFile);
     }
+
     @FXML
     private void goToScreenDisciplineListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineFile);
     }
+
     @FXML
     private void goToScreenNiveauxListe(ActionEvent event) {
         myController.setScreen(Principal.listeNiveauxFile);
     }
-    
-    
-    
+
     @FXML
     private void goToScreenMembreProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeMembreProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetListe(ActionEvent event) {
         myController.setScreen(Principal.listeDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenSous_projetListe(ActionEvent event) {
         myController.setScreen(Principal.listeSousProjetFile);
     }
+
     @FXML
     private void goToScreenDisciplineProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerDisciplineProjetFile);
     }
+
     @FXML
     private void goToScreenMembreProjetSupprimer(ActionEvent event) {
         myController.setScreen(Principal.supprimerMembreProjetFile);
     }
+
     @FXML
     private void goToScreenSousProjetAjout(ActionEvent event) {
         myController.setScreen(Principal.ajoutSousProjetFile);

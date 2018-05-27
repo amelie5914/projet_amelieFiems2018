@@ -19,11 +19,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
-import projet.Modele.ProjetGeneral;
-import projet.Modele.ProjetModele;
-import projet.Modele.ProjetModeleJDBC;
-import projet.Modele.ProjetSimple;
-import projet.Modele.Sous_projet;
+import projet.Modele.*;
 
 /**
  * FXML Controller class
@@ -33,7 +29,6 @@ import projet.Modele.Sous_projet;
 public class ModifierDateDebutProjetController implements Initializable, ControlledEcran {
 
     ControleurEcran myController;
-   // ProjetModeleJDBC pm;
     @FXML
     DatePicker dateDebut;
     @FXML
@@ -143,6 +138,7 @@ public class ModifierDateDebutProjetController implements Initializable, Control
             alert.setContentText(msg);
             alert.showAndWait();
         }
+        titre.setText("");
 
     }
 
